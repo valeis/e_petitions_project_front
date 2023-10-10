@@ -1,0 +1,238 @@
+{
+  "petitions": [
+    {
+      "id": 123,
+      "initiator": {
+        "name": "Jane",
+        "surname": "Doe",
+        "id": "987654321",
+        "location": "Chicago",
+        "isResident": true,
+        "birthDate": "1988-03-15"
+      },
+      "name": "Sprijin pentru dezvoltarea tinerilor în domeniul tehnologic.",
+      "date": "2023-05-19T00:00:00.000Z",
+      "nrSign": 2500,
+      "nrsignneeded": 5000,
+      "content": "Cerem guvernului să ofere susținere financiară și resurse pentru dezvoltarea tinerilor în domeniul tehnologic.",
+      "toWho": "Ministerului Educației",
+      "statut": "Deschis",
+      "semnat": [
+        {
+          "name": "Robert",
+          "surname": "Brown",
+          "id": "123456789",
+          "location": "New York",
+          "isResident": true,
+          "birthDate": "1991-08-25"
+        },
+        {
+          "name": "Emily",
+          "surname": "Johnson",
+          "id": "654321987",
+          "location": "California",
+          "isResident": true,
+          "birthDate": "1995-02-12"
+        }
+      ],
+      "feedback": "Mulțumim pentru susținere! Vom continua să lucrăm pentru îndeplinirea acestui obiectiv.",
+      "deadLine": "2023-07-31T00:00:00.000Z",
+      "category": ["Educație", "Tehnologie"]
+    },
+    {
+      "id": 3,
+      "initiator": {
+        "name": "Ion",
+        "surname": "Popescu",
+        "id": "456789123",
+        "location": "București",
+        "isResident": true,
+        "birthDate": "1980-07-05"
+      },
+      "name": "Construirea unei parcuri de distracții în oraș.",
+      "date": "2023-05-19T00:00:00.000Z",
+      "nrSign": 1200,
+      "nrsignneeded": 3000,
+      "content": "Solicităm autorităților locale construirea unui parc de distracții pentru a spori oferta de agrement în oraș.",
+      "toWho": "Primăriei municipiului",
+      "statut": "Deschis",
+      "semnat": [
+        {
+          "name": "Maria",
+          "surname": "Ionescu",
+          "id": "789123456",
+          "location": "Cluj-Napoca",
+          "isResident": true,
+          "birthDate": "1993-10-18"
+        },
+        {
+          "name": "Mihai",
+          "surname": "Constantinescu",
+          "id": "321987654",
+          "location": "Timișoara",
+          "isResident": true,
+          "birthDate": "1987-12-03"
+        }
+      ],
+      "feedback": "Vă mulțumim pentru susținere! Vom continua să ne străduim pentru construirea parcului de distracții.",
+      "deadLine": "2023-08-31T00:00:00.000Z",
+      "category": ["Infrastructură", "Turism"]
+    },
+    {
+      "id": 19,
+      "initiator": {
+        "name": "Andreea",
+        "surname": "Popa",
+        "id": "654987321",
+        "location": "Iași",
+        "isResident": true,
+        "birthDate": "1997-12-08"
+      },
+      "name": "Susținere pentru dezvoltarea comunităților rurale.",
+      "date": "2023-05-19T00:00:00.000Z",
+      "nrSign": 3500,
+      "nrsignneeded": 7000,
+      "content": "Cerem guvernului și autorităților locale să acorde mai multe resurse pentru dezvoltarea comunităților rurale.",
+      "toWho": "Guvernului României",
+      "statut": "Deschis",
+      "semnat": [
+        {
+          "name": "Alexandru",
+          "surname": "Popescu",
+          "id": "321654987",
+          "location": "Brașov",
+          "isResident": true,
+          "birthDate": "1990-06-15"
+        },
+        {
+          "name": "Elena",
+          "surname": "Ionescu",
+          "id": "789123456",
+          "location": "Sibiu",
+          "isResident": true,
+          "birthDate": "1983-03-22"
+        }
+      ],
+      "feedback": "Mulțumim pentru susținere! Împreună putem contribui la dezvoltarea comunităților rurale.",
+      "deadLine": "2023-09-30T00:00:00.000Z",
+      "category": ["Dezvoltare regională", "Comunități rurale"]
+    },
+    {
+      "id": 120,
+      "initiator": {
+        "name": "Cristian",
+        "surname": "Ionescu",
+        "id": "987654321",
+        "location": "București",
+        "isResident": true,
+        "birthDate": "1984-09-12"
+      },
+      "name": "Combaterea abandonului școlar în rândul elevilor din mediul rural.",
+      "date": "2023-05-19T00:00:00.000Z",
+      "nrSign": 1800,
+      "nrsignneeded": 4000,
+      "content": "Solicităm implementarea unor programe și resurse pentru combaterea abandonului școlar în rândul elevilor din mediul rural.",
+      "toWho": "Ministerului Educației",
+      "statut": "Deschis",
+      "semnat": [
+        {
+          "name": "Ana",
+          "surname": "Popescu",
+          "id": "456789123",
+          "location": "Pitești",
+          "isResident": true,
+          "birthDate": "1992-02-28"
+        },
+        {
+          "name": "Alexandru",
+          "surname": "Gheorghe",
+          "id": "321654987",
+          "location": "Craiova",
+          "isResident": true,
+          "birthDate": "1995-07-10"
+        }
+      ],
+      "feedback": "Vă mulțumim pentru susținere! Împreună putem lupta împotriva abandonului școlar în mediul rural.",
+      "deadLine": "2023-10-31T00:00:00.000Z",
+      "category": ["Educație", "Dezvoltare regională"]
+    },
+    {
+      "id": 124,
+      "initiator": {
+        "name": "Maria",
+        "surname": "Stan",
+        "id": "987321654",
+        "location": "Cluj-Napoca",
+        "isResident": true,
+        "birthDate": "1996-06-20"
+      },
+      "name": "Promovarea transportului public și a mobilității durabile.",
+      "date": "2023-05-19T00:00:00.000Z",
+      "nrSign": 4200,
+      "nrsignneeded": 8000,
+      "content": "Cerem autorităților să investească în infrastructura de transport public și să promoveze mobilitatea durabilă.",
+      "toWho": "Primăriilor municipale",
+      "statut": "Deschis",
+      "semnat": [
+        {
+          "name": "Andrei",
+          "surname": "Popescu",
+          "id": "456789123",
+          "location": "Timișoara",
+          "isResident": true,
+          "birthDate": "1993-12-02"
+        },
+        {
+          "name": "Ana",
+          "surname": "Ionescu",
+          "id": "789123456",
+          "location": "Brașov",
+          "isResident": true,
+          "birthDate": "1989-04-15"
+        }
+      ],
+      "feedback": "Mulțumim pentru susținere! Împreună putem îmbunătăți transportul public și mobilitatea în orașe.",
+      "deadLine": "2023-11-30T00:00:00.000Z",
+      "category": ["Transport", "Mediu"]
+    },
+    {
+      "id": 53,
+      "initiator": {
+        "name": "Mihai",
+        "surname": "Georgescu",
+        "id": "321987654",
+        "location": "Iași",
+        "isResident": true,
+        "birthDate": "1985-04-07"
+      },
+      "name": "Protecția animalelor și combaterea abuzului asupra acestora.",
+      "date": "2023-05-19T00:00:00.000Z",
+      "nrSign": 2900,
+      "nrsignneeded": 6000,
+      "content": "Solicităm autorităților adoptarea unor măsuri eficiente pentru protecția animalelor și combaterea abuzului asupra acestora.",
+      "toWho": "Ministerului Mediului",
+      "statut": "Deschis",
+      "semnat": [
+        {
+          "name": "Elena",
+          "surname": "Popa",
+          "id": "987654321",
+          "location": "București",
+          "isResident": true,
+          "birthDate": "1990-11-25"
+        },
+        {
+          "name": "Alexandru",
+          "surname": "Ionescu",
+          "id": "789123456",
+          "location": "Cluj-Napoca",
+          "isResident": true,
+          "birthDate": "1987-08-13"
+        }
+      ],
+      "feedback": "Vă mulțumim pentru susținere! Împreună putem proteja animalele și a lupta împotriva abuzului asupra lor.",
+      "deadLine": "2023-12-31T00:00:00.000Z",
+      "category": ["Mediu", "Drepturile animalelor"]
+    }
+  ]
+}

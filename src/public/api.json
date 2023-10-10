@@ -1,0 +1,467 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Portal Petitii Electronice",
+    "description": "Documentation for internal API",
+    "version": "alpha"
+  },
+  "servers": [
+    {
+      "url": "https://ePetitii.gov.md:443/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Petitii"
+    },
+    {
+      "name": "Date"
+    },
+    {
+      "name": "Semnaturi"
+    }
+  ],
+  "paths": {
+    "/petitii": {
+      "get": {
+        "tags": [
+          "Petitii"
+        ],
+        "summary": "get all active petitions",
+        "operationId": "getPetitions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Petitia pentru salubrizare orasului"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "comma separated values",
+                        "example": "Infrastructura,Cultura"
+                      },
+                      "toWho": {
+                        "type": "string",
+                        "enum": [
+                          "Guvernul"
+                        ]
+                      },
+                      "region": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Only for local petitions",
+                        "example": "or. Cahul"
+                      },
+                      "initiator": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "nrSign": {
+                        "type": "number",
+                        "description": "number of signatures"
+                      },
+                      "nrSignNeeded": {
+                        "type": "number",
+                        "description": "treshold for signatures"
+                      },
+                      "statut": {
+                        "type": "string",
+                        "enum": [
+                          "Approved"
+                        ]
+                      },
+                      "feedback": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/petitii/id/{id}": {
+      "get": {
+        "tags": [
+          "Petitii"
+        ],
+        "summary": "get a petition by id",
+        "operationId": "getPetitionById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Petitia pentru salubrizare orasului"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string",
+                      "description": "comma separated values",
+                      "example": "Infrastructura,Cultura"
+                    },
+                    "toWho": {
+                      "type": "string",
+                      "enum": [
+                        "Guvernul"
+                      ]
+                    },
+                    "region": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Only for local petitions",
+                      "example": "or. Cahul"
+                    },
+                    "initiator": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "nrSign": {
+                      "type": "number",
+                      "description": "number of signatures"
+                    },
+                    "nrSignNeeded": {
+                      "type": "number",
+                      "description": "treshold for signatures"
+                    },
+                    "statut": {
+                      "type": "string",
+                      "enum": [
+                        "Approved"
+                      ]
+                    },
+                    "feedback": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/petitii/add": {
+      "post": {
+        "tags": [
+          "Petitii"
+        ],
+        "summary": "create a new petition",
+        "operationId": "addPetition",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "content",
+                  "category",
+                  "toWho",
+                  "initiator",
+                  "date"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Petitia pentru salubrizare orasului"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "comma separated values",
+                    "example": "Infrastructura,Cultura"
+                  },
+                  "toWho": {
+                    "type": "string",
+                    "enum": [
+                      "Guvernul"
+                    ]
+                  },
+                  "region": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Only for local petitions",
+                    "example": "or. Cahul"
+                  },
+                  "initiator": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/petitii/sign": {
+      "post": {
+        "tags": [
+          "Semnaturi"
+        ],
+        "summary": "sign a new petition",
+        "operationId": "signPetition",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "signer",
+                  "petitionId"
+                ],
+                "properties": {
+                  "signer": {
+                    "type": "string",
+                    "example": "Ion Ionescu"
+                  },
+                  "petitionId": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categorii": {
+      "get": {
+        "tags": [
+          "Date"
+        ],
+        "summary": "get all available categories",
+        "operationId": "getCategories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/semnat": {
+      "get": {
+        "tags": [
+          "Semnaturi"
+        ],
+        "summary": "Get list of everyone who signed the petition (internal)",
+        "operationId": "getSigned",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiErrorResponse": {
+        "title": "ApiErrorResponse",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "ERR_CODE"
+          },
+          "message": {
+            "type": "string",
+            "example": "A human-readable message"
+          }
+        }
+      }
+    }
+  }
+}
