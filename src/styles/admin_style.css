@@ -1,0 +1,201 @@
+.admin {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.admin .div {
+    background-color: #ffffff;
+    height: 832px;
+    position: relative;
+    width: 1280px;
+}
+
+.admin .overlap {
+    height: 330px;
+    left: 78px;
+    position: absolute;
+    top: 192px;
+    width: 752px;
+}
+
+.admin .rectangle {
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    height: 299px;
+    left: 0;
+    position: absolute;
+    top: 31px;
+    width: 752px;
+}
+
+.admin .lorem-ipsum-is {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    left: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 49px;
+    width: 721px;
+}
+
+.admin .text-wrapper {
+    color: #3e3e3e;
+    font-family: "Inter", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 232px;
+}
+
+.admin .text-wrapper-2 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 32px;
+    font-weight: 400;
+    left: 78px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 58px;
+}
+
+.admin .overlap-group {
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    height: 244px;
+    left: 910px;
+    position: absolute;
+    top: 278px;
+    width: 287px;
+}
+
+.admin .overlap-2 {
+    height: 43px;
+    left: 17px;
+    position: absolute;
+    top: 18px;
+    width: 245px;
+}
+
+.admin .text-wrapper-3 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    left: 4px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 209px;
+}
+
+.admin .line {
+    height: 1px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 42px;
+    width: 245px;
+}
+
+.admin .text-wrapper-4 {
+    color: #3e3e3e;
+    font-family: "Inter", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 21px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 85px;
+    width: 232px;
+}
+
+.admin .group {
+    height: 70px;
+    left: 910px;
+    position: absolute;
+    top: 172px;
+    width: 289px;
+}
+
+.admin .div-wrapper {
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    height: 70px;
+    position: relative;
+    width: 287px;
+}
+
+.admin .text-wrapper-5 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    left: 19px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 19px;
+    width: 209px;
+}
+
+.admin .overlap-3 {
+    background-color: #4a92ff;
+    border-radius: 7px;
+    height: 70px;
+    left: 910px;
+    position: absolute;
+    top: 685px;
+    width: 287px;
+}
+
+.admin .text-wrapper-6 {
+    color: #ffffff;
+    font-family: "Inter", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    left: 21px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 18px;
+    width: 209px;
+}
+
+.admin .text-wrapper-7 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 78px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 128px;
+    width: 197px;
+}
+
+.admin .text-wrapper-8 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 306px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 130px;
+    width: 197px;
+}
