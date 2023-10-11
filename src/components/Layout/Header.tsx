@@ -28,6 +28,8 @@ import { FaPlus } from "react-icons/fa";
 import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "hooks";
+import logo from "../../public/utm-logo.svg";
+
 
 export const Header = () => {
   const { user, setUser } = useUser();
@@ -67,17 +69,17 @@ export const Header = () => {
               padding="1.5"
             >
               <ChakraLink
-                href="https://presedinte.md/"
+                href="https://utm.md/"
                 fontSize="sm"
                 display="flex"
                 alignItems="center"
               >
                 <Image
-                  src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Emblema_Guvernului_Republicii_Moldova.png"
-                  boxSize="20px"
+                  src={logo}
+                  boxSize="30px"
                   mr="0.5rem"
                 />
-                Site-ul oficial al Preşedinţiei RM
+                Site-ul oficial al Universității Tehnice al Moldovei
               </ChakraLink>
               <Flex marginLeft="auto" alignItems="center" paddingRight="1rem">
                 <Button
