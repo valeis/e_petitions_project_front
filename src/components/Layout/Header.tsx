@@ -28,12 +28,13 @@ import { FaPlus } from "react-icons/fa";
 import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "hooks";
-import logo from "../../public/utm-logo.svg";
+import headerLogo from "../../public/utm-logo.svg";
+import heroLogo from "../../public/Logo_inscript_horizontal-fcim-m.png"
 
 
 export const Header = () => {
   const { user, setUser } = useUser();
-  7;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
   const handleClickPassword = () => setShow(!show);
@@ -75,7 +76,7 @@ export const Header = () => {
                 alignItems="center"
               >
                 <Image
-                  src={logo}
+                  src={headerLogo}
                   boxSize="30px"
                   mr="0.5rem"
                 />
@@ -151,18 +152,18 @@ export const Header = () => {
             <Link to="/">
               <HStack role="group" spacing={4}>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Coat_of_arms_of_Moldova.svg/640px-Coat_of_arms_of_Moldova.svg.png"
+                  src={heroLogo}
                   alt="Site Logo"
-                  width="70px"
-                  height="70px"
+                  width="270px"
+                  // height="70px"
                 />
-                <Box marginLeft="1rem" fontFamily="inherit" fontSize="18px" paddingTop="1rem">
+                {/* <Box marginLeft="1rem" fontFamily="inherit" fontSize="18px" paddingTop="1rem">
                   <Text fontSize="2xl" as="b">
                     PETIŢII ELECTRONICE
                   </Text>
                   <Text fontSize="smaller">Reprezentanţa oficială online a Preşedenţiei RM</Text>
                   <br />
-                </Box>
+                </Box> */}
               </HStack>
             </Link>
 
