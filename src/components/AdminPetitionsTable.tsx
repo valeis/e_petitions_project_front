@@ -1,47 +1,71 @@
 // src/DataTable.tsx
 
 import React from 'react';
-import { Box, Table, Thead, Tbody, Tr, Th, Td,TableContainer,Center,LinkBox,LinkOverlay,Flex,Stack } from '@chakra-ui/react';
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
-import { Link } from 'react-router-dom';
+import {BadgeComponent} from "../components";
+import {
+    Box,
+    Table,
+    Thead,
+    Tbody,
+    Tr,
+    Th,
+    Td,
+    TableContainer,
+    Center,
+    LinkBox,
+    LinkOverlay,
+    VStack,
+    Text,
+    Badge,
+    Flex,
+    Stack
+} from '@chakra-ui/react';
+
 
 interface DataTableProps {
-  data: any[];
+    data: any[];
 }
 
-const DataTableAdmin: React.FC<DataTableProps> = ({ data }) => {
+const DataTableAdmin: React.FC<DataTableProps> = ({data}) => {
+
+
     return (
         <Center>
-            <Flex flexWrap="wrap" justifyContent="center">
+            <VStack direction='column' align='center' w='100%'>
                 {data.map((item, index) => (
+
                     <LinkBox
                         key={index}
-                        as="div"
+                        // as="div"
                         p="4"
-                        m="4"
+                        m="1"
                         borderWidth="1px"
                         borderRadius="lg"
-                        maxW="sm"
+                        maxW="90%"
                         w="100%"
                         overflow="hidden"
                         boxShadow="md"
+                        display="flex"
+                        flexDirection="row"
+                        gap="10"
                     >
-                        <LinkOverlay href={`/admin/pet/${item.petition_id}`}>
 
-                            <Box as="h3" fontSize="xl" mb="2">
+                        <LinkOverlay href={`/admin/pet/${item.petition_id}`}>
+                            <Text fontWeight="bold" fontSize="xl" >
                                 {item.title}
-                            </Box>
-                        </LinkOverlay>
-                        <Box fontWeight="semibold" as="p" lineHeight="tight">
-                            Status: {item.status.status}
-                        </Box>
-                        <Box as="p" color="gray.600" fontSize="sm">
+                            </Text>
+
+                        <Text color="gray.600" maxW="sm">
                             {item.description}
-                        </Box>
+                        </Text>
+                        <BadgeComponent item={item.status.status}/>
+                        </LinkOverlay>
                     </LinkBox>
+
                 ))}
-            </Flex>
+            </VStack>
         </Center>
+
     );
 };
 

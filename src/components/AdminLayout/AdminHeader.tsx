@@ -3,9 +3,9 @@ import { Box, Flex, Spacer, Text } from '@chakra-ui/react';
 
 const AdminHeader = ( ) => {
     return (
-        <Flex p="4" bg="blue.500" color="white">
+        <Flex p="4" >
             <Box>
-                <Text fontSize="xl">Admin Dashboard</Text>
+                <Text fontSize="xl" color="black">Admin Dashboard</Text>
             </Box>
             <Spacer />
             <Box>
