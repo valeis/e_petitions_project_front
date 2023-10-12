@@ -9,6 +9,8 @@ import {PetitionDetailAdmin, App, CreatePetition, Developers, Mpass, Msign, Peti
 
 import "@fontsource/libre-baskerville";
 import "@fontsource/inter";
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/700.css';
 import "./styles/index.css";
 import { ScrollToTop } from "components";
 
