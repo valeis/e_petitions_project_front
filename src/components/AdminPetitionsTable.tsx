@@ -53,7 +53,8 @@ const DataTableAdmin: React.FC<DataTableProps> = ({data}) => {
                                 {item.title}
                             </Text>
                             <Text color="gray.600" maxW="sm">
-                                {item.description}
+                                {item.description.slice(0, 100)}
+                                {item.description.length > 100 && '...'}
                             </Text>
                             <BadgeComponent item={item.status.status}/>
                         </LinkOverlay>

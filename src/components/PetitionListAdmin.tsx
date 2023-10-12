@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {useToast, Text, Button, Card, CardBody, HStack, Input, Select} from '@chakra-ui/react';
+import {useToast, Text, Button, Card, CardBody, HStack, Input, Link, Select} from '@chakra-ui/react';
 import {petitions} from "../api";
 import {users} from "../api";
 
@@ -10,15 +10,15 @@ interface Props {
         title: string;
         description: string;
         date: string;
-        created_at:string
+        created_at:string;
         user_id: string;
     };
 
-    user:{
-        email:string;
-    }
 }
 
+interface User {
+    email: string;
+}
 export const PetitionDetail: React.FC<Props> = ({petition}) => {
     const [selectedValue, setSelectedValue] = useState('publish');
     const toast = useToast();
@@ -47,12 +47,12 @@ export const PetitionDetail: React.FC<Props> = ({petition}) => {
     };
 
 
-    const [userInfo, setUserInfo] = useState(null);
-
+    const [userInfo, setUserInfo] = useState<User | null>(null);
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
                 const user = await users.getUserById(petition.user_id);
+
                 setUserInfo(user);
             } catch (error) {
                 console.error('Error fetching author info:', error);
@@ -66,16 +66,16 @@ export const PetitionDetail: React.FC<Props> = ({petition}) => {
     return (
         <Card boxShadow="md" bg="white" borderRadius="md" p={4} mb={4}>
             <CardBody>
-                <Text fontSize="xl" fontWeight="bold" mb={2}>
+                <Text fontSize="xl" fontWeight="bold" mb={2} >
                     {petition.title}
                 </Text>
                 <HStack spacing='24px'>
                 <Text fontSize="md" mb={2}>
-                    Date: {petition.created_at}
+                    Date: {}
                 </Text>
                     {userInfo && (
                         <Text fontSize="md" mb={2}>
-                            Author: {userInfo.email} {/* Assuming user info has a 'name' field */}
+                            Author's Email: {userInfo.email}
                         </Text>
                     )}
 
