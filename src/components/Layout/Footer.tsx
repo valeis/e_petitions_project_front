@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 
+import logo from "../../public/utm-logo.svg";
+
 const getCurrentYear = () => {
   return new Date().getFullYear();
 };
@@ -24,48 +26,48 @@ export const Footer = () => {
       borderColor={useColorModeValue("gray.200", "gray.700")}
       h="125px"
       templateRows="3fr 2fr"
-      templateColumns="2fr 3fr 2fr"
+      templateColumns="2fr 4fr 2fr"
       gap={2}
       bottom={0}
       w="full"
     >
       <GridItem rowSpan={2} colSpan={1} bg="transparent" justifySelf="end" alignSelf="center">
-        <Image src="https://gov.md/sites/default/files/banners/gov_logo_md.svg" boxSize="90px" />
+        <Image src={logo} boxSize="90px" />
       </GridItem>
       <GridItem colSpan={1} bg="transparent" alignSelf="flex-end">
         <Stack alignItems="center">
           <Text fontSize="sm">
             {" "}
-            © {currentYear} Guvernul Republicii Moldova. Toate drepturile rezervate.
+            © {currentYear} Universitatea Tehnică a Moldovei | Toate drepturile rezervate
           </Text>
-          <Text fontSize="sm">
+          {/* <Text fontSize="sm">
             {" "}
             Administrare tehnico-tehnologică:{" "}
             <Link href="https://stisc.gov.md/">
               Serviciul Tehnologia Informației și Securitate Cibernetică
             </Link>
             .
-          </Text>
+          </Text> */}
         </Stack>
       </GridItem>
       <GridItem colSpan={1} colStart={2} bg="transparent">
         <Flex justifyContent="center" gap="50px">
-          <Link href={"https://gov.md/ro"} fontSize={"sm"}>
-            Guvernul
+          <Link href={"https://utm.md/"} fontSize={"sm"}>
+            Pagina principală
           </Link>
-          <Link href={"https://presedinte.md/"} fontSize={"sm"}>
-            Preşedinţia
+          <Link href={"https://utm.md/politica-de-confidentialitate/"} fontSize={"sm"}>
+            Politică de confidențialitate
           </Link>
           <Link
             href={
-              "https://www.parlament.md/CadrulLegal/Constitution/tabid/151/language/ro-RO/Default.aspx"
+             "https://utm.md/contacte-utm/"
             }
             fontSize={"sm"}
           >
-            Constituţia
-          </Link>
-          <Link href={"https://gov.md/ro/content/contacte"} fontSize={"sm"}>
             Contacte
+          </Link>
+          <Link href={"#"} fontSize={"sm"}>
+            Admin
           </Link>
           <RouterLink to="/developers" style={{ fontSize: 14 }}>
             <Text _hover={{ textDecoration: "underline" }}>Developers</Text>
