@@ -8,21 +8,17 @@ export interface Petition {
   nrSign: number;
   nrsignneeded: number;
   content: string;
-  toWho: string;
   statut: string;
   semnat?: string;
   feedback: string;
   deadLine: string;
   category: string;
-  locatie?: string;
 }
 
 export interface PetitionFormData {
   name: string;
   content: string;
   category: string;
-  locatie?: string;
-  toWho: string;
   checkedData: boolean;
   consentedData: boolean;
 }

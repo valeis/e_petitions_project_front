@@ -1,15 +1,4 @@
-import {
-  Button,
-  Container,
-  Image,
-  InputGroup,
-  Stack,
-  Input,
-  InputRightElement,
-  Center,
-  Flex,
-  Heading,
-} from "@chakra-ui/react";
+
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "hooks";
 import React from "react";
