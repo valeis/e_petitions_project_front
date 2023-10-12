@@ -1,4 +1,4 @@
-import { Container } from "@chakra-ui/react";
+import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 import { PetitionsSection, Layout } from "components";
 
 export const App = () => {

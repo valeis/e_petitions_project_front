@@ -61,11 +61,11 @@ export const Header = () => {
               gridColumn="span 16"
               sx={{ display: "center" }}
               justifyContent="center"
-              borderBottomWidth="1px"
-              borderBottomLeftRadius="lg"
-              borderRightWidth="1px"
-              borderBottomRightRadius="lg"
-              borderLeftWidth="1px"
+              // borderBottomWidth="1px"
+              // borderBottomLeftRadius="lg"
+              // borderRightWidth="1px"
+              // borderBottomRightRadius="lg"
+              // borderLeftWidth="1px"
               width="auto"
               padding="1.5"
             >
@@ -177,7 +177,7 @@ export const Header = () => {
                 <InputGroup size="lg" w="550px">
                   <Input
                     placeholder="Căutaţi petiţia"
-                    rounded="full"
+                    // rounded="full"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
@@ -185,7 +185,7 @@ export const Header = () => {
                     <IconButton
                       colorScheme="blue"
                       aria-label="Search database"
-                      rounded="full"
+                      // rounded="full"
                       icon={<SearchIcon />}
                     />
                   </InputRightElement>

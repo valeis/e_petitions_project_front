@@ -30,6 +30,7 @@
     "@fontsource/libre-baskerville": "^4.5.10",
     "@tanstack/react-query": "^4.29.7",
     "@tinymce/tinymce-react": "^4.3.0",
+    "antd": "^5.10.0",
     "axios": "^1.4.0",
     "badwords": "^1.0.0",
     "chakra-react-select": "^4.6.0",
