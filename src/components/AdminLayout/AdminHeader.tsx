@@ -5,7 +5,7 @@ const AdminHeader = ( ) => {
     return (
         <Flex p="4" >
             <Box>
-                <Text fontSize="xl" color="black">Admin Dashboard</Text>
+                <Text fontSize="xl"  fontWeight="900" color="black">Admin Dashboard</Text>
             </Box>
             <Spacer />
             <Box>

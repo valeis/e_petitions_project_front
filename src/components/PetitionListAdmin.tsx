@@ -1,57 +1,114 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Box, Text, Button } from '@chakra-ui/react';
-import { petitions } from "../api";
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {useToast, Text, Button, Card, CardBody, HStack, Input, Select} from '@chakra-ui/react';
+import {petitions} from "../api";
+import {users} from "../api";
+
 interface Props {
     petition: {
         petition_id: number;
         title: string;
         description: string;
         date: string;
-        author: string;
+        created_at:string
+        user_id: string;
     };
+
+    user:{
+        email:string;
+    }
 }
 
-export const PetitionDetail: React.FC<Props> = ({ petition  }) => {
-    const onApprove = async (id: number) => {
+export const PetitionDetail: React.FC<Props> = ({petition}) => {
+    const [selectedValue, setSelectedValue] = useState('publish');
+    const toast = useToast();
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedValue(event.target.value);
+    };
+    const onApprove = async (id: number, status: string) => {
         try {
             const body = {
                 id: id,
-                status: 'PUBLIC'
+                status: status === 'publish' ? 'PUBLIC' : 'DRAFT',
             };
 
             const result = await petitions.changeStatus(body);
             console.log('Status changed successfully:', result);
+            toast({
+                title: 'Response Successfully Sent',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            });
+
         } catch (error) {
             console.error('Error changing status:', error);
         }
     };
+
+
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const user = await users.getUserById(petition.user_id);
+                setUserInfo(user);
+            } catch (error) {
+                console.error('Error fetching author info:', error);
+            }
+        };
+
+        fetchUserInfo();
+
+    }, [petition.user_id]);
+
     return (
-        <Box p={4} boxShadow="md" bg="white" borderRadius="md">
-            <Text fontSize="xl" fontWeight="bold" mb={2}>
-                Title: {petition.title}
-            </Text>
-            <Text fontSize="md" mb={2}>
-                Description: {petition.description}
-            </Text>
-            <Text fontSize="md" mb={2}>
-                Date: {petition.petition_id}
-            </Text>
-            <Text fontSize="md" mb={2}>
-                Author: {petition.author}
-            </Text>
-            <Button colorScheme="teal" onClick={() => onApprove(petition.petition_id)}>
-                Approve
-            </Button>
-            <Box mt={4}>
+        <Card boxShadow="md" bg="white" borderRadius="md" p={4} mb={4}>
+            <CardBody>
+                <Text fontSize="xl" fontWeight="bold" mb={2}>
+                    {petition.title}
+                </Text>
+                <HStack spacing='24px'>
+                <Text fontSize="md" mb={2}>
+                    Date: {petition.created_at}
+                </Text>
+                    {userInfo && (
+                        <Text fontSize="md" mb={2}>
+                            Author: {userInfo.email} {/* Assuming user info has a 'name' field */}
+                        </Text>
+                    )}
+
+                </HStack>
+                <Card fontSize="md" mb={2}>
+                    <CardBody>
+                        <Text size='md' color='gray.500' mb={2}>Description:</Text>
+                        {petition.description}
+                    </CardBody>
+                </Card>
+                <Select mb={2} placeholder='What do you think?' value={selectedValue} onChange={handleSelectChange}>
+                    <option value='publish'>Publish</option>
+                    <option value='disapprove'>Send to user's drafts</option>
+                </Select>
+                <Button colorScheme="blue"  mb={2} onClick={() => onApprove(petition.petition_id, selectedValue)}>
+                    Send response
+                </Button>
+            </CardBody>
+            <CardBody mt={4}>
                 <Text fontSize="lg" fontWeight="bold" mb={2}>
                     Comments:
                 </Text>
-                <Button colorScheme="blue" size="sm" mt={2}>
+                <Input
+                    placeholder="Write your comment here..."
+                    variant="outline"
+                    size="md"
+                    mt={2}
+                />
+                <Button colorScheme="pink" size="sm" mt={2}>
                     Post Comment
                 </Button>
-            </Box>
-        </Box>
+            </CardBody>
+        </Card>
     );
 };
 
