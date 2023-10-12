@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {useToast, Text, Button, Card, CardBody, HStack, Input, Link, Select} from '@chakra-ui/react';
+import {useToast, Text, Button, Card, CardBody, HStack, Input, Link, Select, Box} from '@chakra-ui/react';
 import {petitions} from "../api";
 import {users} from "../api";
 
@@ -70,15 +70,20 @@ export const PetitionDetail: React.FC<Props> = ({petition}) => {
                     {petition.title}
                 </Text>
                 <HStack spacing='24px'>
-                <Text fontSize="md" mb={2}>
-                    Date: {}
-                </Text>
-                    {userInfo && (
-                        <Text fontSize="md" mb={2}>
-                            Author's Email: {userInfo.email}
-                        </Text>
+                    <Text fontSize="md" color='gray.500' mb={2}>
+                        Date: {petition.user_id && (
+                        <Box as="span" color="black">
+                            {petition.user_id}
+                        </Box>
                     )}
-
+                    </Text>
+                    <Text fontSize="md" color='gray.500' mb={2}>
+                        Author's Email: {userInfo && (
+                        <Box as="span" color="black">
+                            {userInfo.email}
+                        </Box>
+                    )}
+                    </Text>
                 </HStack>
                 <Card fontSize="md" mb={2}>
                     <CardBody>
