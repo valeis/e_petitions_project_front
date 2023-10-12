@@ -7,42 +7,50 @@ interface LoginParams {
     password: string;
 }
 
+
 export const users = {
     login: async ({ email, password }: LoginParams) => {
-        const { data } = await axios.post(`${apiUrl}/login`,
-            JSON.stringify({ email, password }),
-            {
+        try {
+            const { data } = await axios.post(`${apiUrl}/login`, { email, password }, {
                 headers: {
-                    "Content-Type": "*",
+                    "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*"
                 },
-            }
-        );
+            });
 
-        return data;
+            return data;
+        } catch (error) {
+            console.error('Error during login:', error);
+            throw error; // Rethrow the error for higher-level handling
+        }
     },
     register: async ({ email, password }: LoginParams) => {
-        const { data } = await axios.post(`${apiUrl}/user/`,
-            JSON.stringify({ email, password }),
-            {
+        try {
+            const { data } = await axios.post(`${apiUrl}/user/`, { email, password }, {
                 headers: {
-                    "Content-Type": "*",
+                    "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*"
-
                 },
-            }
-        );
+            });
 
-
-export const users = {
-    getUserById: async (id: string) => {
-        const {data} = await axios.get(`${apiUrl}/user/${id}`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-        });
-
-        return data;
+        } catch (error) {
+            console.error('Error during registration:', error);
+            throw error;
+        }
     },
+    getUserById: async (id: string) => {
+        try {
+            const { data } = await axios.get(`${apiUrl}/user/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            });
+
+            return data;
+        } catch (error) {
+            console.error('Error fetching user by ID:', error);
+            throw error;
+        }
+    }
 };
