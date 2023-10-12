@@ -22,18 +22,25 @@ import {
   FormControl,
   FormLabel,
   ModalFooter,
+  FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FaPlus } from "react-icons/fa";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "hooks";
+import { users } from "api/users";
+import { useMutation } from "@tanstack/react-query";
+import { Field, Form, Formik, FormikContextType } from "formik";
 import headerLogo from "../../public/utm-logo.svg";
 import heroLogo from "../../public/Logo_inscript_horizontal-fcim-m.png"
 
 
 export const Header = () => {
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
+
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
@@ -41,6 +48,95 @@ export const Header = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
+
+  const [params] = useSearchParams();
+  const petitionId = params.get("petitionId");
+  const createPetition = params.get("createPetition");
+
+  const toast = useToast()
+
+  const login = useMutation(users.login, {
+    onSuccess: () => {
+      onClose();
+      sessionStorage.setItem("user", JSON.stringify({ email }));
+      setUser(user);
+      if (petitionId !== null) {
+        navigate(`/petitions/${petitionId}`);
+      } else if (createPetition !== null) {
+        navigate("/petitions/create");
+      }
+      window.location.reload();
+    },
+    onError: ()=>{
+      toast({
+        title: 'Invalid credentials',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
+  });
+
+  const register = useMutation(users.register, {
+    onSuccess: () => {
+      setSignUpModalOpen(false);
+    },
+    onError: ()=>{
+      toast({
+        title: 'Change your email',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
+  });
+
+  function validateEmail(email: string) {
+    let error;
+
+    const emailRegex = /^[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,}|[A-Z0-9.-])+\.utm\.md$/i;
+
+
+
+    if (!email) {
+      error = "Email is required";
+    } else if (!emailRegex.test(email)) {
+      error = "Invalid email address";
+    }
+    return error;
+  }
+
+  function validatePassword(password: string) {
+    let error;
+
+    if (!password) {
+      error = "Password is required";
+    } else if (password.length < 8) {
+      error = "Password must be 8 characters long";
+    }
+    return error;
+  }
+
+  function validateRepeatedPassword(pass: string, value: string) {
+    let error;
+    console.log(pass, value);
+    if (!value) {
+      error = "Password is required";
+    } else if (value.length < 8) {
+      error = "Password must be 8 characters long";
+    } else if (pass !== value) {
+      error = "Passwords don't match";
+    }
+    console.log(error);
+    return error;
+  }
 
   const handleSubmit = (term: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -115,7 +211,7 @@ export const Header = () => {
                         fontWeight="light"
                         _hover={{ textDecoration: "underline" }}
                       >
-                        {user.name} {user.surname}
+                        {user.email}
                       </Text>
                     </Link>
                     <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
@@ -125,7 +221,10 @@ export const Header = () => {
                       color="black"
                       fontSize="sm"
                       fontWeight="light"
-                      onClick={() => setUser(null)}
+                      onClick={() => {
+                        setUser(null);
+                        sessionStorage.removeItem("user");
+                      }}
                     >
                       Ieșire
                     </Button>
@@ -192,70 +291,223 @@ export const Header = () => {
                 </InputGroup>
               </form>
             </Flex>
-            <Link to={user ? "/petitions/create" : "/mpass?createPetition"}>
-              <Button
-                width="auto"
-                gap={4}
-                marginX="auto"
-                rounded="full"
-                fontWeight="bold"
-                colorScheme="blue"
-                size="lg"
-              >
-                Creaţi o petiţie
-                <FaPlus />
-              </Button>
-            </Link>
+            <Button
+              width="auto"
+              gap={4}
+              marginX="auto"
+              rounded="full"
+              fontWeight="bold"
+              colorScheme="blue"
+              size="lg"
+              onClick={() => {
+                user ? navigate("/petitions/create") : onOpen();
+              }}
+            >
+              Creaţi o petiţie
+              <FaPlus />
+            </Button>
           </Flex>
         </Container>
       </Box>
 
-      <Modal
-        // initialFocusRef={initialRef}
-        // finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
-        isCentered
-      >
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader m="auto">Sign in</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>Your email</FormLabel>
-              <Input placeholder="name@isa.utm.md" pr="4.5rem" />
-            </FormControl>
+          <Formik
+            initialValues={{
+              email: email,
+              password: password,
+            }}
+            onSubmit={(values, { resetForm }) => {
+              login.mutate(values);
+              setEmail(values.email);
+              setPassword(values.password);
+            }}
+          >
+            {(props) => (
+              <Form>
+                <ModalBody pb={6}>
+                  <Field name="email" validate={validateEmail}>
+                    {({ field, form }: any) => (
+                      <FormControl isInvalid={form.errors.email && form.touched.email}>
+                        <FormLabel>Your email</FormLabel>
+                        <Input type="email" placeholder="name@isa.utm.md" pr="4.5rem" {...field} />
+                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
 
-            <FormControl mt={4}>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
-                <Input pr="4.5rem" type={show ? "text" : "password"} placeholder="••••••••" />
-                <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleClickPassword}>
-                    {show ? "Hide" : "Show"}
+                  <Field name="password" validate={validatePassword}>
+                    {({ field, form }: any) => (
+                      <FormControl mt={4} isInvalid={form.errors.password && form.touched.password}>
+                        <FormLabel>Password</FormLabel>
+                        <InputGroup>
+                          <Input
+                            pr="4.5rem"
+                            type={show ? "text" : "password"}
+                            placeholder="••••••••"
+                            {...field}
+                          />
+                          <InputRightElement width="4.5rem">
+                            <Button h="1.75rem" size="sm" onClick={handleClickPassword}>
+                              {show ? "Hide" : "Show"}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
+                        <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </ModalBody>
+                <div style={{ textAlign: "center" }}>
+                  Don't have an account yet?{" "}
+                  <a
+                    onClick={() => {
+                      setSignUpModalOpen(true);
+                    }}
+                    style={{
+                      textDecoration: "none",
+                      cursor: "pointer", // Set your desired text color
+                      color: "#2B6CB0",
+                      textShadow: "2px 2px 4px rgba(0,0,0,0.1)", // Add text shadow
+                    }}
+                  >
+                    Sing Up
+                  </a>
+                </div>
+                <ModalFooter display="flex" justifyContent="center">
+                  <Button
+                    type="submit"
+                    variant="solid"
+                    bg="primary.600"
+                    width="35%"
+                    color="white"
+                    mr={4}
+                  >
+                    Login
                   </Button>
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-          </ModalBody>
-            <div style={{ textAlign: "center"}}>
-              Don't have an account yet? <a>Sing Up</a>
-            </div>
-          <ModalFooter m="auto">
-            <Button
-              borderRadius={5}
-              type="submit"
-              variant="solid"
-              bg="primary.600"
-              width="50%"
-              color="white"
-              mr={4}
-            >
-              Login
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </ModalFooter>
+                  <Button onClick={onClose}>Cancel</Button>
+                </ModalFooter>
+              </Form>
+            )}
+          </Formik>
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={isSignUpModalOpen} onClose={() => setSignUpModalOpen(false)} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader m="auto">Sign up</ModalHeader>
+          <ModalCloseButton />
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+              confirmPassword: "",
+            }}
+            onSubmit={(values, { resetForm }) => {
+              register.mutate(values);
+            }}
+          >
+            {(values) => (
+              <Form>
+                <ModalBody pb={6}>
+                  <Field name="email" validate={validateEmail}>
+                    {({ field, form }: any) => (
+                      <FormControl isInvalid={form.errors.email && form.touched.email}>
+                        <FormLabel>Your email</FormLabel>
+                        <Input type="email" placeholder="name@isa.utm.md" pr="4.5rem" {...field} />
+                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+
+                  <Field name="password" validate={validatePassword}>
+                    {({ field, form }: any) => (
+                      <FormControl mt={4} isInvalid={form.errors.password && form.touched.password}>
+                        <FormLabel>Password</FormLabel>
+                        <InputGroup>
+                          <Input
+                            pr="4.5rem"
+                            type={show ? "text" : "password"}
+                            placeholder="••••••••"
+                            {...field}
+                          />
+                          <InputRightElement width="4.5rem">
+                            <Button h="1.75rem" size="sm" onClick={handleClickPassword}>
+                              {show ? "Hide" : "Show"}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
+                        <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+
+                  <Field
+                    name="confirmPassword"
+                    validate={(value: string) =>
+                      validateRepeatedPassword(values.values.password, value)
+                    }
+                  >
+                    {({ field, form }: any) => (
+                      <FormControl
+                        mt={4}
+                        isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}
+                      >
+                        <FormLabel>Confirm password</FormLabel>
+                        <InputGroup>
+                          <Input
+                            pr="4.5rem"
+                            type={show ? "text" : "password"}
+                            placeholder="••••••••"
+                            {...field}
+                          />
+                          <InputRightElement width="4.5rem">
+                            <Button h="1.75rem" size="sm" onClick={handleClickPassword}>
+                              {show ? "Hide" : "Show"}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
+                        <FormErrorMessage>{form.errors.confirmPassword}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </ModalBody>
+                <div style={{ textAlign: "center" }}>
+                  Already have an account?{" "}
+                  <a
+                    onClick={() => {
+                      setSignUpModalOpen(false); // Close the second modal
+                    }}
+                    style={{
+                      textDecoration: "none",
+                      cursor: "pointer", // Set your desired text color
+                      color: "#2B6CB0",
+                      textShadow: "2px 2px 4px rgba(0,0,0,0.1)", // Add text shadow
+                    }}
+                  >
+                    Sign In
+                  </a>
+                </div>
+                <ModalFooter display="flex" justifyContent="center">
+                  <Button
+                    type="submit"
+                    variant="solid"
+                    bg="primary.600"
+                    width="35%"
+                    color="white"
+                    mr={4}
+                  >
+                    Register
+                  </Button>
+                  <Button onClick={() => setSignUpModalOpen(false)}>Cancel</Button>
+                </ModalFooter>
+              </Form>
+            )}
+          </Formik>
         </ModalContent>
       </Modal>
     </>

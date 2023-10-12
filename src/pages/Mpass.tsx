@@ -43,37 +43,4 @@ export const Mpass = () => {
       navigate("/");
     }
   };
-
-  return (
-    {/* <Flex
-      flexDirection="column"
-      width="100wh"
-      height="100vh"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Heading as="h1" p="5">
-        Sign in{" "}
-      </Heading>
-
-      <Stack spacing={4}>
-        <Input placeholder="Email" pr="4.5rem" />
-        <InputGroup>
-          <InputGroup>
-            <Input pr="4.5rem" type={show ? "text" : "password"} placeholder="Enter password" />
-            <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={handleClickPassword}>
-                {show ? "Hide" : "Show"}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </InputGroup>
-
-        <Button borderRadius={5} type="submit" variant="solid" bg="primary.600" width="50%" m="auto" color="white" >
-          Login
-        </Button>
-
-      </Stack>
-    </Flex> */}
-  );
 };
