@@ -10,13 +10,12 @@ interface LoginParams {
 
 export const users = {
     login: async ({ email, password }: LoginParams) => {
-        const { data } = await axios.post(
-            `${apiUrl}/login`,
+        const { data } = await axios.post(`${apiUrl}/login`,
             JSON.stringify({ email, password }),
             {
                 headers: {
                     "Content-Type": "*",
-                    "Allow-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Origin": "*"
                 },
             }
         );
@@ -24,8 +23,7 @@ export const users = {
         return data;
     },
     register: async ({ email, password }: LoginParams) => {
-        const { data } = await axios.post(
-            `${apiUrl}/user`,
+        const { data } = await axios.post(`${apiUrl}/user/`,
             JSON.stringify({ email, password }),
             {
                 headers: {

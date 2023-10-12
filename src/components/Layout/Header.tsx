@@ -23,6 +23,7 @@ import {
   FormLabel,
   ModalFooter,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FaPlus } from "react-icons/fa";
@@ -32,7 +33,6 @@ import { useUser } from "hooks";
 import { users } from "api/users";
 import { useMutation } from "@tanstack/react-query";
 import { Field, Form, Formik, FormikContextType } from "formik";
-
 
 export const Header = () => {
   const { user, setUser } = useUser();
@@ -46,6 +46,7 @@ export const Header = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
@@ -54,32 +55,50 @@ export const Header = () => {
   const petitionId = params.get("petitionId");
   const createPetition = params.get("createPetition");
 
+  const toast = useToast()
+
   const login = useMutation(users.login, {
     onSuccess: () => {
       onClose();
-      sessionStorage.setItem("user", JSON.stringify({ email, password }));
+      sessionStorage.setItem("user", JSON.stringify({ email }));
       setUser(user);
       if (petitionId !== null) {
         navigate(`/petitions/${petitionId}`);
       } else if (createPetition !== null) {
         navigate("/petitions/create");
-      } else {
-        navigate("/");
       }
+      window.location.reload();
     },
+    onError: ()=>{
+      toast({
+        title: 'Invalid credentials',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
   });
 
   const register = useMutation(users.register, {
     onSuccess: () => {
-      setSignUpModalOpen(true);
-      onOpen();
+      setSignUpModalOpen(false);
     },
+    onError: ()=>{
+      toast({
+        title: 'Change your email',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
   });
 
   function validateEmail(email: string) {
     let error;
 
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const emailRegex = /^[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,}|[A-Z0-9.-])+\.utm\.md$/i;
+
+
 
     if (!email) {
       error = "Email is required";
@@ -102,7 +121,7 @@ export const Header = () => {
 
   function validateRepeatedPassword(pass: string, value: string) {
     let error;
-    console.log(pass, value)
+    console.log(pass, value);
     if (!value) {
       error = "Password is required";
     } else if (value.length < 8) {
@@ -110,7 +129,7 @@ export const Header = () => {
     } else if (pass !== value) {
       error = "Passwords don't match";
     }
-    console.log(error)
+    console.log(error);
     return error;
   }
 
@@ -187,7 +206,7 @@ export const Header = () => {
                         fontWeight="light"
                         _hover={{ textDecoration: "underline" }}
                       >
-                        {user.name} {user.surname}
+                        {user.email}
                       </Text>
                     </Link>
                     <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
@@ -197,7 +216,10 @@ export const Header = () => {
                       color="black"
                       fontSize="sm"
                       fontWeight="light"
-                      onClick={() => setUser(null)}
+                      onClick={() => {
+                        setUser(null);
+                        sessionStorage.removeItem("user");
+                      }}
                     >
                       Ieșire
                     </Button>
@@ -264,20 +286,21 @@ export const Header = () => {
                 </InputGroup>
               </form>
             </Flex>
-            <Link to={user ? "/petitions/create" : "/mpass?createPetition"}>
-              <Button
-                width="auto"
-                gap={4}
-                marginX="auto"
-                rounded="full"
-                fontWeight="bold"
-                colorScheme="blue"
-                size="lg"
-              >
-                Creaţi o petiţie
-                <FaPlus />
-              </Button>
-            </Link>
+            <Button
+              width="auto"
+              gap={4}
+              marginX="auto"
+              rounded="full"
+              fontWeight="bold"
+              colorScheme="blue"
+              size="lg"
+              onClick={() => {
+                user ? navigate("/petitions/create") : onOpen();
+              }}
+            >
+              Creaţi o petiţie
+              <FaPlus />
+            </Button>
           </Flex>
         </Container>
       </Box>
@@ -289,11 +312,13 @@ export const Header = () => {
           <ModalCloseButton />
           <Formik
             initialValues={{
-              email: "",
-              password: "",
+              email: email,
+              password: password,
             }}
             onSubmit={(values, { resetForm }) => {
               login.mutate(values);
+              setEmail(values.email);
+              setPassword(values.password);
             }}
           >
             {(props) => (
@@ -337,7 +362,6 @@ export const Header = () => {
                     onClick={() => {
                       setSignUpModalOpen(true);
                     }}
-
                     style={{
                       textDecoration: "none",
                       cursor: "pointer", // Set your desired text color
@@ -367,7 +391,7 @@ export const Header = () => {
         </ModalContent>
       </Modal>
 
-      <Modal isOpen={isSignUpModalOpen} onClose={()=> setSignUpModalOpen(false)} isCentered>
+      <Modal isOpen={isSignUpModalOpen} onClose={() => setSignUpModalOpen(false)} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader m="auto">Sign up</ModalHeader>
@@ -417,10 +441,17 @@ export const Header = () => {
                     )}
                   </Field>
 
-                  <Field name="confirmPassword" validate={(value: string) => validateRepeatedPassword(values.values.password, value)}>
-
+                  <Field
+                    name="confirmPassword"
+                    validate={(value: string) =>
+                      validateRepeatedPassword(values.values.password, value)
+                    }
+                  >
                     {({ field, form }: any) => (
-                      <FormControl mt={4} isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}>
+                      <FormControl
+                        mt={4}
+                        isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}
+                      >
                         <FormLabel>Confirm password</FormLabel>
                         <InputGroup>
                           <Input
@@ -446,7 +477,6 @@ export const Header = () => {
                     onClick={() => {
                       setSignUpModalOpen(false); // Close the second modal
                     }}
-
                     style={{
                       textDecoration: "none",
                       cursor: "pointer", // Set your desired text color
@@ -466,7 +496,7 @@ export const Header = () => {
                     color="white"
                     mr={4}
                   >
-                    Login
+                    Register
                   </Button>
                   <Button onClick={() => setSignUpModalOpen(false)}>Cancel</Button>
                 </ModalFooter>
