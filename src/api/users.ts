@@ -1,7 +1,6 @@
 import axios from "axios";
 
-
-const apiUrl = "http://192.168.56.1:1337";
+const apiUrl = "http://localhost:1337";
 
 interface LoginParams {
     email: string;
@@ -33,6 +32,16 @@ export const users = {
                 },
             }
         );
+
+
+export const users = {
+    getUserById: async (id: string) => {
+        const {data} = await axios.get(`${apiUrl}/user/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        });
 
         return data;
     },
