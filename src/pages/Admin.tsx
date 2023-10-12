@@ -1,30 +1,38 @@
 // AdminPage.tsx
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Box, Container } from '@chakra-ui/react';
 import {AdminLayout, HomeHero, Layout, PetitionsSection,PetitionCard,PetitionDetail} from "components";
 import {Petition} from "../types";
+import {petitions} from "../api";
+import {useParams} from "react-router-dom";
 //TODO to replace hardcode
-const petition = {
-    id: 1,
-    title: "Petition 1",
-    description: "Description of petition 1",
-    date: "2023-10-10",
-    author: "Author 1",
-};
 
-const handleApprove = (id: number) => {
-    // Add your approval logic here
-    console.log(`Petition with ID ${id} approved`);
-};
 
-export const Admin = () => {
+interface PetitionDetailAdminProps {}
+
+export const PetitionDetailAdmin: React.FC<PetitionDetailAdminProps> = () => {
+    const [petitionData, setPetitionData] = useState<any | null>(null); // Use null instead of empty array
+    const { id } = useParams<{ id: string }>();
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await petitions.getById(id as string);
+                console.log('Received data:', data);
+                setPetitionData(data);
+            } catch (error) {
+                console.log('Error fetching data');
+            }
+        }
+
+        fetchData();
+    }, [id]); // Include id as a dependency
+
     return (
         <AdminLayout>
             <Container maxW="8xl">
-                <PetitionDetail petition={petition} onApprove={handleApprove}></PetitionDetail>
+                {petitionData && <PetitionDetail petition={petitionData} />} {/* Render PetitionDetail only when data is available */}
             </Container>
         </AdminLayout>
     );
 };
-
-export default Admin;

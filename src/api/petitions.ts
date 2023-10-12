@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const apiUrl = "http://192.168.0.244:8080";
+const apiUrl = "http://localhost:1337";
 
 export const petitions = {
   getList: async (params: any) => {
-    const { data } = await axios.get(`${apiUrl}/api/petitii`, {
-      params,
+    const { page, limit } = params;
+    const { data } = await axios.get(`${apiUrl}/petition/all/${page}/${limit}`, {
       headers: {
         "Content-Type": "application/json",
-        "Allow-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*",
       },
     });
 
@@ -67,10 +67,10 @@ export const petitions = {
   },
 
   getById: async (id: string) => {
-    const { data } = await axios.get(`${apiUrl}/api/petitii/id/${id}`, {
+    const { data } = await axios.get(`${apiUrl}/petition/${id}`, {
       headers: {
         "Content-Type": "application/json",
-        "Allow-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "*",
       },
     });
 
