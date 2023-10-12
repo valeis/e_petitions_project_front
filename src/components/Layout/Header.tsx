@@ -197,7 +197,7 @@ export const Header = () => {
                 width="auto"
                 gap={4}
                 marginX="auto"
-                rounded="full"
+                // rounded="full"
                 fontWeight="bold"
                 colorScheme="blue"
                 size="lg"

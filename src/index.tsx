@@ -20,12 +20,13 @@ const theme = extendTheme({
   },
   colors: {
     blue: {
-      500: "#4478FF"
+      500: "#4478FF",
+      600: "#4478FF"
     }
   },
-  withDefaultColorScheme: {
-    colorScheme: "primary",
-  },
+  // withDefaultColorScheme: {
+  //   colorScheme: "primary",
+  // },
 });
 
 const queryClient = new QueryClient();

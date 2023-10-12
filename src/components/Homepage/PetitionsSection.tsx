@@ -22,7 +22,7 @@ import { stat } from "fs";
 const statutes = Object.values(PetitionStatus).map((statut) => ({
   label: statut,
   value: statut,
-  color: "blue",
+  // color: "blue",
 }));
 
 export const PetitionsSection = () => {
