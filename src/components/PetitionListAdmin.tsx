@@ -1,10 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Text, Button } from '@chakra-ui/react'; // Assuming you're using Chakra UI
-
+import { Box, Text, Button } from '@chakra-ui/react';
+import { petitions } from "../api";
 interface Props {
     petition: {
-        id: number;
+        petition_id: number;
         title: string;
         description: string;
         date: string;
@@ -12,11 +12,20 @@ interface Props {
     };
 }
 
-export const PetitionDetail: React.FC<Props> = ({ petition }) => {
-    const onApprove = (id: number) => {
-        // Implement your onApprove logic here
-    };
+export const PetitionDetail: React.FC<Props> = ({ petition  }) => {
+    const onApprove = async (id: number) => {
+        try {
+            const body = {
+                id: id,
+                status: 'PUBLIC'
+            };
 
+            const result = await petitions.changeStatus(body);
+            console.log('Status changed successfully:', result);
+        } catch (error) {
+            console.error('Error changing status:', error);
+        }
+    };
     return (
         <Box p={4} boxShadow="md" bg="white" borderRadius="md">
             <Text fontSize="xl" fontWeight="bold" mb={2}>
@@ -26,12 +35,12 @@ export const PetitionDetail: React.FC<Props> = ({ petition }) => {
                 Description: {petition.description}
             </Text>
             <Text fontSize="md" mb={2}>
-                Date: {petition.date}
+                Date: {petition.petition_id}
             </Text>
             <Text fontSize="md" mb={2}>
                 Author: {petition.author}
             </Text>
-            <Button colorScheme="teal" onClick={() => onApprove(petition.id)}>
+            <Button colorScheme="teal" onClick={() => onApprove(petition.petition_id)}>
                 Approve
             </Button>
             <Box mt={4}>

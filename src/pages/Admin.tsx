@@ -31,7 +31,7 @@ export const PetitionDetailAdmin: React.FC<PetitionDetailAdminProps> = () => {
     return (
         <AdminLayout>
             <Container maxW="8xl">
-                {petitionData && <PetitionDetail petition={petitionData} />} {/* Render PetitionDetail only when data is available */}
+                {petitionData && <PetitionDetail petition={petitionData}/>} {/* Render PetitionDetail only when data is available */}
             </Container>
         </AdminLayout>
     );
