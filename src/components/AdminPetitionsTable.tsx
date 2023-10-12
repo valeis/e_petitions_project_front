@@ -27,8 +27,6 @@ interface DataTableProps {
 }
 
 const DataTableAdmin: React.FC<DataTableProps> = ({data}) => {
-
-
     return (
         <Center>
             <VStack direction='column' align='center' w='100%'>
@@ -51,14 +49,14 @@ const DataTableAdmin: React.FC<DataTableProps> = ({data}) => {
                     >
 
                         <LinkOverlay href={`/admin/pet/${item.petition_id}`}>
-                            <Text fontWeight="bold" fontSize="xl" >
+                            <Text fontWeight="bold" fontSize="xl">
                                 {item.title}
                             </Text>
-
-                        <Text color="gray.600" maxW="sm">
-                            {item.description}
-                        </Text>
-                        <BadgeComponent item={item.status.status}/>
+                            <Text color="gray.600" maxW="sm">
+                                {item.description.slice(0, 100)}
+                                {item.description.length > 100 && '...'}
+                            </Text>
+                            <BadgeComponent item={item.status.status}/>
                         </LinkOverlay>
                     </LinkBox>
 

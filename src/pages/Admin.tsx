@@ -5,8 +5,6 @@ import {AdminLayout, HomeHero, Layout, PetitionsSection,PetitionCard,PetitionDet
 import {Petition} from "../types";
 import {petitions} from "../api";
 import {useParams} from "react-router-dom";
-//TODO to replace hardcode
-
 
 interface PetitionDetailAdminProps {}
 
@@ -26,7 +24,7 @@ export const PetitionDetailAdmin: React.FC<PetitionDetailAdminProps> = () => {
         }
 
         fetchData();
-    }, [id]); // Include id as a dependency
+    }, [id]);
 
     return (
         <AdminLayout>
