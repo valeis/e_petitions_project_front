@@ -18,7 +18,7 @@ export const petitions = {
 
     add: async (body: any) => {
         const {data} = await axios.post(
-            `${apiUrl}/api/petitii/add`,
+            `${apiUrl}/petition/`,
             {
                 ...body,
                 date: new Date().toISOString().split("T")[0],

@@ -16,9 +16,11 @@ export interface Petition {
 }
 
 export interface PetitionFormData {
-  name: string;
-  content: string;
+  title: string;
+  description: string;
+  image: string;
   category: string;
+  vote_goal: number,
   checkedData: boolean;
   consentedData: boolean;
 }

@@ -21,9 +21,11 @@ import { PetitionFormData } from "types";
 import React from "react";
 
 const initalState: PetitionFormData = {
-  name: "",
-  content: "",
+  title: "",
+  description: "",
   category: "",
+  image:"",
+  vote_goal: 0,
   checkedData: false,
   consentedData: false,
 };
@@ -65,18 +67,19 @@ const CreatePetitionForm = ({
 
 const CreatePetitionSubmitted = ({ formData }: { formData: PetitionFormData }) => {
   const navigate = useNavigate();
-  const { name, content, category, toWho} = formData;
+  const { title, description, category, image, vote_goal} = formData;
 
   const { user } = useUser();
 
   const { mutate } = useMutation({
     mutationFn: () =>
       petitions.add({
-        name,
-        content,
+        title,
+        description,
         category,
-        toWho,
-        initiator: `${user?.name} ${user?.surname}`,
+        image,
+        vote_goal,
+        user_id: `${user?.name}`,
       }),
     onSuccess: (id) => {
       navigate(`/petitions/${id}`);

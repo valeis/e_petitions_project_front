@@ -75,11 +75,11 @@ export const PetitionForm = ({
   setErrors,
   setIsSubmitted,
 }: PetitionFormProps) => {
-  const { name, content, category} = formData;
+  const { title, description, category} = formData;
 
   const isSubmitDisabled =
     !name ||
-    !content ||
+    !description ||
     !category.length ||
     !formData.checkedData ||
     !formData.consentedData;
@@ -125,7 +125,7 @@ export const PetitionForm = ({
             type="text"
             placeholder="Titlu"
             name="name"
-            value={name}
+            value={title}
             onChange={handleChange}
             required
           />
@@ -137,7 +137,7 @@ export const PetitionForm = ({
           <Textarea
             placeholder="Conținut"
             name="content"
-            value={content}
+            value={description}
             onChange={handleChange}
             h="300px"
             maxLength={2000}
