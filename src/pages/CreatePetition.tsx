@@ -65,54 +65,6 @@ const CreatePetitionForm = ({
   );
 };
 
-const CreatePetitionSubmitted = ({ formData }: { formData: PetitionFormData }) => {
-  const navigate = useNavigate();
-  const { title, description, category, image, vote_goal} = formData;
-
-  const { user } = useUser();
-
-  const { mutate } = useMutation({
-    mutationFn: () =>
-      petitions.add({
-        title,
-        description,
-        category,
-        image,
-        vote_goal,
-        user_id: 3,
-      }),
-    onSuccess: (petition_id) => {
-      navigate(`/petitions/${petition_id}`);
-
-    },
-  });
-
-  const handleSignClick = () => mutate();
-
-  return (
-    <Container
-      maxW="8xl"
-      py={20}
-      h="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexDir="column"
-    >
-      <Image src="https://msign.gov.md/images/msign-logo.png" w="50%" marginX="auto" />
-      <Button
-        size="lg"
-        colorScheme="purple"
-        marginX="auto"
-        display="block"
-        onClick={handleSignClick}
-        mt={20}
-      >
-        Creati petiția
-      </Button>
-    </Container>
-  );
-};
 
 export const CreatePetition = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -128,5 +80,4 @@ export const CreatePetition = () => {
     );
   }
 
-  return <CreatePetitionSubmitted formData={formData} />;
 };

@@ -13,7 +13,10 @@ import {
 import Select from "react-select";
 import { PetitionFormData } from "types";
 
-import wash from "washyourmouthoutwithsoap";
+import {useNavigate} from "react-router-dom";
+import {useUser} from "../hooks";
+import {useMutation} from "@tanstack/react-query";
+import {petitions} from "../api";
 
 
 
@@ -75,7 +78,10 @@ export const PetitionForm = ({
   setErrors,
   setIsSubmitted,
 }: PetitionFormProps) => {
-  const { title, description, category, vote_goal} = formData;
+  const { title, description, category, image, vote_goal} = formData;
+  const navigate = useNavigate();
+  // const { user } = useUser();
+
 
   const isSubmitDisabled =
     !title ||
@@ -85,6 +91,26 @@ export const PetitionForm = ({
     !formData.checkedData ||
     !formData.consentedData;
 
+
+  const { mutate } = useMutation({
+    mutationFn: () =>
+      petitions.add({
+        title,
+        description,
+        category,
+        image,
+        vote_goal,
+        user_id: 3,
+      }),
+    onSuccess: (result) => {
+      const petition_id = result.data;
+
+      navigate(`/petitions/${petition_id}`);
+
+    },
+  });
+
+  const handleSignClick = () => mutate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -197,6 +223,7 @@ export const PetitionForm = ({
           colorScheme="blue"
           w="full"
           isDisabled={isSubmitDisabled}
+          onClick={handleSignClick}
           form="petitie-form"
         >
           Trimite petiția
