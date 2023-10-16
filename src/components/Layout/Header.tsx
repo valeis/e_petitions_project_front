@@ -301,6 +301,7 @@ export const Header = () => {
               size="lg"
               onClick={() => {
                 user ? navigate("/petitions/create") : onOpen();
+                // navigate("/petitions/create") ;
               }}
             >
               Creaţi o petiţie

@@ -4,25 +4,22 @@ import {
   Checkbox,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   HStack,
-  Input,
+  Input, NumberInput, NumberInputField,
   Textarea,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import Select from "react-select";
 import { PetitionFormData } from "types";
-import { regions as regionOptions } from "data/regions.json";
 
-import wash from "washyourmouthoutwithsoap";
+import {useNavigate} from "react-router-dom";
+import {useUser} from "../hooks";
+import {useMutation} from "@tanstack/react-query";
+import {petitions} from "../api";
 
-const toWhoOptions = [
-  { value: "guvern", label: "Guvern" },
-  { value: "parlament", label: "Parlament" },
-  { value: "presedinte", label: "Președinte" },
-  { value: "primar", label: "Primar" },
-];
+
 
 const categories = [
   {
@@ -82,17 +79,45 @@ export const PetitionForm = ({
   setErrors,
   setIsSubmitted,
 }: PetitionFormProps) => {
-  const { name, content, category, locatie, toWho } = formData;
+  const { title, description, category, image, vote_goal} = formData;
+  const navigate = useNavigate();
+  // const { user } = useUser();
+  const toast = useToast();
+
 
   const isSubmitDisabled =
-    !name ||
-    !content ||
+    !title ||
+    !description ||
+    !vote_goal||
     !category.length ||
-    !toWho ||
-    ((toWho === "primar" || toWho === "otherValueRequiringRegion") && !locatie) ||
     !formData.checkedData ||
     !formData.consentedData;
 
+
+  const { mutate } = useMutation({
+    mutationFn: () =>
+      petitions.add({
+        title,
+        description,
+        category,
+        image,
+        vote_goal,
+        user_id: 3,
+      }),
+    onSuccess: (petition_id) => {
+      navigate(`/petitions/${petition_id}`);
+      toast({
+        title: "Petiția a fost trimisă.",
+        description: "Mulțumim pentru implicarea ta!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
+
+
+  const handleSignClick = () => mutate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -104,23 +129,21 @@ export const PetitionForm = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const fieldName = e.target.name;
+    const value = e.target.value;
 
-    if (e.target.name === "name" && e.target.value.length < 10) {
-      setErrors({ ...errors, name: "Titlul trebuie să aibă minim 10 caractere" });
+    setFormData({ ...formData, [fieldName]: value });
+
+    if (fieldName === "title" && value.length < 10) {
+      setErrors({ ...errors, title: "Titlul trebuie să aibă minim 10 caractere" });
+    } else if (fieldName === "title" && value.length >= 10) {
+      setErrors({ ...errors, title: "" });
     }
 
-    if (e.target.name === "name" && e.target.value.length >= 10) {
-      setErrors({ ...errors, name: "" });
-    }
 
-    const isProfane = wash.check("ro", e.target.value);
-
-    if (e.target.name === "content" && e.target.value.length < 100) {
+    if (fieldName === "description" && value.length < 100) {
       setErrors({ ...errors, content: "Conținutul trebuie să aibă minim 100 caractere" });
-    } else if (isProfane) {
-      setErrors({ ...errors, content: "Conținutul petiției conține cuvinte obscene" });
-    } else {
+    }  else {
       setErrors({ ...errors, content: "" });
     }
   };
@@ -133,8 +156,8 @@ export const PetitionForm = ({
           <Input
             type="text"
             placeholder="Titlu"
-            name="name"
-            value={name}
+            name="title"
+            value={title}
             onChange={handleChange}
             required
           />
@@ -145,8 +168,8 @@ export const PetitionForm = ({
           <FormLabel>Conținut</FormLabel>
           <Textarea
             placeholder="Conținut"
-            name="content"
-            value={content}
+            name="description"
+            value={description}
             onChange={handleChange}
             h="300px"
             maxLength={2000}
@@ -154,56 +177,30 @@ export const PetitionForm = ({
           <FormErrorMessage>{errors.content}</FormErrorMessage>
         </FormControl>
 
-        <HStack justifyContent="space-between" alignItems="start" w="full" spacing={8}>
+        <HStack spacing={4} w="100%">
           <FormControl>
-            <FormLabel>Destinatar</FormLabel>
+            <FormLabel>Categorie</FormLabel>
             <Select
-              options={toWhoOptions}
-              value={toWhoOptions.find((option) => option.label === toWho)}
+              options={categories}
+              value={categories.filter((option) => category.includes(option.value))}
               onChange={(option) =>
-                setFormData({ ...formData, toWho: option ? option.label : "", locatie: undefined })
+                setFormData({ ...formData, category: option ? option.value : '' })
               }
             />
-            {errors.toWho && <FormErrorMessage>{errors.toWho}</FormErrorMessage>}
           </FormControl>
-          <FormControl isInvalid={!!errors.locatie}>
-            <FormLabel>Regiune</FormLabel>
-            <Select
-              options={regionOptions}
-              isDisabled={toWho !== "Primar"}
-              value={
-                toWho === "Primar" ? regionOptions.find((option) => option.label === locatie) : null
-              }
-              onChange={(option) => {
-                setFormData({ ...formData, locatie: option ? option.label : "" });
-                setErrors({
-                  ...errors,
-                  locatie:
-                    option?.label !== "mun. Chişinău"
-                      ? "Localitatea nu corespunde domiciliului dvs."
-                      : "",
-                });
-              }}
-            />
-            {locatie === "mun. Chişinău" && (
-              <FormHelperText>
-                Numărul minim de semnături pentru petiții adresate primarului mun. Chișinău este de
-                5351.
-              </FormHelperText>
-            )}
-            {errors.locatie && <FormErrorMessage>{errors.locatie}</FormErrorMessage>}
+          <FormControl>
+            <FormLabel>Vote_goal</FormLabel>
+            <NumberInput
+              defaultValue={0}
+              onChange={(valueString) => {
+                const newValue = parseInt(valueString, 10);
+                setFormData({ ...formData, vote_goal: newValue });
+              }}>
+
+              <NumberInputField />
+            </NumberInput>
           </FormControl>
         </HStack>
-        <FormControl>
-          <FormLabel>Categorie</FormLabel>
-          <Select
-            options={categories}
-            value={categories.filter((option) => category.includes(option.value))}
-            onChange={(option) =>
-              setFormData({ ...formData, category: option ? option.value : "" })
-            }
-          />
-        </FormControl>
 
         <VStack w="full">
           <FormControl>
@@ -233,6 +230,7 @@ export const PetitionForm = ({
           colorScheme="blue"
           w="full"
           isDisabled={isSubmitDisabled}
+          onClick={handleSignClick}
           form="petitie-form"
         >
           Trimite petiția
