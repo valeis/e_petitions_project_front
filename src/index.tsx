@@ -11,6 +11,7 @@ import "@fontsource/libre-baskerville";
 import "@fontsource/inter";
 import "./styles/index.css";
 import { ScrollToTop } from "components";
+import { Design } from "pages/Design";
 
 const theme = extendTheme({
   fonts: {
@@ -42,9 +43,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/" element={<App />} />
                 <Route path="/petitions/:petitionId" element={<Petition />} />
                 <Route path="/petitions/create" element={<CreatePetition />} />
-                <Route path="/msign" element={<Msign />} />
-                <Route path="/mpass" element={<Mpass />} />
+                {/* <Route path="/msign" element={<Msign />} /> */}
+                {/* <Route path="/mpass" element={<Mpass />} /> */}
                 <Route path="/developers" element={<Developers />} />
+                <Route path="/design" element={<Design />} />
               </Routes>
             </ScrollToTop>
           </BrowserRouter>
