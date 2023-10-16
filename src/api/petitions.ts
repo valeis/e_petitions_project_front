@@ -16,7 +16,7 @@ export const petitions = {
     },
 
     add: async (body: any) => {
-        const data = await axios.post(
+        const response = await axios.post(
           `${apiUrl}/petition/`,
           {
             ...body,
@@ -28,8 +28,8 @@ export const petitions = {
             },
           },
         );
-        console.log(data)
-        return data;
+      const petition_id = response.data.petition_id;
+      return petition_id;
     },
 
     sign: async (body: any) => {

@@ -102,8 +102,7 @@ export const PetitionForm = ({
         vote_goal,
         user_id: 3,
       }),
-    onSuccess: (result) => {
-      const petition_id = result.data;
+    onSuccess: (petition_id) => {
 
       navigate(`/petitions/${petition_id}`);
 
