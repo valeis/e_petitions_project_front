@@ -300,7 +300,8 @@ export const Header = () => {
               colorScheme="blue"
               size="lg"
               onClick={() => {
-                navigate("/petitions/create") ;
+                user ? navigate("/petitions/create") : onOpen();
+                // navigate("/petitions/create") ;
               }}
             >
               Creaţi o petiţie

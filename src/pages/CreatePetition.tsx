@@ -6,13 +6,8 @@ import {
   Heading,
   Stack,
   VStack,
-  Image,
 } from "@chakra-ui/react";
 
-
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { petitions } from "api";
 
 import { Layout, PetitionForm } from "components";
 import { useUser } from "hooks";
@@ -79,5 +74,6 @@ export const CreatePetition = () => {
       />
     );
   }
+
 
 };

@@ -8,6 +8,7 @@ import {
   HStack,
   Input, NumberInput, NumberInputField,
   Textarea,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import Select from "react-select";
@@ -81,6 +82,7 @@ export const PetitionForm = ({
   const { title, description, category, image, vote_goal} = formData;
   const navigate = useNavigate();
   // const { user } = useUser();
+  const toast = useToast();
 
 
   const isSubmitDisabled =
@@ -103,11 +105,17 @@ export const PetitionForm = ({
         user_id: 3,
       }),
     onSuccess: (petition_id) => {
-
       navigate(`/petitions/${petition_id}`);
-
+      toast({
+        title: "Petiția a fost trimisă.",
+        description: "Mulțumim pentru implicarea ta!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
     },
   });
+
 
   const handleSignClick = () => mutate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
