@@ -79,10 +79,11 @@ const CreatePetitionSubmitted = ({ formData }: { formData: PetitionFormData }) =
         category,
         image,
         vote_goal,
-        user_id: `${user?.name}`,
+        user_id: 3,
       }),
-    onSuccess: (id) => {
-      navigate(`/petitions/${id}`);
+    onSuccess: (petition_id) => {
+      navigate(`/petitions/${petition_id}`);
+
     },
   });
 
@@ -107,7 +108,7 @@ const CreatePetitionSubmitted = ({ formData }: { formData: PetitionFormData }) =
         onClick={handleSignClick}
         mt={20}
       >
-        Semnează petiția
+        Creati petiția
       </Button>
     </Container>
   );

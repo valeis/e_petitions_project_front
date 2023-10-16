@@ -6,7 +6,7 @@ import {
   FormErrorMessage,
   FormLabel,
   HStack,
-  Input,
+  Input, NumberInput, NumberInputField,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
@@ -75,11 +75,12 @@ export const PetitionForm = ({
   setErrors,
   setIsSubmitted,
 }: PetitionFormProps) => {
-  const { title, description, category} = formData;
+  const { title, description, category, vote_goal} = formData;
 
   const isSubmitDisabled =
-    !name ||
+    !title ||
     !description ||
+    !vote_goal||
     !category.length ||
     !formData.checkedData ||
     !formData.consentedData;
@@ -95,23 +96,21 @@ export const PetitionForm = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const fieldName = e.target.name;
+    const value = e.target.value;
 
-    if (e.target.name === "name" && e.target.value.length < 10) {
-      setErrors({ ...errors, name: "Titlul trebuie să aibă minim 10 caractere" });
+    setFormData({ ...formData, [fieldName]: value });
+
+    if (fieldName === "title" && value.length < 10) {
+      setErrors({ ...errors, title: "Titlul trebuie să aibă minim 10 caractere" });
+    } else if (fieldName === "title" && value.length >= 10) {
+      setErrors({ ...errors, title: "" });
     }
 
-    if (e.target.name === "name" && e.target.value.length >= 10) {
-      setErrors({ ...errors, name: "" });
-    }
 
-    const isProfane = wash.check("ro", e.target.value);
-
-    if (e.target.name === "content" && e.target.value.length < 100) {
+    if (fieldName === "description" && value.length < 100) {
       setErrors({ ...errors, content: "Conținutul trebuie să aibă minim 100 caractere" });
-    } else if (isProfane) {
-      setErrors({ ...errors, content: "Conținutul petiției conține cuvinte obscene" });
-    } else {
+    }  else {
       setErrors({ ...errors, content: "" });
     }
   };
@@ -124,7 +123,7 @@ export const PetitionForm = ({
           <Input
             type="text"
             placeholder="Titlu"
-            name="name"
+            name="title"
             value={title}
             onChange={handleChange}
             required
@@ -136,7 +135,7 @@ export const PetitionForm = ({
           <FormLabel>Conținut</FormLabel>
           <Textarea
             placeholder="Conținut"
-            name="content"
+            name="description"
             value={description}
             onChange={handleChange}
             h="300px"
@@ -145,20 +144,30 @@ export const PetitionForm = ({
           <FormErrorMessage>{errors.content}</FormErrorMessage>
         </FormControl>
 
-        <HStack justifyContent="space-between" alignItems="start" w="full" spacing={8}>
+        <HStack spacing={4} w="100%">
+          <FormControl>
+            <FormLabel>Categorie</FormLabel>
+            <Select
+              options={categories}
+              value={categories.filter((option) => category.includes(option.value))}
+              onChange={(option) =>
+                setFormData({ ...formData, category: option ? option.value : '' })
+              }
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Vote_goal</FormLabel>
+            <NumberInput
+              defaultValue={0}
+              onChange={(valueString) => {
+                const newValue = parseInt(valueString, 10);
+                setFormData({ ...formData, vote_goal: newValue });
+              }}>
 
-
+              <NumberInputField />
+            </NumberInput>
+          </FormControl>
         </HStack>
-        <FormControl>
-          <FormLabel>Categorie</FormLabel>
-          <Select
-            options={categories}
-            value={categories.filter((option) => category.includes(option.value))}
-            onChange={(option) =>
-              setFormData({ ...formData, category: option ? option.value : "" })
-            }
-          />
-        </FormControl>
 
         <VStack w="full">
           <FormControl>

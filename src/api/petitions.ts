@@ -1,5 +1,4 @@
 import axios from "axios";
-import {string} from "yup";
 
 const apiUrl = "http://localhost:1337";
 
@@ -17,20 +16,20 @@ export const petitions = {
     },
 
     add: async (body: any) => {
-        const {data} = await axios.post(
-            `${apiUrl}/petition/`,
-            {
-                ...body,
-                date: new Date().toISOString().split("T")[0],
+        const data = await axios.post(
+          `${apiUrl}/petition/`,
+          {
+            ...body,
+            // date: new Date().toISOString().split("T")[0],
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
             },
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Allow-Control-Allow-Origin": "*",
-                },
-            },
+          },
         );
-
+        console.log(data)
         return data;
     },
 
