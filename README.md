@@ -1,1 +1,1 @@
-# mTeam - Techbridge Hackathon 2023
+# e-petitions frontend
