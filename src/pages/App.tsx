@@ -5,7 +5,7 @@ export const App = () => {
   return (
     <Layout>
       {/* <HomeHero /> */}
-      <Container maxW="8xl">
+      <Container maxW="7xl">
         <PetitionsSection />
       </Container>
     </Layout>
