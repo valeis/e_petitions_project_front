@@ -19,7 +19,7 @@ import { FaPlus } from "react-icons/fa";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "hooks";
-import headerLogo from "../../public/utm-logo.svg";
+import headerLogo from "../../public/E-Petiții.svg";
 import heroLogo from "../../public/Logo_inscript_horizontal-fcim-m.png";
 import { LoginModal } from "components/Auth/LoginModal";
 
@@ -50,20 +50,33 @@ export const Header = () => {
             <Box
               gridColumn="span 16"
               sx={{ display: "center" }}
-              justifyContent="center"
-              borderBottomWidth="1px"
-              borderBottomLeftRadius="lg"
-              borderRightWidth="1px"
-              borderBottomRightRadius="lg"
-              borderLeftWidth="1px"
+              // justifyContent="center"
               width="auto"
-              padding="1.5"
+              padding="6"
             >
-              <ChakraLink href="https://utm.md/" fontSize="sm" display="flex" alignItems="center">
-                <Image src={headerLogo} boxSize="30px" mr="0.5rem" />
-                Site-ul oficial al Universității Tehnice al Moldovei
-              </ChakraLink>
+              <Flex alignItems="center" gap={55}>
+                <Link to="/">
+                  <HStack role="group" spacing={4}>
+                    <Image src={headerLogo} width="96px" height="27" mr="0.5rem" />
+                  </HStack>
+                </Link>
+                  <ChakraLink href="https://utm.md/" fontSize="sm" display="flex" gap={55} alignItems="center">
+                    Site-ul oficial al Universității Tehnice al Moldovei
+                  </ChakraLink>
+              </Flex>
               <Flex marginLeft="auto" alignItems="center" paddingRight="1rem">
+                <Box 
+                  as="button"
+                  fontSize="12px"
+                  backgroundColor="gray.200"
+                  rounded="full"
+                  px="8px"
+                  py="4px"
+
+                >
+                  Search petition
+                </Box>
+                <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
                 <Button
                   size="sm"
                   as="a"
@@ -75,7 +88,7 @@ export const Header = () => {
                 >
                   EN
                 </Button>
-                <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
+                /
                 <Button
                   size="sm"
                   as="a"
@@ -85,7 +98,7 @@ export const Header = () => {
                   fontSize="sm"
                   fontWeight="light"
                 >
-                  Ajutor
+                  RO
                 </Button>
                 <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
                 {user ? (
@@ -127,7 +140,7 @@ export const Header = () => {
 
           <LoginModal isOpen={isOpen} onClose={onClose} />
 
-          <Flex
+          {/* <Flex
             alignItems="center"
             w="full"
             paddingTop="0.5rem"
@@ -182,7 +195,7 @@ export const Header = () => {
               Creaţi o petiţie
               <FaPlus />
             </Button>
-          </Flex>
+          </Flex> */}
         </Container>
       </Box>
     </>
