@@ -9,6 +9,7 @@ import {PetitionDetailAdmin, App, CreatePetition, Developers, Petition, ViewPeti
 
 import "@fontsource/libre-baskerville";
 import "@fontsource/inter";
+// import 'https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/700.css';
 import "./styles/index.css";
@@ -17,7 +18,7 @@ import { Design } from "pages/Design";
 
 const theme = extendTheme({
   fonts: {
-    heading: `'Inter', sans-serif`,
+    heading: `'Oswald', sans-serif`,
     body: `'Inter', sans-serif`,
     serif: `'Libre Baskerville', serif`,
   },

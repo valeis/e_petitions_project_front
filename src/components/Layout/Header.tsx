@@ -26,15 +26,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { SearchIcon, AddIcon } from "@chakra-ui/icons";
-// import { FaPlus } from "react-icons/fa";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "hooks";
 import { users } from "api/users";
 import { useMutation } from "@tanstack/react-query";
 import { Field, Form, Formik, FormikContextType } from "formik";
-import headerLogo from "../../public/utm-logo.svg";
-import heroLogo from "../../public/Logo_inscript_horizontal-fcim-m.png"
+import headerLogo from "../../public/E-Petiții.svg";
+// import headerLogo from "../../public/E-Petiții.png";
 
 
 export const Header = () => {
@@ -43,6 +42,8 @@ export const Header = () => {
 
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isSearchOpen, onSearchOpen, onSearchClose } = useDisclosure();
+  // const finalRef = React.useRef(null)
   const [show, setShow] = useState(false);
   const handleClickPassword = () => setShow(!show);
 
@@ -150,158 +151,164 @@ export const Header = () => {
 
   return (
     <>
-      <Box w="full" borderBottomWidth="1px">
-        <Container maxW={{ sm: "6xl", "2xl": "8xl" }} px={0}>
-          <Grid templateColumns="repeat(16, 1fr)" gap={4} w="full">
-            <Box
-              gridColumn="span 16"
-              sx={{ display: "center" }}
-              justifyContent="center"
-              width="auto"
-              padding="1.5"
+      <Container maxW={{ sm: "6xl", "2xl": "8xl" }} px={0}>
+        <Grid templateColumns="repeat(16, 1fr)" gap={4} w="full">
+          <Box
+            gridColumn="span 16"
+            sx={{ display: "center" }}
+            justifyContent="center"
+            width="auto"
+            padding="6"
+          >
+            <ChakraLink
+              href="https://utm.md/"
+              fontSize="sm"
+              display="flex"
+              alignItems="center"
+              gap={55}
             >
-              <ChakraLink
-                href="https://utm.md/"
-                fontSize="sm"
-                display="flex"
-                alignItems="center"
+              <Image
+                src={headerLogo}
+                width="90"
+                height="27"
+                mr="0.5rem"
+              />
+              Site-ul oficial al Universității Tehnice al Moldovei
+            </ChakraLink>
+            <Flex marginLeft="auto" alignItems="center" paddingRight="1rem">
+              <Button
+                size="sm"
+                rounded="full"
               >
-                <Image
-                  src={headerLogo}
-                  boxSize="30px"
-                  mr="0.5rem"
-                />
-                Site-ul oficial al Universității Tehnice al Moldovei
-              </ChakraLink>
-              <Flex marginLeft="auto" alignItems="center" paddingRight="1rem">
-                <Button
-                  size="sm"
-                  as="a"
-                  href="#"
-                  variant="link"
-                  color="black"
-                  fontSize="sm"
-                  fontWeight="light"
-                >
-                  EN
-                </Button>
-                <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
-                <Button
-                  size="sm"
-                  as="a"
-                  href="#"
-                  variant="link"
-                  color="black"
-                  fontSize="sm"
-                  fontWeight="light"
-                >
-                  Ajutor
-                </Button>
-                <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
-                {user ? (
-                  <HStack spacing={2}>
-                    <Link to="/profile">
-                      <Text
-                        fontSize="sm"
-                        fontWeight="light"
-                        _hover={{ textDecoration: "underline" }}
-                      >
-                        {user.email}
-                      </Text>
-                    </Link>
-                    <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
-                    <Button
-                      size="sm"
-                      variant="link"
-                      color="black"
+                Search petition
+              </Button>
+              <Button
+                size="sm"
+                as="a"
+                href="#"
+                variant="link"
+                color="black"
+                fontSize="sm"
+                fontWeight="light"
+              >
+                EN
+              </Button>
+              /
+              <Button
+                size="sm"
+                as="a"
+                href="#"
+                variant="link"
+                color="black"
+                fontSize="sm"
+                fontWeight="light"
+              >
+                RO
+              </Button>
+              <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
+              {user ? (
+                <HStack spacing={2}>
+                  <Link to="/profile">
+                    <Text
                       fontSize="sm"
                       fontWeight="light"
-                      onClick={() => {
-                        setUser(null);
-                        sessionStorage.removeItem("user");
-                      }}
+                      _hover={{ textDecoration: "underline" }}
                     >
-                      Ieșire
-                    </Button>
-                  </HStack>
-                ) : (
-                  <Button onClick={onOpen} variant="link" color="black">
-                    <Text fontSize="sm" fontWeight="light">
-                      Autentificare
+                      {user.email}
                     </Text>
+                  </Link>
+                  <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
+                  <Button
+                    size="sm"
+                    variant="link"
+                    color="black"
+                    fontSize="sm"
+                    fontWeight="light"
+                    onClick={() => {
+                      setUser(null);
+                      sessionStorage.removeItem("user");
+                    }}
+                  >
+                    Ieșire
                   </Button>
-                )}
-              </Flex>
-            </Box>
-          </Grid>
-
-          <Flex
-            alignItems="center"
-            w="full"
-            gap={20}
-            paddingTop="0.5rem"
-            justifyContent="space-between"
-            paddingBottom="0.5rem"
-            px={0}
-          >
-            <Link to="/">
-              <HStack role="group" spacing={4}>
-                <img
-                  src={heroLogo}
-                  alt="Site Logo"
-                  width="270px"
-                  // height="70px"
-                />
-                {/* <Box marginLeft="1rem" fontFamily="inherit" fontSize="18px" paddingTop="1rem">
-                  <Text fontSize="2xl" as="b">
-                    PETIŢII ELECTRONICE
+                </HStack>
+              ) : (
+                <Button onClick={onOpen} variant="link" color="black">
+                  <Text fontSize="sm" fontWeight="light">
+                    Autentificare
                   </Text>
-                  <Text fontSize="smaller">Reprezentanţa oficială online a Preşedenţiei RM</Text>
-                  <br />
-                </Box> */}
-              </HStack>
-            </Link>
-
-            <Flex alignItems="center" paddingRight="0rem">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSubmit(searchTerm);
-                }}
-              >
-                <InputGroup size="lg" w="550px">
-                  <Input
-                    placeholder="Căutaţi petiţia"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                  <InputRightElement>
-                    <IconButton
-                      colorScheme="blue"
-                      aria-label="Search database"
-                      icon={<SearchIcon />}
-                    />
-                  </InputRightElement>
-                </InputGroup>
-              </form>
+                </Button>
+              )}
             </Flex>
-            <Button
-              width="auto"
-              gap={4}
-              marginX="auto"
-              fontWeight="bold"
-              colorScheme="blue"
-              size="lg"
-              onClick={() => {
-                user ? navigate("/petitions/create") : onOpen();
+          </Box>
+        </Grid>
+
+        {/* <Flex
+          alignItems="center"
+          w="full"
+          gap={20}
+          paddingTop="0.5rem"
+          justifyContent="space-between"
+          paddingBottom="0.5rem"
+          px={0}
+        >
+          <Link to="/">
+            <HStack role="group" spacing={4}>
+              <img
+                src={heroLogo}
+                alt="Site Logo"
+                width="270px"
+                // height="70px"
+              />
+              {/* <Box marginLeft="1rem" fontFamily="inherit" fontSize="18px" paddingTop="1rem">
+                <Text fontSize="2xl" as="b">
+                  PETIŢII ELECTRONICE
+                </Text>
+                <Text fontSize="smaller">Reprezentanţa oficială online a Preşedenţiei RM</Text>
+                <br />
+              </Box> 
+            </HStack>
+          </Link>
+
+          <Flex alignItems="center" paddingRight="0rem">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(searchTerm);
               }}
             >
-              Creaţi o petiţie
-              {<AddIcon />}
-            </Button>
+              <InputGroup size="lg" w="550px">
+                <Input
+                  placeholder="Căutaţi petiţia"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <InputRightElement>
+                  <IconButton
+                    colorScheme="blue"
+                    aria-label="Search database"
+                    icon={<SearchIcon />}
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </form>
           </Flex>
-        </Container>
-      </Box>
+          <Button
+            width="auto"
+            gap={4}
+            marginX="auto"
+            fontWeight="bold"
+            colorScheme="blue"
+            size="lg"
+            onClick={() => {
+              user ? navigate("/petitions/create") : onOpen();
+            }}
+          >
+            Creaţi o petiţie
+            {<AddIcon />}
+          </Button>
+        </Flex> */}
+      </Container>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
