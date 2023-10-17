@@ -13,22 +13,12 @@ import {
   HStack,
   Link as ChakraLink,
   useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  ModalFooter,
-  FormErrorMessage,
-  useToast,
 } from "@chakra-ui/react";
 import { SearchIcon, AddIcon } from "@chakra-ui/icons";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "hooks";
+
 import { users } from "api/users";
 import { useMutation } from "@tanstack/react-query";
 import { Field, Form, Formik, FormikContextType } from "formik";
@@ -40,104 +30,16 @@ export const Header = () => {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
 
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   // const { isSearchOpen, onSearchOpen, onSearchClose } = useDisclosure();
   // const finalRef = React.useRef(null)
   const [show, setShow] = useState(false);
   const handleClickPassword = () => setShow(!show);
 
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
-
-  const [params] = useSearchParams();
-  const petitionId = params.get("petitionId");
-  const createPetition = params.get("createPetition");
-
-  const toast = useToast()
-
-  const login = useMutation(users.login, {
-    onSuccess: () => {
-      onClose();
-      sessionStorage.setItem("user", JSON.stringify({ email }));
-      setUser(user);
-      if (petitionId !== null) {
-        navigate(`/petitions/${petitionId}`);
-      } else if (createPetition !== null) {
-        navigate("/petitions/create");
-      }
-      window.location.reload();
-    },
-    onError: ()=>{
-      toast({
-        title: 'Invalid credentials',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-      })
-    }
-  });
-
-  const register = useMutation(users.register, {
-    onSuccess: () => {
-      setSignUpModalOpen(false);
-    },
-    onError: ()=>{
-      toast({
-        title: 'Change your email',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-      })
-    }
-  });
-
-  function validateEmail(email: string) {
-    let error;
-
-    const emailRegex = /^[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,}|[A-Z0-9.-])+\.utm\.md$/i;
-
-
-
-    if (!email) {
-      error = "Email is required";
-    } else if (!emailRegex.test(email)) {
-      error = "Invalid email address";
-    }
-    return error;
-  }
-
-  function validatePassword(password: string) {
-    let error;
-
-    if (!password) {
-      error = "Password is required";
-    } else if (password.length < 8) {
-      error = "Password must be 8 characters long";
-    }
-    return error;
-  }
-
-  function validateRepeatedPassword(pass: string, value: string) {
-    let error;
-    console.log(pass, value);
-    if (!value) {
-      error = "Password is required";
-    } else if (value.length < 8) {
-      error = "Password must be 8 characters long";
-    } else if (pass !== value) {
-      error = "Passwords don't match";
-    }
-    console.log(error);
-    return error;
-  }
 
   const handleSubmit = (term: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -231,6 +133,7 @@ export const Header = () => {
                   >
                     Ieșire
                   </Button>
+
                 </HStack>
               ) : (
                 <Button onClick={onOpen} variant="link" color="black">
@@ -275,6 +178,7 @@ export const Header = () => {
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSubmit(searchTerm);
+
               }}
             >
               <InputGroup size="lg" w="550px">
@@ -293,6 +197,7 @@ export const Header = () => {
               </InputGroup>
             </form>
           </Flex>
+
           <Button
             width="auto"
             gap={4}
@@ -510,6 +415,7 @@ export const Header = () => {
           </Formik>
         </ModalContent>
       </Modal>
+
     </>
   );
 };

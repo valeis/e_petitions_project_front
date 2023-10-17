@@ -55,7 +55,7 @@ export const PetitionsSection = () => {
       },
     ],
     queryFn: () => petitions.getList({ category, sortBy, page, search }),
-    select: (data) => {
+  /*   select: (data) => {
       const availableByLocationData =
         availableByLocation === "true" && user?.locatie
           ? data?.filter(
@@ -89,7 +89,7 @@ export const PetitionsSection = () => {
           : filteredBystatut?.sort((a: any, b: any) => b.nrSign - a.nrSign);
 
       return sorted;
-    },
+    }, */
   });
 
   const updateSearchParams = (key: string, value: string | number | boolean) => {
