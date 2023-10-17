@@ -1,18 +1,22 @@
 import { User } from "./User";
 
 export interface Petition {
-  id: number;
-  initiator: string;
-  name: string;
-  date: string;
-  nrSign: number;
-  nrsignneeded: number;
-  content: string;
-  statut: string;
-  semnat?: string;
-  feedback: string;
-  deadLine: string;
+  petition_id: number;
+  title: string;
   category: string;
+  description: string;
+  image: string;
+  status: Status;
+  user_id: number
+  created_at: string;
+  vote_goal: number;
+  current_votes: number;
+  semnat?: string;
+  exp_date: string;
+}
+interface Status{
+  id: number;
+  status: string;
 }
 
 export interface PetitionFormData {

@@ -29,7 +29,7 @@ export const PetitionsList = ({
       ) : petitions && petitions.length > 0 ? (
         <>
           {petitions.slice(0, 10).map((petition) => (
-            <PetitionCard petition={petition} key={petition.id} />
+            <PetitionCard petition={petition} key={petition.petition_id} />
           ))}
           {petitions.length > 10 && (
             <Pagination page={page} totalPages={totalPages} setPage={setPage} />

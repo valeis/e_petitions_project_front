@@ -6,14 +6,14 @@ import {Petition} from "../types";
 import {petitions} from "../api";
 import {useParams} from "react-router-dom";
 
-interface PetitionDetailAdminProps {}
 
-export const PetitionDetailAdmin: React.FC<PetitionDetailAdminProps> = () => {
+export const PetitionDetailAdmin = () => {
     const [petitionData, setPetitionData] = useState<any | null>(null); // Use null instead of empty array
     const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
-        async function fetchData() {
+
+      async function fetchData() {
             try {
                 const data = await petitions.getById(id as string);
                 console.log('Received data:', data);

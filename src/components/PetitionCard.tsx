@@ -7,25 +7,25 @@ interface PetitionCardProps {
 }
 
 export const PetitionCard = ({ petition }: PetitionCardProps) => {
-  const { id, initiator, name, date, nrSign, nrsignneeded, deadLine, category, statut } = petition;
+  const { petition_id, user_id, title, created_at, current_votes, vote_goal, exp_date, category, status } = petition;
 
-  const deadlineTime = new Date(deadLine);
+  const deadlineTime = new Date(exp_date);
 
   const daysLeft = Math.floor((deadlineTime.getTime() - new Date().getTime()) / (1000 * 3600 * 24));
-  const progress = Math.floor((nrSign / nrsignneeded) * 100);
+  const progress = Math.floor((current_votes / vote_goal) * 100);
 
-  const dateSplit = date ? date?.split("T")[0] : "";
+  const dateSplit = created_at ? created_at?.split("T")[0] : "";
   const progressColor =
-    statut === PetitionStatus.APPROVED
+    status === PetitionStatus.APPROVED
       ? "green"
-      : statut === PetitionStatus.REJECTED
+      : status === PetitionStatus.REJECTED
       ? "red"
-      : statut === PetitionStatus.REVIEW || statut === PetitionStatus.PENDING
+      : status === PetitionStatus.REVIEW || status === PetitionStatus.PENDING
       ? "blue"
       : "yellow";
 
   return (
-    <Link to={`/petitions/${id}`}>
+    <Link to={`/petition/${petition_id}`}>
       <Card
         direction={{ base: "column", sm: "row" }}
         justify="start"
@@ -46,17 +46,17 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
               </Text>
             </HStack>
             <Heading size="lg" transition="all 0.2s" _groupHover={{ color: "primary.500" }}>
-              {name}
+              {title}
             </Heading>
             <HStack alignItems="baseline">
-              <Text fontFamily="serif">Inițiat de {initiator}</Text>
+              <Text fontFamily="serif">Inițiat de {user_id}</Text>
             </HStack>
           </VStack>
 
           <VStack w="full" flex="0.6" alignItems="start" spacing={6}>
             <VStack w="full" alignItems="start">
               <HStack alignItems="baseline" justify="start" spacing={2}>
-                <Heading size="lg">{nrSign}</Heading>
+                <Heading size="lg">{current_votes}</Heading>
                 <Text fontSize="md" fontFamily="serif">
                   semnături
                 </Text>

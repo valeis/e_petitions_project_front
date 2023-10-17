@@ -21,6 +21,7 @@ import { Layout, Loader, PetitionProgressCard } from "components";
 import { FaFacebook, FaTwitter, FaEnvelope, FaLink } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
+import {Petition as Pet} from "../types";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { useUser } from "hooks";
@@ -33,21 +34,37 @@ export const Petition = () => {
   const { user } = useUser();
   const id = params.petitionId;
 
+  function mapToPetition(data: any): Pet {
+    return {
+      petition_id: data.petition_id,
+      title: data.title,
+      category: data.category,
+      description: data.description,
+      image: data.image,
+      status: data.status,
+      user_id: data['user-id'],
+      created_at: data.created_at,
+      vote_goal: data.vote_goal,
+      current_votes: data.current_votes,
+      exp_date: data.exp_date,
+    };
+  }
+
   const {
-    data: petitie,
+    data: petition,
     isLoading,
     isSuccess,
   } = useQuery({
     queryKey: ["petition", id],
-    queryFn: () => petitions.getById(id as string),
+    queryFn: () => {
+      const petitionData =  petitions.getById(id as string);
+      return mapToPetition(petitionData);
+    },
   });
 
-  const { data: voters } = useQuery({
-    queryKey: ["semnatari", id],
-    queryFn: () => petitions.getVoters(id as string),
-  });
 
-  const hasInitiatedPetition = petitie?.initiator === `${user?.name} ${user?.surname}`;
+
+  const hasInitiatedPetition = petition?.initiator === `${user?.name} ${user?.surname}`;
 
   const generatePDF = async () => {
     const documentDefinition = {
@@ -57,7 +74,7 @@ export const Petition = () => {
             { width: "*", text: "" },
             {
               width: "auto",
-              text: `${petitie.date?.split("T")[0]}, ${user?.location}`,
+              text: `${petition?.created_at}`,
               fontSize: 10,
               alignment: "right",
             },
@@ -66,28 +83,22 @@ export const Petition = () => {
           marginTop: 10,
         },
         {
-          text: petitie?.name,
+          text: petition?.title,
           fontSize: 16,
           bold: true,
           marginTop: 20,
           alignment: "center",
         },
-        { text: petitie?.content, fontSize: 12, marginTop: 24 },
+        { text: petition?.description, fontSize: 12, marginTop: 24 },
         {
-          text: [{ text: "Inițiat de: ", bold: true }, petitie?.initiator],
+          text: [{ text: "Inițiat de: ", bold: true }, petition?.user_id],
           fontSize: 12,
           marginTop: 24,
         },
         {
-          text: [{ text: "Numărul de semnături: ", bold: true }, voters.length],
+          text: [{ text: "Numărul de semnături: ", bold: true }, petition.current_votes],
           fontSize: 12,
           marginTop: 8,
-        },
-        { text: "Lista semnatarilor:", fontSize: 12, marginTop: 6, bold: true },
-        {
-          ol: voters.map((voter: string) => ({ text: voter })),
-          fontSize: 10,
-          marginTop: 5,
         },
       ],
       footer: {
@@ -140,42 +151,37 @@ export const Petition = () => {
             <HStack spacing={24} my={8} alignItems="start" position="relative">
               <VStack w="full" align={"flex-start"} justifyContent="start">
                 <Heading as="h2" size="2xl" my={4}>
-                  {petitie.name}
+                  {petition?.title}
                 </Heading>
 
                 <Heading as="h3" size="sm" pt={4} pb={2} fontFamily="serif" fontWeight={400}>
-                  <span style={{ fontWeight: "bold" }}>Inițiator:</span> {petitie.initiator}
+                  <span style={{ fontWeight: "bold" }}>Inițiator:</span> {petition?.user_id}
                 </Heading>
 
                 <Heading as="h3" size="sm" fontFamily="serif" pb={2} fontWeight={400}>
                   <span style={{ fontWeight: "bold" }}>Data depunerii:</span>{" "}
-                  {petitie.date?.split("T")[0]}
+                  {petition?.created_at}
                 </Heading>
-                {petitie.deadLine && (
+                {petition?.exp_date && (
                   <Heading as="h3" size="sm" fontFamily="serif" fontWeight={400}>
                     <span style={{ fontWeight: "bold" }}>Data limită:</span>{" "}
-                    {petitie.deadLine.split("T")[0]}
-                  </Heading>
-                )}
-                {petitie?.locatie && (
-                  <Heading as="h3" size="sm" fontFamily="serif" pt={2} fontWeight={400}>
-                    <span style={{ fontWeight: "bold" }}>Locație:</span> {petitie.locatie}
+                    {petition.exp_date}
                   </Heading>
                 )}
 
                 <Text fontSize="lg" pt={8} pb={2} whiteSpace="pre-line">
-                  {petitie.content}
+                  {petition.description}
                 </Text>
 
                 <HStack pt={4} pb={2}>
                   <Heading as="h3" size="sm" fontFamily="serif" fontWeight={400}>
                     <span style={{ fontWeight: "bold" }}>Categorie:</span>{" "}
                   </Heading>
-                  <Tag>{petitie.category}</Tag>
+                  <Tag>{petition.category}</Tag>
                 </HStack>
               </VStack>
               <Box w="280px" position="sticky" top={4}>
-                <PetitionProgressCard petition={petitie} />
+                <PetitionProgressCard petition={petition} />
                 {hasInitiatedPetition && (
                   <Button w="full" colorScheme="red" mt={8} onClick={generatePDF}>
                     Salvează ca PDF

@@ -39,8 +39,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <ScrollToTop>
               <Routes>
                 <Route path="/" element={<App />} />
-                <Route path="/petitions/:petitionId" element={<Petition />} />
-                <Route path="/petitions/create" element={<CreatePetition />} />
+                <Route path="/petition/:petitionId" element={<Petition />} />
+                <Route path="/petition/create" element={<CreatePetition />} />
                 <Route path="/msign" element={<Msign />} />
                 <Route path="/mpass" element={<Mpass />} />
                 <Route path="/developers" element={<Developers />} />

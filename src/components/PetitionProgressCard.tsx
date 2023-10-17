@@ -11,27 +11,28 @@ import {
 import { UserContext } from "context";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Petition, PetitionStatus } from "types";
+import { Petition as Pet, PetitionStatus } from "types";
 
 interface PetitionProgressCardProps {
-  petition: Petition;
+  petition: Pet;
 }
 
 export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) => {
   const { user } = useContext(UserContext);
-  const { id, statut, nrSign, nrsignneeded, deadLine, initiator, semnat, locatie } = petition;
+  const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id } = petition;
 
+  const status= "APPROVED";
   const progressColor =
-    statut === PetitionStatus.APPROVED
+    status === PetitionStatus.APPROVED
       ? "green.500"
-      : statut === PetitionStatus.REJECTED
+      : status === PetitionStatus.REJECTED
       ? "red.500"
-      : statut === PetitionStatus.REVIEW || statut === PetitionStatus.PENDING
+      : status === PetitionStatus.REVIEW || status === PetitionStatus.PENDING
       ? "blue.500"
       : "yellow.500";
 
-  const percentage = (nrSign * 100) / nrsignneeded;
-  const deadlineTime = new Date(deadLine);
+  const percentage = (current_votes * 100) / vote_goal;
+  const deadlineTime = new Date(exp_date);
   const daysLeft = Math.floor((deadlineTime.getTime() - new Date().getTime()) / (1000 * 3600 * 24));
 
   let signButton;
@@ -44,18 +45,17 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
     colorScheme: "blue",
   };
 
-  if (user === null) {
+  if (user === null) {//unregistred user
     signButton = (
       <Button {...commonButtonProps} colorScheme="red" variant="link" fontWeight={500}>
-        <Link to={`/mpass?petitionId=${id}`}>
+        <Link to={`/mpass?petitionId=${petition_id}`}>
           Autorizați-vă pentru <br /> a semna petiția
         </Link>
       </Button>
     );
-  } else if (initiator !== `${user?.name} ${user?.surname}`) {
+  } else if (user_id != parseInt(`${user?.id}`)) {//rand user
     const signedByUser = semnat && semnat.split(",").includes(`${user.name} ${user.surname}`);
-    const isAllowedFromRegion =
-      (!!petition?.locatie && user.location === petition?.locatie) || petition.toWho !== "Primar";
+
 
     const nowAllowedButtonProps = {
       ...commonButtonProps,
@@ -70,21 +70,17 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
       <Button
         {...commonButtonProps}
         isDisabled={!!signedByUser}
-        {...(!isAllowedFromRegion && nowAllowedButtonProps)}
+        {...(!nowAllowedButtonProps)}
       >
-        <Link to={`/msign?petitionId=${id}`}>
-          {signedByUser
-            ? "Ați semnat petiția"
-            : isAllowedFromRegion
-            ? "Semnați petiția"
-            : "Petiție indisponibilă \nîn regiunea dvs."}
+        <Link to={`/msign?petitionId=${petition_id}`}>
+          {signedByUser ? "Ați semnat petiția" : "Semnați petiția"}
         </Link>
       </Button>
     );
-  } else {
+  } else {//if user is the creator of the petition
     signButton = (
       <Button {...commonButtonProps}>
-        <Link to={`/manage?petitionId=${id}`}>Administrați petiţia</Link>
+        <Link to={`/manage?petitionId=${petition_id}`}>Administrați petiţia</Link>
       </Button>
     );
   }
@@ -107,9 +103,9 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
           <CircularProgress value={percentage} size="200px" color={progressColor} thickness="5px">
             <CircularProgressLabel>
               <VStack>
-                <Heading size="lg">{petition.nrSign}</Heading>
+                <Heading size="lg">{petition.current_votes}</Heading>
                 <Text fontSize="sm" fontFamily="serif">
-                  din {petition.nrsignneeded}
+                  din {petition.vote_goal}
                   <br />
                   necesare
                 </Text>
@@ -118,7 +114,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
           </CircularProgress>
           <VStack>
             <Text fontSize="md" fontFamily="serif" fontWeight="bold">
-              {petition.statut}
+              {petition.status}
             </Text>
             <Text fontSize="sm" fontFamily="serif" mt={2}>
               {daysLeft < 1 ? "60" : daysLeft} zile rămase

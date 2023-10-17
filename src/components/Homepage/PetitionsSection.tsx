@@ -32,10 +32,10 @@ export const PetitionsSection = () => {
 
   const category = searchParams.get("category") || "all";
   const sortBy = searchParams.get("sortBy") || "newest";
-  const page = searchParams.get("page") || "1";
+  const page = searchParams.get("page") || 1;
+  const limit = searchParams.get("limit") || 5;
   const search = searchParams.get("search") || "";
   const statut = searchParams.get("statut") || PetitionStatus.ALL;
-  const availableByLocation = searchParams.get("availableByLocation") || "false";
 
   const pages = 10;
 
@@ -51,42 +51,36 @@ export const PetitionsSection = () => {
         category,
         sortBy,
         page,
+        limit,
         search,
       },
     ],
-    queryFn: () => petitions.getList({ category, sortBy, page, search }),
+    queryFn: () => petitions.getList({page, limit}),
     select: (data) => {
-      const availableByLocationData =
-        availableByLocation === "true" && user?.locatie
-          ? data?.filter(
-              (petition: Petition) =>
-                petition?.locatie === user?.locatie || petition?.toWho !== "Primar",
-            )
-          : data;
-      console.log(data, availableByLocation);
+
       const filteredByCategory =
         category !== "all"
-          ? availableByLocationData?.filter((petition: Petition) => petition.category === category)
-          : availableByLocationData;
+          ?data?.filter((petition: Petition) => petition.category === category)
+          : data;
       const filteredBySearch = search
         ? filteredByCategory?.filter((petition: Petition) =>
-            petition.name.toLowerCase().includes(search.toLowerCase()),
+            petition.title.toLowerCase().includes(search.toLowerCase()),
           )
         : filteredByCategory;
       const filteredBystatut =
         statut !== PetitionStatus.ALL
           ? filteredBySearch?.filter(
-              (petition: Petition) => petition.statut === statut.replace("+", " "),
+              (petition: Petition) => petition.status === statut.replace("+", " "),
             )
           : filteredBySearch;
       const sorted =
         sortBy === "newest"
           ? filteredBystatut?.sort((a: any, b: any) => {
-              const dateA = new Date(a.date);
-              const dateB = new Date(b.date);
+              const dateA = new Date(a.created_at);
+              const dateB = new Date(b.created_at);
               return dateB.getTime() - dateA.getTime();
             })
-          : filteredBystatut?.sort((a: any, b: any) => b.nrSign - a.nrSign);
+          : filteredBystatut?.sort((a: any, b: any) => b.current_votes - a.current_votes);
 
       return sorted;
     },
@@ -110,13 +104,10 @@ export const PetitionsSection = () => {
     updateSearchParams("sortBy", sortBy);
   };
 
-  const setstatut = (statut: string) => {
+  const setStatut = (statut: string) => {
     updateSearchParams("statut", statut);
   };
 
-  const setAvailableByLocation = (availableByLocation: boolean) => {
-    updateSearchParams("availableByLocation", availableByLocation);
-  };
 
   return (
     <HStack
@@ -132,12 +123,6 @@ export const PetitionsSection = () => {
           {search ? `Rezultatele căutării pentru "${search}"` : "Petiții"}
         </Heading>
         <VStack spacing={4} w="full" alignItems="start">
-          <Checkbox
-            isChecked={availableByLocation === "true"}
-            onChange={(e) => setAvailableByLocation(e.target.checked)}
-          >
-            Doar petiții din regiunea mea
-          </Checkbox>
           <HStack w="full" justifyContent="space-between" alignItems="center">
             <Select
               w="xs"
@@ -178,7 +163,7 @@ export const PetitionsSection = () => {
         <Tabs w="full">
           <TabList>
             {statutes.map((statut) => (
-              <Tab key={statut.value} onClick={() => setstatut(statut.value)}>
+              <Tab key={statut.value} onClick={() => setStatut(statut.value)}>
                 {statut.label}
               </Tab>
             ))}
