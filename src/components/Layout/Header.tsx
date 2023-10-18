@@ -21,7 +21,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { ChevronLeftIcon, Search2Icon, SearchIcon } from "@chakra-ui/icons";
 import { FaPlus } from "react-icons/fa";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -90,7 +90,7 @@ export const Header = () => {
                   gap="7px"
                 >
                   <SearchIcon />
-                  Search petition
+                  Find petition
                 </Box>
                 <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
                 <Button
@@ -156,21 +156,47 @@ export const Header = () => {
 
           <LoginModal isOpen={isOpen} onClose={onClose} />
 
-          <Modal isOpen={isSearchOpen} onClose={onSearchClose}>
+          <Modal isOpen={isSearchOpen} onClose={onSearchClose} size="2xl">
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>Modal Title</ModalHeader>
-              <ModalCloseButton />
+              <ModalHeader>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  gap="10px"
+                  width="full"
+                >
+                  <Box as="button" onClick={onSearchClose} textColor="gray.500">
+                    <ChevronLeftIcon width="30px" height="30px" />
+                  </Box>
+                  <form 
+                    style={{ width: '100%' }}
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSubmit(searchTerm);
+                    }}
+                  >
+                    <InputGroup>
+                      <Input
+                        variant="unstyled" 
+                        placeholder="Search by name, category..."
+                        _placeholder={{fontFamily: "Inter", fontSize: "14px", color: "gray.500"}}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                      />
+                      <InputRightElement width="auto" height="auto">
+                        <Box as="button" textColor="gray.500" type="submit">
+                          <Search2Icon />
+                        </Box>
+                      </InputRightElement>
+                    </InputGroup>
+                  </form>
+                </Box>
+                {/* <Box width="100%" height="1px" backgroundColor="gray.200"/> */}
+              </ModalHeader>
               <ModalBody>
                 modal body
               </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={onSearchClose}>
-                  Close
-                </Button>
-                <Button variant='ghost'>Secondary Action</Button>
-              </ModalFooter>
             </ModalContent>
           </Modal>
 
