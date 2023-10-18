@@ -65,27 +65,21 @@ export const petitions = {
         return data;
     },
 
-    getById: async (id: string) => {
-        const {data} = await axios.get(`${apiUrl}/petition/${id}`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-        });
+  getById: async (pid: string) => {
+    try {
+      const { data } = await axios.get(`${apiUrl}/petition/${pid}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
 
-        return data;
-    },
-
-    getVoters: async (id: string) => {
-        const {data} = await axios.get(`${apiUrl}/api/semnat/${id}`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Allow-Control-Allow-Origin": "*",
-            },
-        });
-
-        return data;
-    },
+      return data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  },
 
     changeStatus: async (body: any) => {
         const {data} = await axios.post(`${apiUrl}/petition/status/`, body, {

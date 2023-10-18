@@ -1,12 +1,12 @@
 import { Box, Flex, VStack } from "@chakra-ui/react";
 
-import { Petition } from "types";
+import { IPetition } from "types";
 import { PetitionCard } from "./PetitionCard";
 import { Loader } from "./Loader";
 import { Pagination } from "./Pagination";
 
 interface PetitionsListProps {
-  petitions: Petition[];
+  petitions: IPetition[];
   isLoading?: boolean;
   page: number;
   totalPages: number;
@@ -29,7 +29,7 @@ export const PetitionsList = ({
       ) : petitions && petitions.length > 0 ? (
         <>
           {petitions.slice(0, 10).map((petition) => (
-            <PetitionCard petition={petition} key={petition.id} />
+            <PetitionCard petition={petition} key={petition.petition_id} />
           ))}
           {petitions.length > 10 && (
             <Pagination page={page} totalPages={totalPages} setPage={setPage} />
