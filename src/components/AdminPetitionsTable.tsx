@@ -18,7 +18,7 @@ import {
     Text,
     Badge,
     Flex,
-    Stack
+    Stack, Heading, Divider
 } from '@chakra-ui/react';
 
 
@@ -28,41 +28,39 @@ interface DataTableProps {
 
 const DataTableAdmin: React.FC<DataTableProps> = ({data}) => {
     return (
-        <Center>
+        <Center gridColumn="span 16"
+                sx={{ display: "center" }}
+                width="auto"
+                paddingLeft="10" >
             <VStack direction='column' align='center' w='100%'>
                 {data.map((item, index) => (
+                    <Box key={index} w="100%">
+                        <LinkBox
+                            p="4"
+                            m="1"
+                            borderRadius="lg"
+                            maxW="90%"
+                            w="100%"
+                            overflow="hidden"
 
-                    <LinkBox
-                        key={index}
-                        // as="div"
-                        p="4"
-                        m="1"
-                        borderWidth="1px"
-                        borderRadius="lg"
-                        maxW="90%"
-                        w="100%"
-                        overflow="hidden"
-                        boxShadow="md"
-                        display="flex"
-                        flexDirection="row"
-                        gap="10"
-                    >
-
-                        <LinkOverlay href={`/admin/pet/${item.petition_id}`}>
-                            <Text fontWeight="bold" fontSize="xl">
-                                {item.title}
-                            </Text>
-                            <Text color="gray.600" maxW="sm">
-                                {item.description.slice(0, 100)}
-                                {item.description.length > 100 && '...'}
-                            </Text>
-                            <BadgeComponent item={item.status.status}/>
-                        </LinkOverlay>
-                    </LinkBox>
-
+                        >
+                            <LinkOverlay href={`/admin/${item.petition_id}`}>
+                                <Heading fontWeight="bold" fontSize="xl" >
+                                    {item.title}
+                                </Heading>
+                                <Text color="gray.500" fontSize="md">
+                                    {item.description.slice(0, 100)}
+                                    {item.description.length > 100 && '...'}
+                                </Text>
+                                <BadgeComponent item={item.status.status}/>
+                            </LinkOverlay>
+                        </LinkBox>
+                        {index < data.length - 1 && <Divider borderColor="gray.200" />}
+                    </Box>
                 ))}
             </VStack>
         </Center>
+
 
     );
 };

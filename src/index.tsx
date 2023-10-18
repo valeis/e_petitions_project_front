@@ -44,8 +44,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/msign" element={<Msign />} />
                 <Route path="/mpass" element={<Mpass />} />
                 <Route path="/developers" element={<Developers />} />
-                <Route path="/admin/pet/:id" element={<PetitionDetailAdmin/>}/>
-                <Route path="/admin/pet" element={<ViewPetitionsAdmin/>}/>
+                <Route path="/admin/:id" element={<PetitionDetailAdmin/>}/>
+                <Route path="/admin" element={<ViewPetitionsAdmin/>}/>
               </Routes>
             </ScrollToTop>
           </BrowserRouter>
