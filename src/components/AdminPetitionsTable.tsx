@@ -44,7 +44,7 @@ const DataTableAdmin: React.FC<DataTableProps> = ({data}) => {
                             overflow="hidden"
 
                         >
-                            <LinkOverlay href={`/admin/pet/${item.petition_id}`}>
+                            <LinkOverlay href={`/admin/${item.petition_id}`}>
                                 <Heading fontWeight="bold" fontSize="xl" >
                                     {item.title}
                                 </Heading>

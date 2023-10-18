@@ -29,7 +29,7 @@ const AdminHeader = ( ) => {
                             </Flex>
                             <Flex marginLeft="auto" alignItems="center" paddingRight="1rem">
 
-                                <Link href={"/admin/pet"}>
+                                <Link href={"/admin"}>
                                 <HStack role="group" spacing={4}>
                                     <Image src={adminLogo} width="96px" height="27" mr="0.5rem" />
                                 </HStack>
