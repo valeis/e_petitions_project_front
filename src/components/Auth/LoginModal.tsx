@@ -51,8 +51,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       const accessToken = data['access-token'];
       const refreshToken = data['refresh-token'];
       const userId = data['userId'];
-      
-      localStorage.setItem("user", JSON.stringify({ email }));
+
+      localStorage.setItem("user", JSON.stringify({ email, userId }));
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("userId", userId);
@@ -75,7 +75,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
     },
   });
 
-  
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />

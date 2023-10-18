@@ -17,6 +17,8 @@ import "swagger-ui-react/swagger-ui.css";
 import oapiSpec from "public/api.json";
 
 export const Developers = () => {
+  // @ts-ignore
+  const href = import.meta.env.BASE_URL
   return (
     <Layout>
       <Flex w={"full"} h="200px" bg="primary.600" color="white">
@@ -24,7 +26,7 @@ export const Developers = () => {
           <Stack w="full" maxW={"8xl"} align={"flex-start"} justifyContent="start" spacing={6}>
             <Breadcrumb spacing="8px" separator={<ChevronRightIcon />}>
               <BreadcrumbItem>
-                <BreadcrumbLink href={import.meta.env.BASE_URL}>Acasa</BreadcrumbLink>
+                <BreadcrumbLink href={href}>Acasa</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem isCurrentPage>
                 <BreadcrumbLink href="#">Developers</BreadcrumbLink>

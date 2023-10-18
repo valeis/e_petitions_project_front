@@ -11,23 +11,22 @@ import {
 import { UserContext } from "context";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Petition as Pet, PetitionStatus } from "types";
+import { IPetition, PetitionStatus } from "types";
 
 interface PetitionProgressCardProps {
-  petition: Pet;
+  petition: IPetition;
 }
 
 export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) => {
   const { user } = useContext(UserContext);
-  const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id } = petition;
+  const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id, status } = petition;
 
-  const status= "APPROVED";
   const progressColor =
-    status === PetitionStatus.APPROVED
+    status.status === PetitionStatus.APPROVED
       ? "green.500"
-      : status === PetitionStatus.REJECTED
+      : status.status === PetitionStatus.REJECTED
       ? "red.500"
-      : status === PetitionStatus.REVIEW || status === PetitionStatus.PENDING
+      : status.status === PetitionStatus.REVIEW || status.status === PetitionStatus.PENDING
       ? "blue.500"
       : "yellow.500";
 
@@ -53,8 +52,8 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
         </Link>
       </Button>
     );
-  } else if (user_id != parseInt(`${user?.id}`)) {//rand user
-    const signedByUser = semnat && semnat.split(",").includes(`${user.name} ${user.surname}`);
+  } else if (user_id != user?.userId) {//random user
+    const signedByUser = semnat && semnat.split(",").includes(``);
 
 
     const nowAllowedButtonProps = {
@@ -114,7 +113,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
           </CircularProgress>
           <VStack>
             <Text fontSize="md" fontFamily="serif" fontWeight="bold">
-              {petition.status}
+              {petition.status.status}
             </Text>
             <Text fontSize="sm" fontFamily="serif" mt={2}>
               {daysLeft < 1 ? "60" : daysLeft} zile rămase

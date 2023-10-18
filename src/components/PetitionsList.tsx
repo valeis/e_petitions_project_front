@@ -1,12 +1,12 @@
 import { Box, Flex, VStack } from "@chakra-ui/react";
 
-import { Petition } from "types";
+import { IPetition } from "types";
 import { PetitionCard } from "./PetitionCard";
 import { Loader } from "./Loader";
 import { Pagination } from "./Pagination";
 
 interface PetitionsListProps {
-  petitions: Petition[];
+  petitions: IPetition[];
   isLoading?: boolean;
   page: number;
   totalPages: number;

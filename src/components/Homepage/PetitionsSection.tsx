@@ -12,7 +12,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
-import { Petition, PetitionStatus } from "types";
+import { IPetition, PetitionStatus } from "types";
 import { petitions } from "api";
 import { PetitionsList, PopularPetitionsList } from "components";
 import { petitions as popularPetitionsData } from "data/petitions.json";
@@ -60,17 +60,17 @@ export const PetitionsSection = () => {
 
       const filteredByCategory =
         category !== "all"
-          ?data?.filter((petition: Petition) => petition.category === category)
+          ?data?.filter((petition: IPetition) => petition.category === category)
           : data;
       const filteredBySearch = search
-        ? filteredByCategory?.filter((petition: Petition) =>
+        ? filteredByCategory?.filter((petition: IPetition) =>
             petition.title.toLowerCase().includes(search.toLowerCase()),
           )
         : filteredByCategory;
       const filteredBystatut =
         statut !== PetitionStatus.ALL
           ? filteredBySearch?.filter(
-              (petition: Petition) => petition.status === statut.replace("+", " "),
+              (petition: IPetition) => petition.status.status === statut.replace("+", " "),
             )
           : filteredBySearch;
       const sorted =
@@ -173,8 +173,8 @@ export const PetitionsSection = () => {
         {isSuccess && (
           <PetitionsList
             isLoading={isFetching || isLoading}
-            petitions={data as unknown as Petition[]}
-            page={parseInt(page)}
+            petitions={data as unknown as IPetition[]}
+            page={parseInt(`${page}`)}
             setPage={setPage}
             totalPages={pages}
           />
@@ -186,7 +186,7 @@ export const PetitionsSection = () => {
           Trending
         </Heading>
         <PopularPetitionsList
-          petitions={popularPetitionsData.slice(0, 5) as unknown as Petition[]}
+          petitions={popularPetitionsData.slice(0, 5) as unknown as IPetition[]}
         />
       </VStack>
     </HStack>

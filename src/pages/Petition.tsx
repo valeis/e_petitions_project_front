@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import {ChevronRightIcon} from "@chakra-ui/icons";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,56 +15,38 @@ import {
   IconButton,
   Button,
 } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
-import { petitions } from "api";
-import { Layout, Loader, PetitionProgressCard } from "components";
-import { FaFacebook, FaTwitter, FaEnvelope, FaLink } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import {useQuery} from "@tanstack/react-query";
+import {petitions} from "api";
+import {Layout, Loader, PetitionProgressCard} from "components";
+import {FaFacebook, FaTwitter, FaEnvelope, FaLink} from "react-icons/fa";
+import {useParams} from "react-router-dom";
 
-import {Petition as Pet} from "../types";
+import {IPetition} from "../types";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import { useUser } from "hooks";
-import { msignImage } from "constants";
+import {useUser} from "hooks";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 export const Petition = () => {
   const params = useParams();
-  const { user } = useUser();
+  const {user} = useUser();
   const id = params.petitionId;
+  // @ts-ignore
+  const href = import.meta.env.BASE_URL;
 
-  function mapToPetition(data: any): Pet {
-    return {
-      petition_id: data.petition_id,
-      title: data.title,
-      category: data.category,
-      description: data.description,
-      image: data.image,
-      status: data.status,
-      user_id: data['user-id'],
-      created_at: data.created_at,
-      vote_goal: data.vote_goal,
-      current_votes: data.current_votes,
-      exp_date: data.exp_date,
-    };
-  }
 
-  const {
-    data: petition,
-    isLoading,
-    isSuccess,
-  } = useQuery({
-    queryKey: ["petition", id],
-    queryFn: () => {
-      const petitionData =  petitions.getById(id as string);
-      return mapToPetition(petitionData);
+
+  const {data: data, isLoading, isSuccess} = useQuery({
+    queryKey: ['petition', id],
+    queryFn: async () => {
+      const petitionData = await petitions.getById(id as string);
+
+      return petitionData;
     },
   });
 
-
-
-  const hasInitiatedPetition = petition?.initiator === `${user?.name} ${user?.surname}`;
+  const petition = data as IPetition;
+  const hasInitiatedPetition = petition?.user_id == user?.userId;
 
   const generatePDF = async () => {
     const documentDefinition = {
@@ -96,7 +78,7 @@ export const Petition = () => {
           marginTop: 24,
         },
         {
-          text: [{ text: "Numărul de semnături: ", bold: true }, petition.current_votes],
+          text: [{ text: "Numărul de semnături: ", bold: true }, petition?.current_votes],
           fontSize: 12,
           marginTop: 8,
         },
@@ -107,18 +89,12 @@ export const Petition = () => {
             width: "*",
             text: "",
           },
-          {
-            image: msignImage,
-            width: 50,
-            alignment: "center",
-            margin: [0, 0, 20, 0],
-          },
         ],
       },
     };
 
+    // @ts-ignore
     const pdfDocument = pdfMake.createPdf(documentDefinition);
-
     pdfDocument.download(`Petitie-#${id}.pdf`);
   };
 
@@ -126,16 +102,16 @@ export const Petition = () => {
     <Layout>
       {isLoading ? (
         <Flex w={"full"} h="100vh" justifyContent="center" mt={20} color="white">
-          <Loader />
+          <Loader/>
         </Flex>
       ) : isSuccess ? (
         <>
           <Flex w={"full"} h="200px" bg="primary.600" color="white">
             <VStack w={"full"} justify={"center"} px={8}>
               <Stack w="full" maxW={"8xl"} align={"flex-start"} justifyContent="start" spacing={6}>
-                <Breadcrumb spacing="8px" separator={<ChevronRightIcon />}>
+                <Breadcrumb spacing="8px" separator={<ChevronRightIcon/>}>
                   <BreadcrumbItem>
-                    <BreadcrumbLink href={import.meta.env.BASE_URL}>Acasa</BreadcrumbLink>
+                    <BreadcrumbLink href={href}>Acasa</BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbItem isCurrentPage>
                     <BreadcrumbLink href="#">Petiția #{id}</BreadcrumbLink>
@@ -155,16 +131,16 @@ export const Petition = () => {
                 </Heading>
 
                 <Heading as="h3" size="sm" pt={4} pb={2} fontFamily="serif" fontWeight={400}>
-                  <span style={{ fontWeight: "bold" }}>Inițiator:</span> {petition?.user_id}
+                  <span style={{fontWeight: "bold"}}>Inițiator:</span> {petition?.user_id}
                 </Heading>
 
                 <Heading as="h3" size="sm" fontFamily="serif" pb={2} fontWeight={400}>
-                  <span style={{ fontWeight: "bold" }}>Data depunerii:</span>{" "}
+                  <span style={{fontWeight: "bold"}}>Data depunerii:</span>{" "}
                   {petition?.created_at}
                 </Heading>
                 {petition?.exp_date && (
                   <Heading as="h3" size="sm" fontFamily="serif" fontWeight={400}>
-                    <span style={{ fontWeight: "bold" }}>Data limită:</span>{" "}
+                    <span style={{fontWeight: "bold"}}>Data limită:</span>{" "}
                     {petition.exp_date}
                   </Heading>
                 )}
@@ -175,7 +151,7 @@ export const Petition = () => {
 
                 <HStack pt={4} pb={2}>
                   <Heading as="h3" size="sm" fontFamily="serif" fontWeight={400}>
-                    <span style={{ fontWeight: "bold" }}>Categorie:</span>{" "}
+                    <span style={{fontWeight: "bold"}}>Categorie:</span>{" "}
                   </Heading>
                   <Tag>{petition.category}</Tag>
                 </HStack>
@@ -194,12 +170,12 @@ export const Petition = () => {
                   <HStack spacing={4}>
                     <IconButton
                       aria-label="Share on Facebook"
-                      icon={<FaFacebook />}
+                      icon={<FaFacebook/>}
                       rounded="full"
                     />
-                    <IconButton aria-label="Share on Twitter" icon={<FaTwitter />} rounded="full" />
-                    <IconButton aria-label="Share on Email" icon={<FaEnvelope />} rounded="full" />
-                    <IconButton aria-label="Copy link" icon={<FaLink />} rounded="full" />
+                    <IconButton aria-label="Share on Twitter" icon={<FaTwitter/>} rounded="full"/>
+                    <IconButton aria-label="Share on Email" icon={<FaEnvelope/>} rounded="full"/>
+                    <IconButton aria-label="Copy link" icon={<FaLink/>} rounded="full"/>
                   </HStack>
                 </VStack>
               </Box>

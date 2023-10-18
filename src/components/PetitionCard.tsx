@@ -1,9 +1,9 @@
 import { CardBody, Heading, Card, Text, VStack, Progress, HStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Petition, PetitionStatus } from "types";
+import { IPetition, PetitionStatus } from "types";
 
 interface PetitionCardProps {
-  petition: Petition;
+  petition: IPetition;
 }
 
 export const PetitionCard = ({ petition }: PetitionCardProps) => {
@@ -16,11 +16,11 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
 
   const dateSplit = created_at ? created_at?.split("T")[0] : "";
   const progressColor =
-    status === PetitionStatus.APPROVED
+    status.status === PetitionStatus.APPROVED
       ? "green"
-      : status === PetitionStatus.REJECTED
+      : status.status === PetitionStatus.REJECTED
       ? "red"
-      : status === PetitionStatus.REVIEW || status === PetitionStatus.PENDING
+      : status.status === PetitionStatus.REVIEW || status.status === PetitionStatus.PENDING
       ? "blue"
       : "yellow";
 

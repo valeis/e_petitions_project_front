@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { CircularProgress, CircularProgressLabel, HStack, Heading } from "@chakra-ui/react";
 
-import { Petition } from "types";
+import { IPetition } from "types";
 
 interface PopularPetitionItemProps {
-  petition: Petition;
+  petition: IPetition;
 }
 
 export const PopularPetitionItem = ({ petition }: PopularPetitionItemProps) => {

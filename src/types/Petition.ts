@@ -1,6 +1,6 @@
 import { User } from "./User";
 
-export interface Petition {
+export interface IPetition {
   petition_id: number;
   title: string;
   category: string;

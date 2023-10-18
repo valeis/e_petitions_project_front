@@ -105,7 +105,7 @@ export const PetitionForm = ({
         user_id: 3,
       }),
     onSuccess: (petition_id) => {
-      navigate(`/petitions/${petition_id}`);
+      navigate(`/petition/${petition_id}`);
       toast({
         title: "Petiția a fost trimisă.",
         description: "Mulțumim pentru implicarea ta!",
@@ -135,23 +135,23 @@ export const PetitionForm = ({
     setFormData({ ...formData, [fieldName]: value });
 
     if (fieldName === "title" && value.length < 10) {
-      setErrors({ ...errors, title: "Titlul trebuie să aibă minim 10 caractere" });
+      setErrors((prevErrors) => ({ ...prevErrors, title: "Titlul trebuie să aibă minim 10 caractere" }));
     } else if (fieldName === "title" && value.length >= 10) {
-      setErrors({ ...errors, title: "" });
+      setErrors((prevErrors) => ({ ...prevErrors, title: "" }));
     }
 
 
     if (fieldName === "description" && value.length < 100) {
-      setErrors({ ...errors, content: "Conținutul trebuie să aibă minim 100 caractere" });
+      setErrors({ ...errors, description: "Conținutul trebuie să aibă minim 100 caractere" });
     }  else {
-      setErrors({ ...errors, content: "" });
+      setErrors({ ...errors, description: "" });
     }
   };
 
   return (
     <form onSubmit={handleSubmit} id="petitie-form">
       <VStack spacing={8} py={8} pb="200px">
-        <FormControl isInvalid={!!errors.name}>
+        <FormControl isInvalid={!!errors.title}>
           <FormLabel>Titlu</FormLabel>
           <Input
             type="text"
@@ -161,10 +161,10 @@ export const PetitionForm = ({
             onChange={handleChange}
             required
           />
-          {errors.name && <FormErrorMessage>{errors.name}</FormErrorMessage>}
+          {errors.title && <FormErrorMessage>{errors.title}</FormErrorMessage>}
         </FormControl>
 
-        <FormControl isInvalid={!!errors.content}>
+        <FormControl isInvalid={!!errors.description}>
           <FormLabel>Conținut</FormLabel>
           <Textarea
             placeholder="Conținut"
@@ -174,7 +174,7 @@ export const PetitionForm = ({
             h="300px"
             maxLength={2000}
           />
-          <FormErrorMessage>{errors.content}</FormErrorMessage>
+          <FormErrorMessage>{errors.description}</FormErrorMessage>
         </FormControl>
 
         <HStack spacing={4} w="100%">
