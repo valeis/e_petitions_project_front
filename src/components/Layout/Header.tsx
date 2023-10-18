@@ -5,29 +5,15 @@ import {
   Box,
   Flex,
   Grid,
-  Input,
-  IconButton,
-  InputRightElement,
-  InputGroup,
   Image,
   HStack,
   Link as ChakraLink,
   useDisclosure,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
 } from "@chakra-ui/react";
-import { ChevronLeftIcon, Search2Icon, SearchIcon } from "@chakra-ui/icons";
-import { FaPlus } from "react-icons/fa";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "hooks";
 import headerLogo from "../../public/E-Petiții.svg";
-import heroLogo from "../../public/Logo_inscript_horizontal-fcim-m.png";
 import { LoginModal } from "components/Auth/LoginModal";
 import { SearchModal } from "components/Search/SearchModal";
 
