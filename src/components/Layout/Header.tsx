@@ -5,42 +5,24 @@ import {
   Box,
   Flex,
   Grid,
-  Input,
-  IconButton,
-  InputRightElement,
-  InputGroup,
   Image,
   HStack,
   Link as ChakraLink,
   useDisclosure,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { FaPlus } from "react-icons/fa";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "hooks";
 import headerLogo from "../../public/E-Petiții.svg";
-import heroLogo from "../../public/Logo_inscript_horizontal-fcim-m.png";
 import { LoginModal } from "components/Auth/LoginModal";
+import { SearchModal } from "components/Search/SearchModal";
 
 export const Header = () => {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
-
-  const handleSubmit = (term: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("search", term);
-    setSearchParams(params.toString());
-  };
-
-  useEffect(() => {
-    setSearchTerm(searchParams.get("search") || "");
-  }, [searchParams]);
+  const { isOpen: isSearchOpen, onOpen: onSearchOpen, onClose: onSearchClose } = useDisclosure();
 
   return (
     <>
@@ -50,7 +32,6 @@ export const Header = () => {
             <Box
               gridColumn="span 16"
               sx={{ display: "center" }}
-              // justifyContent="center"
               width="auto"
               padding="6"
             >
@@ -69,12 +50,18 @@ export const Header = () => {
                   as="button"
                   fontSize="12px"
                   backgroundColor="gray.200"
+                  textColor="gray.500"
                   rounded="full"
-                  px="8px"
-                  py="4px"
-
+                  px="15px"
+                  py="5px"
+                  marginRight="5px"
+                  onClick={onSearchOpen}
+                  display="flex"
+                  alignItems="center"
+                  gap="7px"
                 >
-                  Search petition
+                  <SearchIcon />
+                  Find petition
                 </Box>
                 <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
                 <Button
@@ -139,6 +126,7 @@ export const Header = () => {
           </Grid>
 
           <LoginModal isOpen={isOpen} onClose={onClose} />
+          <SearchModal isSearchOpen={isSearchOpen} onSearchClose={onSearchClose} />
 
           {/* <Flex
             alignItems="center"
