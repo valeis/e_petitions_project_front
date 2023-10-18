@@ -13,7 +13,7 @@ export const ViewPetitionsAdmin: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await petitions.getList({ page: 1, limit: 5 });
+        const data = await petitions.getList({ page: 1, limit: 10 });
         console.log('Received data:', data);
         setPetitionData(data);
       } catch (error) {
