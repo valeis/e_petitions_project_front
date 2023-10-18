@@ -16,7 +16,7 @@ import { ScrollToTop } from "components";
 
 const theme = extendTheme({
   fonts: {
-    heading: `'Inter', sans-serif`,
+    heading: `'Oswald', sans-serif`,
     body: `'Inter', sans-serif`,
     serif: `'Libre Baskerville', serif`,
   },

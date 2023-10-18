@@ -17,7 +17,6 @@ export const users = {
                     "Access-Control-Allow-Origin": "*"
                 },
             });
-
             return data;
         } catch (error) {
             console.error('Error during login:', error);
@@ -52,5 +51,5 @@ export const users = {
             console.error('Error fetching user by ID:', error);
             throw error;
         }
-    }
+    },
 };
