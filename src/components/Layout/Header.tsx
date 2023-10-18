@@ -13,6 +13,13 @@ import {
   HStack,
   Link as ChakraLink,
   useDisclosure,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FaPlus } from "react-icons/fa";
@@ -28,6 +35,10 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isSearchOpen, onOpen: onSearchOpen, onClose: onSearchClose } = useDisclosure();
+
+
+  // const { isSearchOpen, onSearchOpen, onSearchClose } = useDisclosure();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
@@ -50,7 +61,6 @@ export const Header = () => {
             <Box
               gridColumn="span 16"
               sx={{ display: "center" }}
-              // justifyContent="center"
               width="auto"
               padding="6"
             >
@@ -69,11 +79,17 @@ export const Header = () => {
                   as="button"
                   fontSize="12px"
                   backgroundColor="gray.200"
+                  textColor="gray.500"
                   rounded="full"
-                  px="8px"
-                  py="4px"
-
+                  px="15px"
+                  py="5px"
+                  marginRight="5px"
+                  onClick={onSearchOpen}
+                  display="flex"
+                  alignItems="center"
+                  gap="7px"
                 >
+                  <SearchIcon />
                   Search petition
                 </Box>
                 <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
@@ -139,6 +155,25 @@ export const Header = () => {
           </Grid>
 
           <LoginModal isOpen={isOpen} onClose={onClose} />
+
+          <Modal isOpen={isSearchOpen} onClose={onSearchClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Modal Title</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                modal body
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme='blue' mr={3} onClick={onSearchClose}>
+                  Close
+                </Button>
+                <Button variant='ghost'>Secondary Action</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+
 
           {/* <Flex
             alignItems="center"
