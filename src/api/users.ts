@@ -25,7 +25,7 @@ export const users = {
     },
     register: async ({ email, password }: LoginParams) => {
         try {
-            const { data } = await axios.post(`${apiUrl}/user/`, { email, password }, {
+            const { data } = await axios.post(`${apiUrl}/user`, { email, password }, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*"
