@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, Search2Icon } from "@chakra-ui/icons";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, InputGroup, InputRightElement, ModalBody, Box, Input } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, InputGroup, InputRightElement, ModalBody, Box, Input, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -27,7 +27,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
         <Modal isOpen={isSearchOpen} onClose={onSearchClose} size="2xl">
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>
+              <ModalHeader paddingX="56px" paddingTop="30px">
                 <Box
                   display="flex"
                   alignItems="center"
@@ -61,9 +61,58 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
                   </form>
                 </Box>
               </ModalHeader>
-              <ModalBody>
-                <Box width="100%" height="1px" backgroundColor="gray.200"/>
-                modal body
+              <ModalBody maxHeight="500px" paddingX="56px" marginBottom="30px" overflow="auto">
+                {/* <Box width="100%" height="1px" marginBottom="15px" backgroundColor="gray.200"/> */}
+                <Stack divider={<StackDivider />} spacing='4'>
+                  <Box>
+                    <Heading size='md'>
+                      Summary
+                    </Heading>
+                    <Text pt='2' fontSize='md' color="gray.500">
+                      Making a greater future for our kids is a good shit because killing kids for money is good yk...
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading size='md'>
+                      Overview
+                    </Heading>
+                    <Text pt='2' fontSize='md'>
+                      Check out the overview of your clients.
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading size='md'>
+                      Analysis
+                    </Heading>
+                    <Text pt='2' fontSize='md'>
+                      See a detailed analysis of all your business clients.
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading size='md'>
+                      Analysis
+                    </Heading>
+                    <Text pt='2' fontSize='md'>
+                      See a detailed analysis of all your business clients.
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading size='md'>
+                      Analysis
+                    </Heading>
+                    <Text pt='2' fontSize='md'>
+                      See a detailed analysis of all your business clients.
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading size='md'>
+                      Analysis
+                    </Heading>
+                    <Text pt='2' fontSize='md'>
+                      See a detailed analysis of all your business clients.
+                    </Text>
+                  </Box>
+                </Stack>
               </ModalBody>
             </ModalContent>
           </Modal>
