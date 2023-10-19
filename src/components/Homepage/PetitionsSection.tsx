@@ -116,13 +116,13 @@ export const PetitionsSection = () => {
       h="max-content"
       justifyContent="space-between"
       alignItems="stretch"
-      py={20}
+      py={1}
     >
       <VStack spacing={6} flex="2" borderRight="1px" borderColor="gray.200" pr={10}>
-        <Heading size="xl" mb={4} alignSelf="center">
+       {/*  <Heading size="xl" mb={4} alignSelf="center">
           {search ? `Rezultatele căutării pentru "${search}"` : "Petiții"}
-        </Heading>
-        <VStack spacing={4} w="full" alignItems="start">
+        </Heading> */}
+        {/* <VStack spacing={4} w="full" alignItems="start">
           <HStack w="full" justifyContent="space-between" alignItems="center">
             <Select
               w="xs"
@@ -158,9 +158,9 @@ export const PetitionsSection = () => {
               </Button>
             </HStack>
           </HStack>
-        </VStack>
+        </VStack> */}
 
-        <Tabs w="full">
+       {/*  <Tabs w="full">
           <TabList>
             {statutes.map((statut) => (
               <Tab key={statut.value} onClick={() => setStatut(statut.value)}>
@@ -168,7 +168,7 @@ export const PetitionsSection = () => {
               </Tab>
             ))}
           </TabList>
-        </Tabs>
+        </Tabs> */}
 
         {isSuccess && (
           <PetitionsList
@@ -181,14 +181,14 @@ export const PetitionsSection = () => {
         )}
       </VStack>
 
-      <VStack spacing={6} flex="1" pl={7}>
+      {/* <VStack spacing={6} flex="1" pl={7}>
         <Heading size="xl" mb={4}>
           Trending
         </Heading>
         <PopularPetitionsList
           petitions={popularPetitionsData.slice(0, 5) as unknown as IPetition[]}
         />
-      </VStack>
+      </VStack> */}
     </HStack>
   );
 };
