@@ -25,7 +25,7 @@ export const users = {
     },
     register: async ({ email, password }: LoginParams) => {
         try {
-            const { data } = await axios.post(`${apiUrl}/user/`, { email, password }, {
+            const { data } = await axios.post(`${apiUrl}/user`, { email, password }, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*"
@@ -37,11 +37,12 @@ export const users = {
             throw error;
         }
     },
-    getUserById: async (id: string) => {
+    getUserById: async (id: number, accessToken: string | null) => {
         try {
             const { data } = await axios.get(`${apiUrl}/user/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `${accessToken}`,
                     "Access-Control-Allow-Origin": "*",
                 },
             });
