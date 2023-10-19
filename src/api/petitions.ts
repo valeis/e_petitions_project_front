@@ -15,6 +15,32 @@ export const petitions = {
         return data;
     },
 
+  getUserPetitions: async (params: any) => {
+    const {page, limit, uid} = params;
+    const {data} = await axios.get(`${apiUrl}/user/petitions/${uid}/${page}/${limit}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+
+    return data;
+  },
+
+
+  getUserVotedPetitions: async (params: any) => {
+    const {page, limit, uid} = params;
+    const {data} = await axios.get(`${apiUrl}/user/voted/${uid}/${page}/${limit}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+
+    return data;
+  },
+
+
     add: async (body: any) => {
         const response = await axios.post(
           `${apiUrl}/petition/`,
