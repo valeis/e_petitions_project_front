@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PetitionCard } from "./PetitionCard";
 import { IPetition } from "types";
-import { Box } from "@chakra-ui/react";
+import {Box, Divider} from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 interface PetitionsListProps {
@@ -19,7 +19,9 @@ export const PetitionsCarousel = ({ petitions }: PetitionsListProps) => {
   };
 
   return (
+
     <div style={{ display: "flex", alignItems: "center" }}>
+
       {petitionsToShow.map((petition) => (
         <PetitionCard petition={petition} key={petition.petition_id} />
       ))}
@@ -41,7 +43,7 @@ export const PetitionsCarousel = ({ petitions }: PetitionsListProps) => {
           alignItems="center"
           borderWidth="0.5px"
           borderRadius="md"
-          boxShadow={"md"}
+          boxShadow={"m"}
         >
           <ChevronRightIcon w={6} h={6} />
         </Box>
