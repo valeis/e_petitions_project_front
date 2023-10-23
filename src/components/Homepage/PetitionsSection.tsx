@@ -110,7 +110,6 @@ export const PetitionsSection = () => {
 
 
   return (
-
     <HStack >
       <VStack >
         {isSuccess && (
@@ -124,6 +123,5 @@ export const PetitionsSection = () => {
         )}
       </VStack>
     </HStack>
-
   );
 };

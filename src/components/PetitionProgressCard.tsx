@@ -7,10 +7,13 @@ import {
   VStack,
   Text,
   Button,
+  useToast,
 } from "@chakra-ui/react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { petitions } from "api";
 import { UserContext } from "context";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IPetition, PetitionStatus } from "types";
 
 interface PetitionProgressCardProps {
@@ -20,6 +23,38 @@ interface PetitionProgressCardProps {
 export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) => {
   const { user } = useContext(UserContext);
   const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id, status } = petition;
+  const toast = useToast();
+
+  const navigate = useNavigate();
+
+  const sign = useMutation({
+    mutationFn: () =>
+      petitions.sign({
+        petition_id,
+      }),
+    onSuccess: async () => {
+      // Update the current_votes in the petition object
+      petition.current_votes += 1;
+      // Display a success toast
+      toast({
+        title: "Petition Signed",
+        description: "You have successfully signed the petition.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    },
+    onError: () => {
+      // Handle any error that occurs during the mutation
+      toast({
+        title: "Error",
+        description: "Allready signed the petition.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    },
+  });
 
   const progressColor =
     status.status === PetitionStatus.APPROVED
@@ -32,7 +67,18 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
 
   const percentage = (current_votes * 100) / vote_goal;
   const deadlineTime = new Date(exp_date);
-  const daysLeft = Math.floor((deadlineTime.getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+  const timeDiff = deadlineTime.getTime() - new Date().getTime();
+  let remainingTime;
+  if (timeDiff > 0) {
+    if (timeDiff < 24 * 60 * 60 * 1000) {
+      // less than 1 day
+      remainingTime = Math.floor(timeDiff / (1000 * 60 * 60)) + " ore";
+    } else {
+      remainingTime = Math.floor(timeDiff / (1000 * 3600 * 24)) + " zile";
+    }
+  } else {
+    remainingTime = "Expired";
+  }
 
   let signButton;
 
@@ -44,17 +90,16 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
     colorScheme: "blue",
   };
 
-  if (user === null) {//unregistred user
+  if (user === null) {
+    //unregistred user
     signButton = (
       <Button {...commonButtonProps} colorScheme="red" variant="link" fontWeight={500}>
-        <Link to={`/mpass?petitionId=${petition_id}`}>
-          Autorizați-vă pentru <br /> a semna petiția
-        </Link>
+        Autorizați-vă pentru <br /> a semna petiția
       </Button>
     );
-  } else if (user_id != user?.userId) {//random user
+  } else if (user_id != user?.userId) {
+    //random user
     const signedByUser = semnat && semnat.split(",").includes(``);
-
 
     const nowAllowedButtonProps = {
       ...commonButtonProps,
@@ -69,14 +114,14 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
       <Button
         {...commonButtonProps}
         isDisabled={!!signedByUser}
-        {...(!nowAllowedButtonProps)}
+        /* {...(!nowAllowedButtonProps)} */
+        onClick={() => sign.mutate()}
       >
-        <Link to={`/msign?petitionId=${petition_id}`}>
-          {signedByUser ? "Ați semnat petiția" : "Semnați petiția"}
-        </Link>
+        {signedByUser ? "Ați semnat petiția" : "Semnați petiția"}
       </Button>
     );
-  } else {//if user is the creator of the petition
+  } else {
+    //if user is the creator of the petition
     signButton = (
       <Button {...commonButtonProps}>
         <Link to={`/manage?petitionId=${petition_id}`}>Administrați petiţia</Link>
@@ -116,7 +161,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
               {petition.status.status}
             </Text>
             <Text fontSize="sm" fontFamily="serif" mt={2}>
-              {daysLeft < 1 ? "60" : daysLeft} zile rămase
+              {remainingTime}
             </Text>
           </VStack>
           <>{signButton}</>
