@@ -7,7 +7,7 @@ import {
   Tab,
   TabList,
   Tabs,
-  Checkbox,
+  Checkbox, Container,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
@@ -110,66 +110,9 @@ export const PetitionsSection = () => {
 
 
   return (
-    <HStack
-      as="section"
-      w="full"
-      h="max-content"
-      justifyContent="space-between"
-      alignItems="stretch"
-      py={1}
-    >
-      <VStack spacing={6} flex="2" borderRight="1px" borderColor="gray.200" pr={10}>
-       {/*  <Heading size="xl" mb={4} alignSelf="center">
-          {search ? `Rezultatele căutării pentru "${search}"` : "Petiții"}
-        </Heading> */}
-        {/* <VStack spacing={4} w="full" alignItems="start">
-          <HStack w="full" justifyContent="space-between" alignItems="center">
-            <Select
-              w="xs"
-              rounded="full"
-              defaultValue={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              {isCategoriesSuccess &&
-                categories?.length &&
-                categories.map((category: any) => (
-                  <option value={category.value} key={category.value}>
-                    {category.label}
-                  </option>
-                ))}
-            </Select>
 
-            <HStack h="40px" spacing={4}>
-              <Button
-                variant={sortBy === "newest" ? "outline" : "ghost"}
-                colorScheme="blue"
-                onClick={() => setSortBy("newest")}
-                rounded="full"
-              >
-                Cele mai noi
-              </Button>
-              <Button
-                variant={sortBy === "popular" ? "outline" : "ghost"}
-                colorScheme="blue"
-                onClick={() => setSortBy("popular")}
-                rounded="full"
-              >
-                Cele mai populare
-              </Button>
-            </HStack>
-          </HStack>
-        </VStack> */}
-
-       {/*  <Tabs w="full">
-          <TabList>
-            {statutes.map((statut) => (
-              <Tab key={statut.value} onClick={() => setStatut(statut.value)}>
-                {statut.label}
-              </Tab>
-            ))}
-          </TabList>
-        </Tabs> */}
-
+    <HStack >
+      <VStack >
         {isSuccess && (
           <PetitionsList
             isLoading={isFetching || isLoading}
@@ -180,15 +123,7 @@ export const PetitionsSection = () => {
           />
         )}
       </VStack>
-
-      {/* <VStack spacing={6} flex="1" pl={7}>
-        <Heading size="xl" mb={4}>
-          Trending
-        </Heading>
-        <PopularPetitionsList
-          petitions={popularPetitionsData.slice(0, 5) as unknown as IPetition[]}
-        />
-      </VStack> */}
     </HStack>
+
   );
 };
