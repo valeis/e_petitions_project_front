@@ -6,20 +6,22 @@ import {
   FormErrorMessage,
   FormLabel,
   HStack,
-  Input, NumberInput, NumberInputField,
+  Input,
+  NumberInput,
+  NumberInputField,
   Textarea,
   useToast,
   VStack,
 } from "@chakra-ui/react";
+
 import Select from "react-select";
 import { PetitionFormData } from "types";
 
-import {useNavigate} from "react-router-dom";
-import {useUser} from "../hooks";
-import {useMutation} from "@tanstack/react-query";
-import {petitions} from "../api";
-
-
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../hooks";
+import { useMutation } from "@tanstack/react-query";
+import { petitions } from "../api";
+import { DatePicker } from "antd";
 
 const categories = [
   {
@@ -79,20 +81,19 @@ export const PetitionForm = ({
   setErrors,
   setIsSubmitted,
 }: PetitionFormProps) => {
-  const { title, description, category, image, vote_goal} = formData;
+  const { title, description, category, image, vote_goal, exp_date } = formData;
   const navigate = useNavigate();
   // const { user } = useUser();
   const toast = useToast();
 
-
   const isSubmitDisabled =
     !title ||
     !description ||
-    !vote_goal||
+    !vote_goal ||
+    !exp_date ||
     !category.length ||
     !formData.checkedData ||
     !formData.consentedData;
-
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -102,7 +103,8 @@ export const PetitionForm = ({
         category,
         image,
         vote_goal,
-        user_id: 3,
+        exp_date,
+        user_id: parseInt(localStorage.getItem("userId")!, 10),
       }),
     onSuccess: (petition_id) => {
       navigate(`/petition/${petition_id}`);
@@ -115,7 +117,6 @@ export const PetitionForm = ({
       });
     },
   });
-
 
   const handleSignClick = () => mutate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -135,22 +136,29 @@ export const PetitionForm = ({
     setFormData({ ...formData, [fieldName]: value });
 
     if (fieldName === "title" && value.length < 10) {
-      setErrors((prevErrors) => ({ ...prevErrors, title: "Titlul trebuie să aibă minim 10 caractere" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        title: "Titlul trebuie să aibă minim 10 caractere",
+      }));
     } else if (fieldName === "title" && value.length >= 10) {
       setErrors((prevErrors) => ({ ...prevErrors, title: "" }));
     }
 
-
     if (fieldName === "description" && value.length < 100) {
       setErrors({ ...errors, description: "Conținutul trebuie să aibă minim 100 caractere" });
-    }  else {
+    } else {
       setErrors({ ...errors, description: "" });
     }
   };
 
+  const handleDateChange = (date: any) => {
+    const formattedDate = date.toISOString();
+    setFormData({ ...formData, exp_date: formattedDate });
+  };
+
   return (
     <form onSubmit={handleSubmit} id="petitie-form">
-      <VStack spacing={8} py={8} pb="200px">
+      <VStack spacing={8} py={4} pb="200px" mx={48}>
         <FormControl isInvalid={!!errors.title}>
           <FormLabel>Titlu</FormLabel>
           <Input
@@ -171,7 +179,7 @@ export const PetitionForm = ({
             name="description"
             value={description}
             onChange={handleChange}
-            h="300px"
+            h="160px"
             maxLength={2000}
           />
           <FormErrorMessage>{errors.description}</FormErrorMessage>
@@ -184,7 +192,7 @@ export const PetitionForm = ({
               options={categories}
               value={categories.filter((option) => category.includes(option.value))}
               onChange={(option) =>
-                setFormData({ ...formData, category: option ? option.value : '' })
+                setFormData({ ...formData, category: option ? option.value : "" })
               }
             />
           </FormControl>
@@ -195,10 +203,17 @@ export const PetitionForm = ({
               onChange={(valueString) => {
                 const newValue = parseInt(valueString, 10);
                 setFormData({ ...formData, vote_goal: newValue });
-              }}>
-
+              }}
+            >
               <NumberInputField />
             </NumberInput>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Data expirării</FormLabel>
+            <DatePicker
+              style={{ width: "100%", height: "40px"}}
+              onChange={handleDateChange}
+            />
           </FormControl>
         </HStack>
 
