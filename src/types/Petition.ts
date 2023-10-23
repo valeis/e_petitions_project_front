@@ -27,6 +27,7 @@ export interface PetitionFormData {
   vote_goal: number,
   checkedData: boolean;
   consentedData: boolean;
+  exp_date: string;
 }
 
 export enum PetitionStatus {

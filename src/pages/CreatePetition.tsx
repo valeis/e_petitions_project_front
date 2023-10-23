@@ -38,10 +38,10 @@ const CreatePetitionForm = ({
 
   return (
     <Layout>
-      <Flex w={"full"} h="200px" bg="primary.600" color="white">
+      <Flex w={"full"} h="80px" bg="primary.600" color="white">
         <VStack w={"full"} justify={"center"} px={8}>
           <Stack w="full" maxW={"8xl"} align={"flex-start"} justifyContent="start" spacing={6}>
-            <Heading as="h1" size="2xl" my={4}>
+            <Heading as="h1" size="xl" my={4}>
               Creați o petiție
             </Heading>
           </Stack>

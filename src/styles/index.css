@@ -1,3 +1,11 @@
 .font-serif {
-  font-family: "Libre Baskerville", serif !important;
+  
+}
+
+:where(.css-dev-only-do-not-override-xu9wm8).ant-picker .ant-picker-input >input{
+  font-size: 16px;
+  font-weight: 400;
+  color:hsl(0, 0%, 2%);
+  font-family: var(--chakra-fonts-body)
+  
 }

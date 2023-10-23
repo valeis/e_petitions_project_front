@@ -108,7 +108,7 @@ export const Header = () => {
                       fontWeight="light"
                       onClick={() => {
                         setUser(null);
-                        sessionStorage.removeItem("user");
+                        localStorage.removeItem("user");
                       }}
                     >
                       Ieșire
