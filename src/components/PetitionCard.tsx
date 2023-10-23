@@ -30,7 +30,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
         cursor="pointer"
         role="group"
         _hover={{ boxShadow: "sm" }}
-        w="30vw"
+        w="29vw"
         mr={4}
         borderRightWidth="9px"
         borderRight="1px solid"

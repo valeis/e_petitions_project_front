@@ -2,7 +2,7 @@ import { Box, Heading, Stack, VStack, Text, useBreakpointValue } from "@chakra-u
 
 const Banners = () => {
   const boxWidth = useBreakpointValue({ base: "90%", md: "60%", xl: "60%", sm: "90%" });
-  const boxWidthLeft = useBreakpointValue({ base: "120%", md: "74%", xl: "74%", sm: "90%" });
+  const boxWidthLeft = useBreakpointValue({ base: "110%", md: "74%", xl: "74%", sm: "90%" });
   const boxHeight = useBreakpointValue({ base: "30vh", md: "40vh", xl: "40vh", sm: "50vh" });
 
   return (
@@ -13,7 +13,6 @@ const Banners = () => {
       justifyContent="space-between"
       alignItems="stretch"
       py={70}
-
       spacing={6}
       direction={{ base: "column", md: "row" }}
       pt={"4vh"}
@@ -58,7 +57,7 @@ const Banners = () => {
       </Box>
       <Box
         borderWidth="1px"
-        bgImage="url('src/data/images/Untitled-1.png')"
+        bgImage="url('src/data/images/pink.png')"
         bgSize="cover"
         bgPosition="center"
         bgRepeat="no-repeat"

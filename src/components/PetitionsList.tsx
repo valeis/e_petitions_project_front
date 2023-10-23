@@ -1,4 +1,4 @@
-import { Box, Flex, VStack } from "@chakra-ui/react";
+import { Box, Flex, VStack, Container } from "@chakra-ui/react";
 
 import { IPetition } from "types";
 import { PetitionCard } from "./PetitionCard";
@@ -29,13 +29,9 @@ export const PetitionsList = ({
         </Flex>
       ) : petitions && petitions.length > 0 ? (
         <>
-          {/* {petitions.slice(0, 1).map((petition) => (
-            <PetitionCard petition={petition} key={petition.petition_id} />
-          ))}
-          {petitions.length > 10 && (
-            <Pagination page={page} totalPages={totalPages} setPage={setPage} />
-          )} */}
+         <Container width={"90%"} alignItems="center"  display="flex" >
           <PetitionsCarousel petitions={petitions} />
+         </Container>
         </>
       ) : (
         <Box w="full" textAlign="center" color="gray.500" fontSize="lg" py={8}>
