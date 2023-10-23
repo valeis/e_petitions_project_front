@@ -158,7 +158,15 @@ export const PetitionForm = ({
 
   return (
     <form onSubmit={handleSubmit} id="petitie-form">
-      <VStack spacing={8} py={4} pb="200px" mx={48}>
+      <VStack
+        spacing={8}
+        py={4}
+        pb="200px"
+        width="70%"
+        alignItems="center"
+        justifyContent="center"
+        style={{ margin: "auto" }}
+      >
         <FormControl isInvalid={!!errors.title}>
           <FormLabel>Titlu</FormLabel>
           <Input
@@ -210,10 +218,7 @@ export const PetitionForm = ({
           </FormControl>
           <FormControl>
             <FormLabel>Data expirării</FormLabel>
-            <DatePicker
-              style={{ width: "100%", height: "40px"}}
-              onChange={handleDateChange}
-            />
+            <DatePicker style={{ width: "100%", height: "40px" }} onChange={handleDateChange} />
           </FormControl>
         </HStack>
 
