@@ -13,6 +13,7 @@ const Banners = () => {
       justifyContent="space-between"
       alignItems="stretch"
       py={70}
+
       spacing={6}
       direction={{ base: "column", md: "row" }}
       pt={"4vh"}
@@ -30,7 +31,7 @@ const Banners = () => {
         mb={5}
         ml={{ base: "5%", md: "5%" }}
         borderRadius="lg"
-        boxShadow="lg"
+        boxShadow="none"
       >
         <VStack
           h="15vh"
@@ -47,8 +48,8 @@ const Banners = () => {
           <Text
             fontSize={{ base: "14px", md: "16px" }}
             w={{ md: "20vw", sm: "100vh" }}
-            ml={{ md: "12vw", sm: "100vh" }}
-            mt={{ md: "3vh", sm: "100vh" }}
+            // ml={{ md: "1vh", sm: "100vh" }}
+            // mt={{ md: "9vh", sm: "100vh" }}
           >
             With Beijing’s support to help stabilize markets, ETF’s tracking and shit and shit and
             shit...
@@ -64,7 +65,7 @@ const Banners = () => {
         w={boxWidth}
         h={boxHeight}
         borderRadius="lg"
-        boxShadow="lg"
+        boxShadow="none"
         mr="5%"
       >
         <VStack
@@ -82,8 +83,8 @@ const Banners = () => {
           <Text
             fontSize={{ base: "14px", md: "16px" }}
             w={{ md: "20vw", sm: "100vh" }}
-            ml={{ md: "12vw", sm: "100vh" }}
-            mt={{ md: "3vh", sm: "100vh" }}
+            // ml={{ md: "12vw", sm: "100vh" }}
+            // mt={{ md: "3vh", sm: "100vh" }}
           >
             With Beijing’s support to help stabilize markets, ETF’s tracking and shit and shit and
             shit...
