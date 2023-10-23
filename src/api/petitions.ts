@@ -71,11 +71,11 @@ export const petitions = {
         return data;
     },
 
-    search: async (name: any) => {
-        const {data} = await axios.post(`${apiUrl}/api/petitii/search/${name}`, {
+    search: async (title: any) => {
+        const {data} = await axios.post(`${apiUrl}/petitions/search/${title}/1/5`, {
             headers: {
-                "Content-Type": "application/json",
-                "Allow-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
             },
         });
 

@@ -30,12 +30,12 @@ export const PetitionsSection = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const category = searchParams.get("category") || "all";
   const sortBy = searchParams.get("sortBy") || "newest";
+  //TODO: change hardcoded page and limit
   const page = searchParams.get("page") || 1;
   const limit = searchParams.get("limit") || 5;
   const search = searchParams.get("search") || "";
-  const statut = searchParams.get("statut") || PetitionStatus.ALL;
+  // const statut = searchParams.get("statut") || PetitionStatus.ALL;
 
   const pages = 10;
 
@@ -48,7 +48,6 @@ export const PetitionsSection = () => {
     queryKey: [
       "petitions",
       {
-        category,
         sortBy,
         page,
         limit,
@@ -57,30 +56,19 @@ export const PetitionsSection = () => {
     ],
     queryFn: () => petitions.getList({page, limit}),
     select: (data) => {
-
-      const filteredByCategory =
-        category !== "all"
-          ?data?.filter((petition: IPetition) => petition.category === category)
-          : data;
       const filteredBySearch = search
-        ? filteredByCategory?.filter((petition: IPetition) =>
+        ? data ?.filter((petition: IPetition) =>
             petition.title.toLowerCase().includes(search.toLowerCase()),
           )
-        : filteredByCategory;
-      const filteredBystatut =
-        statut !== PetitionStatus.ALL
-          ? filteredBySearch?.filter(
-              (petition: IPetition) => petition.status.status === statut.replace("+", " "),
-            )
-          : filteredBySearch;
+        : data;
       const sorted =
         sortBy === "newest"
-          ? filteredBystatut?.sort((a: any, b: any) => {
+          ? filteredBySearch?.sort((a: any, b: any) => {
               const dateA = new Date(a.created_at);
               const dateB = new Date(b.created_at);
               return dateB.getTime() - dateA.getTime();
             })
-          : filteredBystatut?.sort((a: any, b: any) => b.current_votes - a.current_votes);
+          : filteredBySearch?.sort((a: any, b: any) => b.current_votes - a.current_votes);
 
       return sorted;
     },
@@ -96,17 +84,13 @@ export const PetitionsSection = () => {
     updateSearchParams("page", page);
   };
 
-  const setCategory = (category: string) => {
-    updateSearchParams("category", category);
-  };
-
   const setSortBy = (sortBy: string) => {
     updateSearchParams("sortBy", sortBy);
   };
 
-  const setStatut = (statut: string) => {
-    updateSearchParams("statut", statut);
-  };
+  // const setStatut = (statut: string) => {
+  //   updateSearchParams("statut", statut);
+  // };
 
 
   return (

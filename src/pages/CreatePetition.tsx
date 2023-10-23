@@ -19,10 +19,11 @@ const initalState: PetitionFormData = {
   title: "",
   description: "",
   category: "",
-  image:"",
+  image: "",
   vote_goal: 0,
   checkedData: false,
   consentedData: false,
+  exp_date: ""
 };
 
 const CreatePetitionForm = ({
