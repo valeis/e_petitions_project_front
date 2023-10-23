@@ -1,58 +1,63 @@
 // src/UserPage.tsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import {petitions,users} from "../api";
-import {Layout, UserComponent} from 'components';
+import {Layout, UserComponent,UnauthorizedMessage} from 'components';
+import UserBanner from "../components/User/UserBanner";
 import {User} from 'types';
-import { useUser } from "hooks";
+import {useQuery} from "@tanstack/react-query";
+
 
 
 
 export const UserPage: React.FC<User> = ({  userId }) => {
     const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-        console.log('Access Token:', accessToken);
-    } else {
-        console.log('Access Token not found in local storage');
+    const [pets, setPetitions] = useState([]);
+    const [votedPetitions, setVotedPetitions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [User, setUserData] = useState([]);
+    const [error, setError] = useState<string | null>(null);
+    if (!accessToken) {
+      setError('Unauthorized');
+      setLoading(false);
+      return;
     }
 
     userId = localStorage.getItem('userId') as unknown as number;
-    if (userId) {
-        console.log('userId:', userId);
-    } else {
-        console.log('userId not found in local storage');
+    if (!userId) {
+      setError('Unauthorized');
+      setLoading(false);
+      return;
     }
-  const [pets, setPetitions] = useState([]);
-  const [votedPetitions, setVotedPetitions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [User, setUserData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log(userId);
-        console.log(accessToken);
-        const petitionsData = await petitions.getUserPetitions({ page: 1, limit: 10, uid: userId });
-        const votedPetitionsData = await petitions.getUserVotedPetitions({ page: 1, limit: 10, uid: userId });
-        const userData = await users.getUserById(userId, accessToken);
+    const { data: petitionsData, error: petitionsError, isLoading: petitionsLoading } = useQuery(['userPetitions', userId], () => petitions.getUserPetitions({ page: 1, limit: 10, uid: userId }));
+    const { data: votedPetitionsData, error: votedPetitionsError, isLoading: votedPetitionsLoading } = useQuery(['userVotedPetitions', userId], () => petitions.getUserVotedPetitions({ page: 1, limit: 10, uid: userId }));
+    const { data: userData, error: userError, isLoading: userLoading } = useQuery(['userData', userId, accessToken], () => users.getUserById(userId, accessToken));
 
-        setPetitions(petitionsData);
-        setVotedPetitions(votedPetitionsData);
-        setLoading(false);
-        setUserData(userData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      }
-    };
+    useEffect(() => {
+        if (petitionsData && votedPetitionsData && userData) {
+            setPetitions(petitionsData);
+            setVotedPetitions(votedPetitionsData);
+            setLoading(false);
+            setUserData(userData);
+        }
+    }, [petitionsData, votedPetitionsData, userData]);
 
-    fetchData();
-  }, [userId]);
+    useEffect(() => {
+        if (petitionsError || votedPetitionsError || userError) {
+            setError('Unauthorized');
+        }
+    }, [petitionsError, votedPetitionsError, userError]);
 
+  if (error === 'Unauthorized') {
+    return <UnauthorizedMessage />;
+  }
   return (
       <Layout>
+      <UserBanner user={User}  petitions={pets} votedPetitions={votedPetitions} />
       <UserComponent user={User} loading={loading} petitions={pets} votedPetitions={votedPetitions} />
-      </Layout>);
+      </Layout>
+  );
 };
 
 export default UserPage;
