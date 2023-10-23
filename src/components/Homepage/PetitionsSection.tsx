@@ -108,7 +108,6 @@ export const PetitionsSection = () => {
     updateSearchParams("statut", statut);
   };
 
-
   return (
 
     <HStack >
