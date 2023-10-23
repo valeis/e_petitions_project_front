@@ -12,8 +12,18 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
 
   const deadlineTime = new Date(exp_date);
 
-  const daysLeft = Math.floor((deadlineTime.getTime() - new Date().getTime()) / (1000 * 3600 * 24));
-
+  const timeDiff = deadlineTime.getTime() - new Date().getTime();
+  let remainingTime;
+  if (timeDiff > 0) {
+    if (timeDiff < 24 * 60 * 60 * 1000) {
+      // less than 1 day
+      remainingTime = Math.floor(timeDiff / (1000 * 60 * 60)) + " ore";
+    } else {
+      remainingTime = Math.floor(timeDiff / (1000 * 3600 * 24)) + " zile";
+    }
+  } else {
+    remainingTime = "Expired";
+  } 
   const dateSplit = created_at.substring(0, created_at.indexOf(' '));
 
   return (
@@ -71,7 +81,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
                 gap="7px"
                 fontSize={13}
               >
-              Days Left {daysLeft < 1 ? "60" : daysLeft}
+              Timp rămas: {remainingTime}
               </Box>
             </HStack>
           </VStack>

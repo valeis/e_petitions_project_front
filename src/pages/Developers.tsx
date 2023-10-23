@@ -17,7 +17,6 @@ import "swagger-ui-react/swagger-ui.css";
 import oapiSpec from "public/api.json";
 
 export const Developers = () => {
-  // @ts-ignore
   const href = import.meta.env.BASE_URL
   return (
     <Layout>
