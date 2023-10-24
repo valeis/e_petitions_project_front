@@ -54,17 +54,17 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
       <Heading textAlign="left" mt={2}>Pagina Utilizatorului</Heading>
       <Box bgImage="url('src/data/images/yellow.png')" p={4} borderRadius="lg" mt={2}>
         <VStack align="left" spacing={4}>
-          <Text
+          <Text color={"white"}
             fontSize={{ base: "14px", md: "16px" }}
           ><b>Email:</b> {user["email "]}
           </Text>
             {petitions.user_petitions && (
-                <Text fontSize={{ base: "14px", md: "16px" }}>
+                <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}>
                     <b>Nr. of posted petitions:</b> {Object.keys(petitions.user_petitions).length}
                 </Text>
             )}
             {votedPetitions.user_voted_petitions && (
-                <Text fontSize={{ base: "14px", md: "16px" }}>
+                <Text  color={"white"} fontSize={{ base: "14px", md: "16px" }}>
                     <b>Nr. of voted petitions:</b> {Object.keys(votedPetitions.user_voted_petitions).length}
                 </Text>
             )}
