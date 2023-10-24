@@ -8,6 +8,7 @@ import {
   Text,
   Button,
   useToast,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { petitions } from "api";
@@ -15,6 +16,8 @@ import { UserContext } from "context";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IPetition, PetitionStatus } from "types";
+import { LoginModal } from "./Auth/LoginModal";
+import { OtpModal } from "./Auth/OtpModal";
 
 interface PetitionProgressCardProps {
   petition: IPetition;
@@ -24,6 +27,9 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
   const { user } = useContext(UserContext);
   const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id, status } = petition;
   const toast = useToast();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isOtpOpen, onOpen: onOtpOpen, onClose: onOtpClose } = useDisclosure();
 
   const navigate = useNavigate();
 
@@ -93,9 +99,26 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
   if (user === null) {
     //unregistred user
     signButton = (
-      <Button {...commonButtonProps} colorScheme="red" variant="link" fontWeight={500}>
-        Autorizați-vă pentru <br /> a semna petiția
-      </Button>
+      <>
+        <Button
+          {...commonButtonProps}
+          variant="link"
+          fontWeight={500}
+          onClick={onOpen}
+        >
+          Autorizați-vă pentru <br /> a semna petiția
+        </Button>
+        <div>sau</div>
+        <Button
+          {...commonButtonProps}
+          variant="link"
+          fontWeight={500}
+          onClick={onOtpOpen}
+        >
+         Semnați cu email
+        </Button>
+
+      </>
     );
   } else if (user_id != user?.userId) {
     //random user
@@ -167,6 +190,8 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
           <>{signButton}</>
         </VStack>
       </CardBody>
+      <LoginModal isOpen={isOpen} onClose={onClose} />
+      <OtpModal isOpen={isOtpOpen} onClose={onOtpClose} />
     </Card>
   );
 };
