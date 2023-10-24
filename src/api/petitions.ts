@@ -42,7 +42,6 @@ export const petitions = {
 
 
     add: async (body: any) => {
-      console.log(body);
         const response = await axios.post(
           `${apiUrl}/petition`,
           {
@@ -56,7 +55,6 @@ export const petitions = {
           },
         );
       const petition_id = response.data.petition_id;
-      console.log(response);
       return petition_id;
     },
 
