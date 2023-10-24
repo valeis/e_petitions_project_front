@@ -23,7 +23,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
     }
   } else {
     remainingTime = "Expired";
-  } 
+  }
   const dateSplit = created_at.substring(0, created_at.indexOf(' '));
 
   return (
@@ -40,7 +40,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
         cursor="pointer"
         role="group"
         _hover={{ boxShadow: "sm" }}
-        w="29vw"
+        w="27vw"
         mr={4}
         borderRightWidth="9px"
         borderRight="1px solid"

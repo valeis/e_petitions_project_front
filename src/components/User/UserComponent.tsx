@@ -1,6 +1,6 @@
 // src/UserComponent.tsx
 import React, {useState} from 'react';
-import {Button, Container, Heading, HStack, VStack} from "@chakra-ui/react";
+import {Button, Container, Heading, HStack, VStack, Box} from "@chakra-ui/react";
 import {PetitionsList} from "../PetitionsList";
 import {IPetition} from "../../types";
 import {useSearchParams} from "react-router-dom";
@@ -66,17 +66,18 @@ export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, pet
       {loading ? (
         <div>Loading...</div>
       ) : (
-          <HStack mt={5} maxWidth={"81%"} >
-              <VStack >
-                  <HStack spacing={15}>
+
+              <VStack mt={5}>
+                  <Container maxWidth={"90%"} mb={5} >
                       <Button
                           colorScheme="messenger"
                           onClick={() => setVariant("solid")}
                           variant={variant === "solid" ? "solid" : "ghost"}
                           size="lg"
                           borderRadius={"full"}
-                          fontSize={15}
+                          fontSize={13}
                           fontWeight="normal"
+                          mr = {9}
                       >
                           Your Petitions
                       </Button>
@@ -86,12 +87,12 @@ export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, pet
                           variant={variant === "outline" ? "solid" : "ghost"}
                           size="lg"
                           borderRadius={"full"}
-                          fontSize={15}
+                          fontSize={13}
                           fontWeight="normal"
                       >
                           Your Voted Petitions
                       </Button>
-                  </HStack>
+                  </Container>
                       <PetitionsList
                           isLoading={loading}
                           petitions={variant === "solid"
@@ -102,7 +103,7 @@ export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, pet
                           setPage={setPage}/>
 
               </VStack>
-          </HStack>
+
       )}
     </div>
   );
