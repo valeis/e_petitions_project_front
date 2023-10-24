@@ -29,7 +29,7 @@ export const PetitionsList = ({
         </Flex>
       ) : petitions && petitions.length > 0 ? (
         <>
-         <Container width={"90%"} alignItems="center"  display="flex" >
+         <Container maxWidth={"90%"} alignItems="center"  display="flex" >
           <PetitionsCarousel petitions={petitions} />
          </Container>
         </>
