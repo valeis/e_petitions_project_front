@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PetitionCard } from "./PetitionCard";
 import { IPetition } from "types";
-import {Box, Divider} from "@chakra-ui/react";
+import {Box, Button, Divider} from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 interface PetitionsListProps {
@@ -35,7 +35,7 @@ export const PetitionsCarousel = ({ petitions }: PetitionsListProps) => {
         }}
         onClick={handleNext}
       >
-         <Box
+         <Button
           width="1.5rem"
           height="4rem"
           display="flex"
@@ -43,10 +43,11 @@ export const PetitionsCarousel = ({ petitions }: PetitionsListProps) => {
           alignItems="center"
           borderWidth="0.5px"
           borderRadius="md"
+          variant='outline'
           boxShadow={"m"}
         >
           <ChevronRightIcon w={6} h={6} />
-        </Box>
+        </Button>
       </div>
     </div>
   );

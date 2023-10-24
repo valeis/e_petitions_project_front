@@ -89,7 +89,7 @@ interface RegisterModalProps {
                           {...field}
                         />
                         <InputRightElement width="4.5rem">
-                          <Button h="1.75rem" size="sm" onClick={handleClickPassword}>
+                          <Button fontWeight="normal" h="1.75rem" size="sm" onClick={handleClickPassword}>
                             {show ? "Hide" : "Show"}
                           </Button>
                         </InputRightElement>
@@ -119,7 +119,7 @@ interface RegisterModalProps {
                           {...field}
                         />
                         <InputRightElement width="4.5rem">
-                          <Button h="1.75rem" size="sm" onClick={handleClickPassword}>
+                          <Button fontWeight="normal" h="1.75rem" size="sm" onClick={handleClickPassword}>
                             {show ? "Hide" : "Show"}
                           </Button>
                         </InputRightElement>
@@ -138,7 +138,7 @@ interface RegisterModalProps {
                   style={{
                     textDecoration: "none",
                     cursor: "pointer", // Set your desired text color
-                    color: "#2B6CB0",
+                    color:"#006AFF",
                     textShadow: "2px 2px 4px rgba(0,0,0,0.1)", // Add text shadow
                   }}
                 >
@@ -148,16 +148,17 @@ interface RegisterModalProps {
 
               <ModalFooter display="flex" justifyContent="center">
                 <Button
+                  fontWeight="normal"
                   type="submit"
                   variant="solid"
-                  bg="primary.600"
                   width="35%"
                   color="white"
+                  colorScheme="messenger"
                   mr={4}
                 >
                   Register
                 </Button>
-                <Button onClick={onClose}>Cancel</Button>
+                <Button fontWeight="normal" onClick={onClose}>Cancel</Button>
               </ModalFooter>
             </Form>
           )}
