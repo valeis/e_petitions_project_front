@@ -1,49 +1,15 @@
 import {Box, Heading, Stack, VStack, Text, useBreakpointValue, Center, Container, Flex} from "@chakra-ui/react";
 import React from "react";
+import {IPetition} from "../../types";
 
 interface UserBannerProps {
   user: {
     "email ":string;
   }
   loading: boolean;
-  petitions:{
-    user_petitions:{
-      petition_id: number;
-      title: string;
-      category: string;
-      description: string;
-      image: string;
-      status: {
-        id: number;
-        status: string;
-      };
-      'user-id': number;
-      vote_goal: number;
-      current_votes: number;
-      exp_date: string;
-      updated_at: string;
-      created_at: string;
-    }
-  }
-  votedPetitions: {  user_voted_petitions:
-          {
-          petition_id: number;
-          title: string;
-          category: string;
-          description: string;
-          image: string;
-          status: {
-              id: number;
-              status: string;
-          };
-          'user-id': number;
-          vote_goal: number;
-          current_votes: number;
-          exp_date: string;
-          updated_at: string;
-          created_at: string;
-      }
-  }
+  petitions:IPetition[];
+
+  votedPetitions: IPetition[];
 }
 
 

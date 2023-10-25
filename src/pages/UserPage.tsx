@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {petitions,users} from "../api";
 import {Layout, UserComponent,UnauthorizedMessage} from 'components';
 import UserBanner from "../components/User/UserBanner";
-import {User} from 'types';
+import {IPetition, User} from 'types';
 import {useQuery} from "@tanstack/react-query";
 
 
@@ -12,23 +12,26 @@ import {useQuery} from "@tanstack/react-query";
 
 export const UserPage: React.FC<User> = ({  userId }) => {
     const accessToken = localStorage.getItem('accessToken');
-    const [pets, setPetitions] = useState([]);
-    const [votedPetitions, setVotedPetitions] = useState([]);
+    userId = localStorage.getItem('userId') as unknown as number;
+    const [pets, setPetitions] = useState<IPetition[]>([]);
+    const [votedPetitions, setVotedPetitions] = useState<IPetition[]>([]);
     const [loading, setLoading] = useState(true);
     const [User, setUserData] = useState([]);
     const [error, setError] = useState<string | null>(null);
-    if (!accessToken) {
-      setError('Unauthorized');
-      setLoading(false);
-      return;
-    }
+    useEffect(() => {
+      if (!accessToken) {
+        setError('Unauthorized');
+        setLoading(false);
+      }
+    }, [accessToken]);
 
-    userId = localStorage.getItem('userId') as unknown as number;
-    if (!userId) {
-      setError('Unauthorized');
-      setLoading(false);
-      return;
-    }
+    useEffect(() => {
+      if (!userId) {
+        setError('Unauthorized');
+        setLoading(false);
+      }
+    }, [userId]);
+
 
     const { data: petitionsData, error: petitionsError, isLoading: petitionsLoading } = useQuery(['userPetitions', userId], () => petitions.getUserPetitions({ page: 1, limit: 10, uid: userId }));
     const { data: votedPetitionsData, error: votedPetitionsError, isLoading: votedPetitionsLoading } = useQuery(['userVotedPetitions', userId], () => petitions.getUserVotedPetitions({ page: 1, limit: 10, uid: userId }));
@@ -36,8 +39,8 @@ export const UserPage: React.FC<User> = ({  userId }) => {
 
     useEffect(() => {
         if (petitionsData && votedPetitionsData && userData) {
-            setPetitions(petitionsData);
-            setVotedPetitions(votedPetitionsData);
+            setPetitions(petitionsData as IPetition[]);
+            setVotedPetitions(votedPetitionsData as IPetition[]);
             setLoading(false);
             setUserData(userData);
         }
@@ -55,7 +58,7 @@ export const UserPage: React.FC<User> = ({  userId }) => {
   return (
       <Layout>
       <UserBanner user={User}  petitions={pets} votedPetitions={votedPetitions} />
-      <UserComponent user={User} loading={loading} petitions={pets} votedPetitions={votedPetitions} />
+      <UserComponent loading={loading} petitions={pets} votedPetitions={votedPetitions} />
       </Layout>
   );
 };
