@@ -74,7 +74,7 @@ export const PetitionDetail: React.FC<Props> = ({petition}) => {
                     </Heading>
                     <HStack spacing='20px'>
                         <Text fontSize="md" color='gray.500' mb={2}>
-                            Date: {petition.user_id && (
+                            ID: {petition.user_id && (
                             <Box as="span" color="black">
                                 {petition.user_id}
                             </Box>

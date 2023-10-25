@@ -1,14 +1,18 @@
 import { CardBody, Heading, Card, Text, VStack, HStack, Divider,Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { IPetition } from "types";
-import React from "react";
+import {useQuery} from "@tanstack/react-query";
+import {users} from "../api";
 
 interface PetitionCardProps {
   petition: IPetition;
 }
 
 export const PetitionCard = ({ petition }: PetitionCardProps) => {
-  const { petition_id, user_id, title, description, created_at, current_votes, vote_goal, exp_date, category, status } = petition;
+  const { petition_id, user_id, title, description, created_at, exp_date, category } = petition;
+
+  const { data: userData, error: userError, isLoading: userLoading } = useQuery([
+    'userData', petition?.user_id, localStorage.getItem("accesToken")], () => users.getUserById(user_id, localStorage.getItem("accesToken")));
 
   const deadlineTime = new Date(exp_date);
 
@@ -62,7 +66,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
               {title}
             </Heading>
             <HStack alignItems="baseline">
-              <Text fontSize={15}>Plamadaela Max {user_id}</Text> //todo: get author name
+              <Text fontSize={15}>{userData?.email}</Text>
             </HStack>
             <Text fontSize="md" color="grey">
               {description.length > 85 ? `${description.substring(0, 85)}...` : description}

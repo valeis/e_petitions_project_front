@@ -56,7 +56,7 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
         <VStack align="left" spacing={4}>
           <Text color={"white"}
             fontSize={{ base: "14px", md: "16px" }}
-          ><b>Email:</b> {user["email "]}
+          ><b>Email:</b> {user["email"]}
           </Text>
             {petitions.user_petitions && (
                 <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}>
