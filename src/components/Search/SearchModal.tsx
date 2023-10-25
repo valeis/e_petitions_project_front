@@ -1,10 +1,8 @@
 import { ChevronLeftIcon, Search2Icon } from "@chakra-ui/icons";
-import { useQuery } from "@tanstack/react-query";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, InputGroup, InputRightElement, ModalBody, Box, Input, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, InputGroup, InputRightElement, ModalBody, Box, Input, Heading, Stack, StackDivider } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import {petitions} from "api";
-import { IPetition } from "types";
 
 interface SearchModalProps {
     isSearchOpen: boolean;
@@ -46,7 +44,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
     title: string;
     description: string;
   }>;
-
+    console.log("data----------", SP)
     return (
         <Modal isOpen={isSearchOpen} onClose={onSearchClose} size="2xl">
             <ModalOverlay />
@@ -87,12 +85,14 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
                 <Stack divider={<StackDivider />} spacing='4'>
                   {
                     SP.map((petition, petition_id: number) => (
-                      <Box key={petition_id}>
-                        <Heading size='sm'>{petition.title}</Heading>
-                        {/* <Text pt='2' fontSize='md' color="gray.500">
-                          {petition.description.length > 85 ? `${petition.description.substring(0, 85)}...` : petition.description}
-                        </Text> */}
-                      </Box>
+                      <Link key={petition_id} to={`/petition/${petition.petition_id}`} onClick={onSearchClose}>
+                        <Box>
+                          <Heading size='sm' transition="all 0.2s" _hover={{ color: "grey" }}>{petition.title}</Heading>
+                          {/* <Text pt='2' fontSize='md' color="gray.500">
+                            {petition.description.length > 85 ? `${petition.description.substring(0, 85)}...` : petition.description}
+                          </Text> */}
+                        </Box>
+                      </Link>
                     ))
                   }
                 </Stack>
