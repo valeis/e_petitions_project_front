@@ -8,6 +8,7 @@ import {
   InputRightElement,
   Modal,
   ModalBody,
+  Text,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
@@ -118,7 +119,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                           {...field}
                         />
                         <InputRightElement width="4.5rem">
-                          <Button h="1.75rem" size="sm" onClick={handleClickPassword}>
+                          <Button fontWeight="normal" h="1.75rem" size="sm" onClick={handleClickPassword}>
                             {show ? "Hide" : "Show"}
                           </Button>
                         </InputRightElement>
@@ -137,11 +138,11 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                   style={{
                     textDecoration: "none",
                     cursor: "pointer", // Set your desired text color
-                    color: "#2B6CB0",
+                    color:"#006AFF",
                     textShadow: "2px 2px 4px rgba(0,0,0,0.1)", // Add text shadow
                   }}
                 >
-                  Sing Up
+                Sign Up
                 </a>
                 <RegisterModal
                   isOpen={isSignUpModalOpen}
@@ -154,14 +155,15 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                 <Button
                   type="submit"
                   variant="solid"
-                  bg="primary.600"
+                  colorScheme="messenger"
                   width="35%"
                   color="white"
+                  fontWeight="normal"
                   mr={4}
                 >
                   Login
                 </Button>
-                <Button onClick={onClose}>Cancel</Button>
+                <Button   fontWeight="normal" onClick={onClose}>Cancel</Button>
               </ModalFooter>
             </Form>
           )}

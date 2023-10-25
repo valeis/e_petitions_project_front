@@ -92,9 +92,7 @@ export const PetitionsSection = () => {
   //   updateSearchParams("statut", statut);
   // };
 
-
   return (
-
     <HStack >
       <VStack >
         {isSuccess && (
@@ -108,6 +106,5 @@ export const PetitionsSection = () => {
         )}
       </VStack>
     </HStack>
-
   );
 };

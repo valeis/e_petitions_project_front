@@ -31,7 +31,6 @@ export const Petition = () => {
   const params = useParams();
   const {user} = useUser();
   const id = params.petitionId;
-  // @ts-ignore
   const href = import.meta.env.BASE_URL;
 
 
@@ -93,7 +92,6 @@ export const Petition = () => {
       },
     };
 
-    // @ts-ignore
     const pdfDocument = pdfMake.createPdf(documentDefinition);
     pdfDocument.download(`Petitie-#${id}.pdf`);
   };

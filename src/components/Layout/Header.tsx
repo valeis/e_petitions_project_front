@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "hooks";
 import headerLogo from "../../public/E-Petiții.svg";
 import { LoginModal } from "components/Auth/LoginModal";
@@ -19,10 +19,10 @@ import { SearchModal } from "components/Search/SearchModal";
 
 export const Header = () => {
   const { user, setUser } = useUser();
-  // const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isSearchOpen, onOpen: onSearchOpen, onClose: onSearchClose } = useDisclosure();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -108,7 +108,8 @@ export const Header = () => {
                       fontWeight="light"
                       onClick={() => {
                         setUser(null);
-                        localStorage.removeItem("user");
+                        localStorage.clear();
+                        navigate("/");
                       }}
                     >
                       Ieșire
@@ -127,63 +128,6 @@ export const Header = () => {
 
           <LoginModal isOpen={isOpen} onClose={onClose} />
           <SearchModal isSearchOpen={isSearchOpen} onSearchClose={onSearchClose} />
-
-          {/* <Flex
-            alignItems="center"
-            w="full"
-            paddingTop="0.5rem"
-            justifyContent="space-between"
-            paddingBottom="0.5rem"
-            px={0}
-          >
-            <Link to="/">
-              <HStack role="group" spacing={4}>
-                <img src={heroLogo} alt="Site Logo" width="270px" />
-              </HStack>
-            </Link>
-
-            <Flex alignItems="center" paddingRight="0rem">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSubmit(searchTerm);
-                }}
-              >
-                <InputGroup size="lg" w="550px">
-                  <Input
-                    placeholder="Căutaţi petiţia"
-                    rounded="full"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                  <InputRightElement>
-                    <IconButton
-                      colorScheme="blue"
-                      aria-label="Search database"
-                      rounded="full"
-                      icon={<SearchIcon />}
-                    />
-                  </InputRightElement>
-                </InputGroup>
-              </form>
-            </Flex>
-            <Button
-              width="auto"
-              gap={4}
-              marginX="auto"
-              rounded="full"
-              fontWeight="bold"
-              colorScheme="blue"
-              size="lg"
-              onClick={() => {
-                user ? navigate("/petitions/create") : onOpen();
-                // navigate("/petitions/create") ;
-              }}
-            >
-              Creaţi o petiţie
-              <FaPlus />
-            </Button>
-          </Flex> */}
         </Container>
       </Box>
     </>

@@ -42,7 +42,6 @@ export const petitions = {
 
 
     add: async (body: any) => {
-      console.log(body);
         const response = await axios.post(
           `${apiUrl}/petition`,
           {
@@ -56,15 +55,18 @@ export const petitions = {
           },
         );
       const petition_id = response.data.petition_id;
-      console.log(response);
       return petition_id;
     },
 
     sign: async (body: any) => {
-        const {data} = await axios.post(`${apiUrl}/api/petitii/sign`, body, {
+        const {data} = await axios.post(`${apiUrl}/petition/sign/${localStorage.getItem("userId")}/${body.petition_id.toString()}`, 
+        {
+          ...body,
+        },
+        {
             headers: {
-                "Content-Type": "application/json",
-                "Allow-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
             },
         });
 
