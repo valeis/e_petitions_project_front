@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import {useQuery} from "@tanstack/react-query";
 import {petitions} from "api";
+import {users} from "api";
 import {Layout, Loader, PetitionProgressCard} from "components";
 import {FaFacebook, FaTwitter, FaEnvelope, FaLink} from "react-icons/fa";
 import {useParams} from "react-router-dom";
@@ -38,13 +39,16 @@ export const Petition = () => {
   const {data: data, isLoading, isSuccess} = useQuery({
     queryKey: ['petition', id],
     queryFn: async () => {
-      const petitionData = await petitions.getById(id as string);
-
-      return petitionData;
+      return await petitions.getById(id as string);
     },
   });
 
   const petition = data as IPetition;
+
+  const user_id = petition?.user_id || 0;
+  const { data: userData, error: userError, isLoading: userLoading } = useQuery([
+    'userData', petition?.user_id, localStorage.getItem("accesToken")], () => users.getUserById(user_id, localStorage.getItem("accesToken")));
+
   const hasInitiatedPetition = petition?.user_id == user?.userId;
 
   const generatePDF = async () => {
@@ -129,7 +133,7 @@ export const Petition = () => {
                 </Heading>
 
                 <Heading as="h3" size="sm" pt={4} pb={2} fontFamily="serif" fontWeight={400}>
-                  <span style={{fontWeight: "bold"}}>Inițiator:</span> {petition?.user_id}
+                  <span style={{fontWeight: "bold"}}>Inițiator:</span> {userData?.email}
                 </Heading>
 
                 <Heading as="h3" size="sm" fontFamily="serif" pb={2} fontWeight={400}>
