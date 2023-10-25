@@ -4,27 +4,48 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, InputGroup, InputRightE
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {petitions} from "api";
+import { IPetition } from "types";
 
 interface SearchModalProps {
     isSearchOpen: boolean;
     onSearchClose: () => void;
 }
 
+interface SearchResults{
+  petitions:{
+    petition_id:number;
+    title:string;
+    description:string;
+  }
+}
+
 export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearchClose }) => {
-    const[searchParams, setSearchParams] = useSearchParams();
-    const[searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
-   
+    
+  const [inputValue, setInputValue] = useState('');
+  const [searchResults, setSearchResults] = useState<SearchResults | null>(null);
 
-    const handleSubmit = (term: string) => {
-        const params = new URLSearchParams(searchParams.toString());
-        params.set("search", term);
-        setSearchParams(params.toString());
+  // Define an async function to handle the search
+  const handleSearch = async () => {
+    try {
+      const result = await petitions.search({ title: inputValue }); 
+      setSearchResults(result);
+    } catch (error) {
+      console.error('Error performing search:', error);
     }
+  };
 
-    useEffect(() => {
-        setSearchTerm(searchParams.get("search") || "");
-    }, [searchParams])
+  // Use the useEffect hook to listen for changes in inputValue and trigger the search
+  useEffect(() => {
+    handleSearch();
+  }, [inputValue]); 
 
+
+
+  const SP = (searchResults?.petitions || []) as Array<{
+    petition_id: number;
+    title: string;
+    description: string;
+  }>;
 
     return (
         <Modal isOpen={isSearchOpen} onClose={onSearchClose} size="2xl">
@@ -42,17 +63,15 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
                   </Box>
                   <form 
                     style={{ width: '100%' }}
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      handleSubmit(searchTerm);
-                    }}
+        
                   >
                     <InputGroup>
                       <Input
                         variant="unstyled" 
                         placeholder="Search by name, category..."
                         _placeholder={{fontFamily: "Inter", fontSize: "14px", color: "gray.500"}}
-                        value={searchTerm}
+                        value={inputValue}
+                       onChange={(e) => setInputValue(e.target.value)}
                       />
                       <InputRightElement width="auto" height="auto">
                         <Box as="button" textColor="gray.500" type="submit">
@@ -67,16 +86,15 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
                 {/* <Box width="100%" height="1px" marginBottom="15px" backgroundColor="gray.200"/> */}
                 <Stack divider={<StackDivider />} spacing='4'>
                   {
-
+                    SP.map((petition, petition_id: number) => (
+                      <Box key={petition_id}>
+                        <Heading size='sm'>{petition.title}</Heading>
+                        {/* <Text pt='2' fontSize='md' color="gray.500">
+                          {petition.description.length > 85 ? `${petition.description.substring(0, 85)}...` : petition.description}
+                        </Text> */}
+                      </Box>
+                    ))
                   }
-                  <Box>
-                    <Heading size='md'>
-                      Summary
-                    </Heading>
-                    <Text pt='2' fontSize='md' color="gray.500">
-                      Making a greater future for our kids is a good shit because killing kids for money is good yk...
-                    </Text>
-                  </Box>
                 </Stack>
               </ModalBody>
             </ModalContent>
