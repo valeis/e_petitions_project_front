@@ -43,7 +43,7 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
                           borderRadius={"full"}
                           fontSize={13}
                           fontWeight="normal"
-                          mr = {9}
+                          mr = {13}
                       >
                           Your Petitions
                       </Button>
@@ -55,6 +55,7 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
                         borderRadius={"full"}
                         fontSize={13}
                         fontWeight="normal"
+                        mr = {13}
                       >
                         Your Draft Petitions
                       </Button>
