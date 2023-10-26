@@ -1,28 +1,50 @@
 import { ChevronLeftIcon, Search2Icon } from "@chakra-ui/icons";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, InputGroup, InputRightElement, ModalBody, Box, Input, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, InputGroup, InputRightElement, ModalBody, Box, Input, Heading, Stack, StackDivider } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {petitions} from "api";
 
 interface SearchModalProps {
     isSearchOpen: boolean;
     onSearchClose: () => void;
 }
 
+interface SearchResults{
+  petitions:{
+    petition_id:number;
+    title:string;
+    description:string;
+  }
+}
+
 export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearchClose }) => {
-    const[searchParams, setSearchParams] = useSearchParams();
-    const[searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
+    
+  const [inputValue, setInputValue] = useState('');
+  const [searchResults, setSearchResults] = useState<SearchResults | null>(null);
 
-    const handleSubmit = (term: string) => {
-        const params = new URLSearchParams(searchParams.toString());
-        params.set("search", term);
-        setSearchParams(params.toString());
+  // Define an async function to handle the search
+  const handleSearch = async () => {
+    try {
+      const result = await petitions.search({ title: inputValue }); 
+      setSearchResults(result);
+    } catch (error) {
+      console.error('Error performing search:', error);
     }
+  };
 
-    useEffect(() => {
-        setSearchTerm(searchParams.get("search") || "");
-    }, [searchParams])
+  // Use the useEffect hook to listen for changes in inputValue and trigger the search
+  useEffect(() => {
+    handleSearch();
+  }, [inputValue]); 
 
 
+
+  const SP = (searchResults?.petitions || []) as Array<{
+    petition_id: number;
+    title: string;
+    description: string;
+  }>;
+    console.log("data----------", SP)
     return (
         <Modal isOpen={isSearchOpen} onClose={onSearchClose} size="2xl">
             <ModalOverlay />
@@ -39,18 +61,14 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
                   </Box>
                   <form 
                     style={{ width: '100%' }}
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      handleSubmit(searchTerm);
-                    }}
                   >
                     <InputGroup>
                       <Input
                         variant="unstyled" 
                         placeholder="Search by name, category..."
                         _placeholder={{fontFamily: "Inter", fontSize: "14px", color: "gray.500"}}
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        value={inputValue}
+                       onChange={(e) => setInputValue(e.target.value)}
                       />
                       <InputRightElement width="auto" height="auto">
                         <Box as="button" textColor="gray.500" type="submit">
@@ -64,54 +82,18 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
               <ModalBody maxHeight="500px" paddingX="56px" marginBottom="30px" overflow="auto">
                 {/* <Box width="100%" height="1px" marginBottom="15px" backgroundColor="gray.200"/> */}
                 <Stack divider={<StackDivider />} spacing='4'>
-                  <Box>
-                    <Heading size='md'>
-                      Summary
-                    </Heading>
-                    <Text pt='2' fontSize='md' color="gray.500">
-                      Making a greater future for our kids is a good shit because killing kids for money is good yk...
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size='md'>
-                      Overview
-                    </Heading>
-                    <Text pt='2' fontSize='md'>
-                      Check out the overview of your clients.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size='md'>
-                      Analysis
-                    </Heading>
-                    <Text pt='2' fontSize='md'>
-                      See a detailed analysis of all your business clients.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size='md'>
-                      Analysis
-                    </Heading>
-                    <Text pt='2' fontSize='md'>
-                      See a detailed analysis of all your business clients.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size='md'>
-                      Analysis
-                    </Heading>
-                    <Text pt='2' fontSize='md'>
-                      See a detailed analysis of all your business clients.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size='md'>
-                      Analysis
-                    </Heading>
-                    <Text pt='2' fontSize='md'>
-                      See a detailed analysis of all your business clients.
-                    </Text>
-                  </Box>
+                  {
+                    SP.map((petition, petition_id: number) => (
+                      <Link key={petition_id} to={`/petition/${petition.petition_id}`} onClick={onSearchClose}>
+                        <Box>
+                          <Heading size='sm' transition="all 0.2s" _hover={{ color: "grey" }}>{petition.title}</Heading>
+                          {/* <Text pt='2' fontSize='md' color="gray.500">
+                            {petition.description.length > 85 ? `${petition.description.substring(0, 85)}...` : petition.description}
+                          </Text> */}
+                        </Box>
+                      </Link>
+                    ))
+                  }
                 </Stack>
               </ModalBody>
             </ModalContent>
