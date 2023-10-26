@@ -61,7 +61,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
                   </Box>
                   <form 
                     style={{ width: '100%' }}
-        
                   >
                     <InputGroup>
                       <Input
