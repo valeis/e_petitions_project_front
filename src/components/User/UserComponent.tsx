@@ -8,9 +8,12 @@ import {useSearchParams} from "react-router-dom";
 interface UserComponentProps {
   loading: boolean;
 
-  petitions:IPetition[];
-
-  votedPetitions: IPetition[];
+  petitions: {
+    user_petitions:IPetition[];
+  }
+  votedPetitions:{
+    user_voted_petitions:IPetition[];
+  }
 }
 
 
@@ -50,8 +53,8 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
                       </Button>
                       <Button
                         colorScheme="messenger"
-                        onClick={() => setVariant("draft")}
-                        variant={variant === "draft" ? "solid" : "ghost"}
+                        onClick={() => setVariant("ghost")}
+                        variant={variant === "ghost" ? "solid" : "ghost"}
                         size="lg"
                         borderRadius={"full"}
                         fontSize={13}
@@ -75,9 +78,9 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
                       <PetitionsList
                           isLoading={loading}
                           petitions={variant === "solid"
-                            ? (petitions.user_petitions as unknown as IPetition[]).filter(petition => petition.status.status !=="DRAFT")
-                            : variant === "draft"
-                              ? (petitions.user_petitions as unknown as IPetition[]).filter(petition => petition.status.status === "DRAFT")
+                            ? (petitions.user_petitions as unknown as IPetition[])
+                            : variant === "ghost"
+                              ? (petitions.user_petitions as unknown as IPetition[])
                               : (votedPetitions.user_voted_petitions as unknown as IPetition[])
                           }
                           page={parseInt(`${2}`)}

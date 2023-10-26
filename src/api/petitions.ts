@@ -43,7 +43,7 @@ export const petitions = {
 
     add: async (body: any) => {
         const response = await axios.post(
-          `${apiUrl}/petition`,
+          `${apiUrl}/petition/`,
           {
             ...body,
           },
