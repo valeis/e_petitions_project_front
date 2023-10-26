@@ -27,7 +27,7 @@ export const Header = () => {
   return (
     <>
       <Box w="full" borderBottomWidth="1px">
-        <Container maxW={{ sm: "6xl", "2xl": "8xl" }} px={0}>
+        <Container maxW={{ sm: "6xl", "2xl": "90%" }} px={0}>
           <Grid templateColumns="repeat(16, 1fr)" gap={4} w="full">
             <Box
               gridColumn="span 16"
@@ -46,7 +46,7 @@ export const Header = () => {
                   </ChakraLink>
               </Flex>
               <Flex marginLeft="auto" alignItems="center" paddingRight="1rem">
-                <Box 
+                <Box
                   as="button"
                   fontSize="12px"
                   backgroundColor="gray.200"
