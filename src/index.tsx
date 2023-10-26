@@ -12,6 +12,7 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/800.css';
 import "./styles/index.css";
 import { ScrollToTop } from "components";
+import {ManagePetition} from "./components/User/ManagePetition";
 
 const theme = extendTheme({
   fonts: {
@@ -40,10 +41,12 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/" element={<App />} />
                 <Route path="/petition/:petitionId" element={<Petition />} />
                 <Route path="/petition/create" element={<CreatePetition />} />
+                <Route path="/manage/:petitionId" element={<ManagePetition />} />
                 <Route path="/developers" element={<Developers />} />
                 <Route path="/admin/:id" element={<PetitionDetailAdmin/>}/>
                 <Route path="/admin" element={<ViewPetitionsAdmin/>}/>
                 <Route path="/profile" element={<UserPage />}/>
+
               </Routes>
             </ScrollToTop>
           </BrowserRouter>
