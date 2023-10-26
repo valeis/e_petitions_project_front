@@ -57,9 +57,26 @@ export const petitions = {
       const petition_id = response.data.petition_id;
       return petition_id;
     },
+  //  TODO create a proper update petition endpoint
+  update: async (body: any) => {
+    const response = await axios.post(
+      `${apiUrl}/petition`,
+      {
+        ...body,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      },
+    );
+    const petition_id = response.data.petition_id;
+    return petition_id;
+  },
 
     sign: async (body: any) => {
-        const {data} = await axios.post(`${apiUrl}/petition/sign/${localStorage.getItem("userId")}/${body.petition_id.toString()}`, 
+        const {data} = await axios.post(`${apiUrl}/petition/sign/${localStorage.getItem("userId")}/${body.petition_id.toString()}`,
         {
           ...body,
         },
@@ -73,11 +90,11 @@ export const petitions = {
         return data;
     },
 
-    search: async (name: any) => {
-        const {data} = await axios.post(`${apiUrl}/api/petitii/search/${name}`, {
+    search: async (body: any) => {
+        const {data} = await axios.post(`${apiUrl}/petition/search/1/5`, body, {
             headers: {
-                "Content-Type": "application/json",
-                "Allow-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
             },
         });
 

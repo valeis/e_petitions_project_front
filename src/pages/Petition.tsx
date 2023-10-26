@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import {useQuery} from "@tanstack/react-query";
 import {petitions} from "api";
+import {users} from "api";
 import {Layout, Loader, PetitionProgressCard} from "components";
 import {FaFacebook, FaTwitter, FaEnvelope, FaLink} from "react-icons/fa";
 import {useParams} from "react-router-dom";
@@ -38,13 +39,16 @@ export const Petition = () => {
   const {data: data, isLoading, isSuccess} = useQuery({
     queryKey: ['petition', id],
     queryFn: async () => {
-      const petitionData = await petitions.getById(id as string);
-
-      return petitionData;
+      return await petitions.getById(id as string);
     },
   });
 
   const petition = data as IPetition;
+
+  const user_id = petition?.user_id || 0;
+  const { data: userData, error: userError, isLoading: userLoading } = useQuery([
+    'userData', petition?.user_id, localStorage.getItem("accesToken")], () => users.getUserById(user_id, localStorage.getItem("accesToken")));
+
   const hasInitiatedPetition = petition?.user_id == user?.userId;
 
   const generatePDF = async () => {
@@ -104,24 +108,7 @@ export const Petition = () => {
         </Flex>
       ) : isSuccess ? (
         <>
-          <Flex w={"full"} h="200px" bg="primary.600" color="white">
-            <VStack w={"full"} justify={"center"} px={8}>
-              <Stack w="full" maxW={"8xl"} align={"flex-start"} justifyContent="start" spacing={6}>
-                <Breadcrumb spacing="8px" separator={<ChevronRightIcon/>}>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink href={href}>Acasa</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbItem isCurrentPage>
-                    <BreadcrumbLink href="#">Petiția #{id}</BreadcrumbLink>
-                  </BreadcrumbItem>
-                </Breadcrumb>
-                <Heading as="h1" size="2xl" my={4}>
-                  Petiția #{id}
-                </Heading>
-              </Stack>
-            </VStack>
-          </Flex>
-          <Container maxW="8xl" px={0} pb="100px">
+          <Container maxW={{ sm: "6xl", "2xl": "8xl" }} px={0}>
             <HStack spacing={24} my={8} alignItems="start" position="relative">
               <VStack w="full" align={"flex-start"} justifyContent="start">
                 <Heading as="h2" size="2xl" my={4}>
@@ -129,13 +116,14 @@ export const Petition = () => {
                 </Heading>
 
                 <Heading as="h3" size="sm" pt={4} pb={2} fontFamily="serif" fontWeight={400}>
-                  <span style={{fontWeight: "bold"}}>Inițiator:</span> {petition?.user_id}
+                  <span style={{fontWeight: "bold"}}>Inițiator:</span> {userData?.email}
                 </Heading>
 
                 <Heading as="h3" size="sm" fontFamily="serif" pb={2} fontWeight={400}>
                   <span style={{fontWeight: "bold"}}>Data depunerii:</span>{" "}
                   {petition?.created_at}
                 </Heading>
+
                 {petition?.exp_date && (
                   <Heading as="h3" size="sm" fontFamily="serif" fontWeight={400}>
                     <span style={{fontWeight: "bold"}}>Data limită:</span>{" "}
@@ -143,16 +131,13 @@ export const Petition = () => {
                   </Heading>
                 )}
 
+                <HStack pt={4} pb={2}>
+                  <Tag>{petition.category}</Tag>
+                </HStack>
+
                 <Text fontSize="lg" pt={8} pb={2} whiteSpace="pre-line">
                   {petition.description}
                 </Text>
-
-                <HStack pt={4} pb={2}>
-                  <Heading as="h3" size="sm" fontFamily="serif" fontWeight={400}>
-                    <span style={{fontWeight: "bold"}}>Categorie:</span>{" "}
-                  </Heading>
-                  <Tag>{petition.category}</Tag>
-                </HStack>
               </VStack>
               <Box w="280px" position="sticky" top={4}>
                 <PetitionProgressCard petition={petition} />
