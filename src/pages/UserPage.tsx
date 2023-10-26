@@ -44,6 +44,8 @@ export const UserPage: React.FC<User> = ({  userId }) => {
             setLoading(false);
             setUserData(userData);
         }
+      // console.log(">>>pet",pets);
+      // console.log(">>>vot pet",votedPetitions);
     }, [petitionsData, votedPetitionsData, userData]);
 
     useEffect(() => {
@@ -51,6 +53,8 @@ export const UserPage: React.FC<User> = ({  userId }) => {
             setError('Unauthorized');
         }
     }, [petitionsError, votedPetitionsError, userError]);
+
+
 
   if (error === 'Unauthorized') {
     return <UnauthorizedMessage />;

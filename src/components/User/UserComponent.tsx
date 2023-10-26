@@ -15,6 +15,7 @@ interface UserComponentProps {
 
 
 export const UserComponent: React.FC<UserComponentProps> = ({  loading, petitions, votedPetitions }) => {
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [variant, setVariant] = useState("solid");
   const updateSearchParams = (key: string, value: string | number | boolean) => {

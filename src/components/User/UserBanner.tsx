@@ -4,17 +4,20 @@ import {IPetition} from "../../types";
 
 interface UserBannerProps {
   user: {
-    "email ":string;
+    "email":string;
   }
-  loading: boolean;
-  petitions:IPetition[];
+  petitions:{
+    user_petitions:IPetition[];
+  }
 
-  votedPetitions: IPetition[];
+  votedPetitions:{
+    user_voted_petitions:IPetition[];
+  }
 }
 
 
 export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPetitions }) => {
-
+  console.log(">>>vot pet",votedPetitions.user_voted_petitions);
   return (
 <Container maxWidth={"90%"}>
       <Heading textAlign="left" mt={2}>Pagina Utilizatorului</Heading>
@@ -26,12 +29,12 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
           </Text>
             {petitions.user_petitions && (
                 <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}>
-                    <b>Nr. of posted petitions:</b> {Object.keys(petitions.user_petitions).length}
+                    <b>Nr. of posted petitions:</b> {petitions.user_petitions.length}
                 </Text>
             )}
-            {votedPetitions.user_voted_petitions && (
+            {votedPetitions.user_voted_petitions  && (
                 <Text  color={"white"} fontSize={{ base: "14px", md: "16px" }}>
-                    <b>Nr. of voted petitions:</b> {Object.keys(votedPetitions.user_voted_petitions).length}
+                    <b>Nr. of voted petitions:</b> {votedPetitions.user_voted_petitions.length}
                 </Text>
             )}
         </VStack>
