@@ -148,7 +148,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
     signButton = (
 
       <Button {...commonButtonProps} colorScheme="messenger">
-        <Link to={`/manage?petitionId=${petition_id}`}>Administrați petiţia</Link>
+        <Link to={`/manage/${petition_id}`}>Administrați petiţia</Link>
       </Button>
     );
   }
