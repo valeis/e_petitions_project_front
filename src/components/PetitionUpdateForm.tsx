@@ -22,7 +22,6 @@ import { useUser } from "../hooks";
 import { useMutation } from "@tanstack/react-query";
 import { petitions } from "../api";
 import { DatePicker } from "antd";
-import React from "react";
 
 const categories = [
   {
@@ -75,16 +74,15 @@ interface PetitionFormProps {
   setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const PetitionForm = ({
-  formData,
-  setFormData,
-  errors,
-  setErrors,
-  setIsSubmitted,
-}: PetitionFormProps) => {
+export const PetitionUpdateForm = ({
+                               formData,
+                               setFormData,
+                               errors,
+                               setErrors,
+                               setIsSubmitted,
+                             }: PetitionFormProps) => {
   const { title, description, category, image, vote_goal, exp_date } = formData;
   const navigate = useNavigate();
-  // const { user } = useUser();
   const toast = useToast();
 
   const isSubmitDisabled =
@@ -92,13 +90,12 @@ export const PetitionForm = ({
     !description ||
     !vote_goal ||
     !exp_date ||
-    !category.length ||
-    !formData.checkedData ||
-    !formData.consentedData;
+    !category.length
+
 
   const { mutate } = useMutation({
     mutationFn: () =>
-      petitions.add({
+      petitions.update({
         title,
         description,
         category,
@@ -110,7 +107,7 @@ export const PetitionForm = ({
     onSuccess: (petition_id) => {
       navigate(`/petition/${petition_id}`);
       toast({
-        title: "Petiția a fost trimisă.",
+        title: "Petiția a fost schimbata.",
         description: "Mulțumim pentru implicarea ta!",
         status: "success",
         duration: 5000,
@@ -168,11 +165,10 @@ export const PetitionForm = ({
         justifyContent="center"
         style={{ margin: "auto" }}
       >
-        <FormControl  isInvalid={!!errors.title}>
+        <FormControl isInvalid={!!errors.title}>
           <FormLabel>Titlu</FormLabel>
           <Input
             type="text"
-            colorScheme="messenger"
             placeholder="Titlu"
             name="title"
             value={title}
@@ -207,7 +203,7 @@ export const PetitionForm = ({
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Vote Goal</FormLabel>
+            <FormLabel>Vote_goal</FormLabel>
             <NumberInput
               defaultValue={0}
               onChange={(valueString) => {
@@ -224,47 +220,16 @@ export const PetitionForm = ({
           </FormControl>
         </HStack>
 
-        <VStack w="full">
-          <FormControl>
-            <Checkbox colorScheme="messenger"
-              name="checkedData"
-              checked={formData.checkedData}
-              onChange={(e) => setFormData({ ...formData, checkedData: e.target.checked })}
-            >
-              Am verificat datele introduse şi confirm corectitudinea lor, pe proprie răspundere*
-            </Checkbox>
-          </FormControl>
-          <FormControl>
-            <Checkbox
-                colorScheme="messenger"
-              name="consentedData"
-              checked={formData.consentedData}
-              onChange={(e) => setFormData({ ...formData, consentedData: e.target.checked })}
-            >
-              În temeiul articolelor 6, 8, 9 ale Legii nr. 133 din 08.07.2011, îmi exprim
-              consimţământul pentru prelucrarea datelor cu caracter personal care mă vizează în
-              scopul procesării petiției.*
-            </Checkbox>
-          </FormControl>
-        </VStack>
-
         <Button
           type="submit"
-          colorScheme="messenger"
+          colorScheme="blue"
           w="full"
-          size="lg"
-          borderRadius={"full"}
-          fontSize={16}
-          fontWeight="normal"
-          mr = {13}
           isDisabled={isSubmitDisabled}
           onClick={handleSignClick}
           form="petitie-form"
         >
           Trimite petiția
         </Button>
-
-
       </VStack>
     </form>
   );

@@ -1,55 +1,25 @@
 // src/UserComponent.tsx
 import React, {useState} from 'react';
-import {Button, Container, Heading, HStack, VStack, Box} from "@chakra-ui/react";
+import {Button, Container, VStack} from "@chakra-ui/react";
 import {PetitionsList} from "../PetitionsList";
 import {IPetition} from "../../types";
 import {useSearchParams} from "react-router-dom";
 
 interface UserComponentProps {
-  user: any[];
   loading: boolean;
-  petitions:{
-    user_petitions:{
-        petition_id: number;
-        title: string;
-        category: string;
-        description: string;
-        image: string;
-        status: Status;
-        user_id: number
-        created_at: string;
-        vote_goal: number;
-        current_votes: number;
-        semnat?: string;
-        exp_date: string;
-    }
+
+  petitions: {
+    user_petitions:IPetition[];
   }
-  votedPetitions: {
-    user_voted_petitions:{
-        petition_id: number;
-        title: string;
-        category: string;
-        description: string;
-        image: string;
-        status: Status;
-        user_id: number
-        created_at: string;
-        vote_goal: number;
-        current_votes: number;
-        semnat?: string;
-        exp_date: string;
-    }
+  votedPetitions:{
+    user_voted_petitions:IPetition[];
   }
 }
 
-interface Status{
-    id: number;
-    status: string;
-}
 
-export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, petitions, votedPetitions }) => {
+export const UserComponent: React.FC<UserComponentProps> = ({  loading, petitions, votedPetitions }) => {
+
     const [searchParams, setSearchParams] = useSearchParams();
-    const [showVoted, setShowVoted] = useState(false);
     const [variant, setVariant] = useState("solid");
   const updateSearchParams = (key: string, value: string | number | boolean) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -82,6 +52,18 @@ export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, pet
                           Petițiile tale
                       </Button>
                       <Button
+                        colorScheme="messenger"
+                        onClick={() => setVariant("ghost")}
+                        variant={variant === "ghost" ? "solid" : "ghost"}
+                        size="lg"
+                        borderRadius={"full"}
+                        fontSize={13}
+                        fontWeight="normal"
+                        mr = {13}
+                      >
+                        Your Draft Petitions
+                      </Button>
+                      <Button
                           colorScheme="messenger"
                           onClick={() => setVariant("outline")}
                           variant={variant === "outline" ? "solid" : "ghost"}
@@ -94,15 +76,17 @@ export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, pet
                       </Button>
                     </HStack>
                   </Container>
-                    <PetitionsList
-                        isLoading={loading}
-                        petitions={variant === "solid"
+                      <PetitionsList
+                          isLoading={loading}
+                          petitions={variant === "solid"
                             ? (petitions.user_petitions as unknown as IPetition[])
-                            : (votedPetitions.user_voted_petitions as unknown as IPetition[])}
-                        page={parseInt(`${2}`)}
-                        totalPages={1}
-                        setPage={setPage}
-                      />
+                            : variant === "ghost"
+                              ? (petitions.user_petitions as unknown as IPetition[])
+                              : (votedPetitions.user_voted_petitions as unknown as IPetition[])
+                          }
+                          page={parseInt(`${2}`)}
+                          totalPages={1}
+                          setPage={setPage}/>
               </VStack>
 
       )}
@@ -110,4 +94,3 @@ export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, pet
   );
 };
 
-export default UserComponent;

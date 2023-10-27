@@ -146,6 +146,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
   } else {
     //if user is the creator of the petition
     signButton = (
+
       <Button {...commonButtonProps} colorScheme="messenger">
         <Link to={`/manage?petitionId=${petition_id}`}>Administrați petiţia</Link>
       </Button>
