@@ -44,7 +44,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
     title: string;
     description: string;
   }>;
-    console.log("data----------", SP)
     return (
         <Modal isOpen={isSearchOpen} onClose={onSearchClose} size="2xl">
             <ModalOverlay />
@@ -65,7 +64,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
                     <InputGroup>
                       <Input
                         variant="unstyled" 
-                        placeholder="Search by name, category..."
+                        placeholder="Caută petiția după titlu, categorie..."
                         _placeholder={{fontFamily: "Inter", fontSize: "14px", color: "gray.500"}}
                         value={inputValue}
                        onChange={(e) => setInputValue(e.target.value)}

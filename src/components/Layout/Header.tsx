@@ -61,7 +61,7 @@ export const Header = () => {
                   gap="7px"
                 >
                   <SearchIcon />
-                  Find petition
+                  Caută petiția
                 </Box>
                 <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
                 <Button

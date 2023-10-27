@@ -146,7 +146,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
   } else {
     //if user is the creator of the petition
     signButton = (
-      <Button {...commonButtonProps}>
+      <Button {...commonButtonProps} colorScheme="messenger">
         <Link to={`/manage?petitionId=${petition_id}`}>Administrați petiţia</Link>
       </Button>
     );
@@ -166,7 +166,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
     >
       <CardBody flexDir="column" display="flex" alignItems="center">
         <VStack spacing="5">
-          <Heading size="md">Semnături</Heading>
+          <Text fontSize="2xl" fontWeight="400">Semnături</Text>
           <CircularProgress value={percentage} size="200px" color={progressColor} thickness="5px">
             <CircularProgressLabel>
               <VStack>
@@ -180,10 +180,10 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
             </CircularProgressLabel>
           </CircularProgress>
           <VStack>
-            <Text fontSize="md" fontFamily="serif" fontWeight="bold">
+            <Text fontSize="xl" fontWeight="bold">
               {petition.status.status}
             </Text>
-            <Text fontSize="sm" fontFamily="serif" mt={2}>
+            <Text fontSize="md" mt={2}>
               {remainingTime}
             </Text>
           </VStack>
