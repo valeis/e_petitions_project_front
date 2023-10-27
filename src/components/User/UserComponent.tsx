@@ -90,7 +90,7 @@ export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, pet
                           fontSize={15}
                           fontWeight="normal"
                       >
-                          Petiții votate
+                          Petiții votate de tine
                       </Button>
                     </HStack>
                   </Container>
