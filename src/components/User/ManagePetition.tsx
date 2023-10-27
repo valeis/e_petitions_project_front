@@ -27,7 +27,6 @@ const initalState: PetitionFormData = {
   consentedData: false,
   exp_date:""
 };
-
 const CreatePetitionForm = ({
                               setIsSubmitted,
                               formData,
