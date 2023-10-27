@@ -54,17 +54,16 @@ export const Header = () => {
                   rounded="full"
                   px="15px"
                   py="5px"
-                  marginRight="5px"
                   onClick={onSearchOpen}
                   display="flex"
                   alignItems="center"
                   gap="7px"
                 >
                   <SearchIcon />
-                  Find petition
+                  Caută petiția
                 </Box>
-                <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
-                <Button
+                <Box width="1px" height="20px" backgroundColor="gray.200" marginX="1rem" />
+                {/* <Button //pls nu ștergeți, posibil să trebuiască mai târziu xddd
                   size="sm"
                   as="a"
                   href="#"
@@ -87,7 +86,7 @@ export const Header = () => {
                 >
                   RO
                 </Button>
-                <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" />
+                <Box width="1px" height="20px" backgroundColor="gray.200" marginX="0.5rem" /> */}
                 {user ? (
                   <HStack spacing={2}>
                     <Link to="/profile">
@@ -118,7 +117,7 @@ export const Header = () => {
                 ) : (
                   <Button onClick={onOpen} variant="link" color="black">
                     <Text fontSize="sm" fontWeight="light">
-                      Autentificare
+                      Autentificare / Înregistrare
                     </Text>
                   </Button>
                 )}
