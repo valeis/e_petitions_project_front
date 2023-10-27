@@ -19,10 +19,10 @@ import {useParams} from "react-router-dom";
 
 import {IPetition} from "../types";
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+// import pdfFonts from "pdfmake/build/vfs_fonts";
 import {useUser} from "hooks";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export const Petition = () => {
   const params = useParams();
   const {user} = useUser();
