@@ -1,3 +1,4 @@
+import { AddIcon } from "@chakra-ui/icons";
 import { Container, Box, Button, useDisclosure } from "@chakra-ui/react";
 import { PetitionsSection, Layout } from "components";
 import { LoginModal } from "components/Auth/LoginModal";
@@ -32,6 +33,9 @@ export const App = () => {
                 navigate('/petition/create');
               }
             }}
+            display="flex"
+            gap="10px"
+            alignItems="center"
             position="fixed"
             bottom="8"
             right="8"
@@ -41,7 +45,9 @@ export const App = () => {
             borderRadius={"full"}
             fontSize={15}
             fontWeight="normal"
+            boxShadow="lg"
           >
+            <AddIcon />
             Creați o petiție
           </Button>
         </Box>
