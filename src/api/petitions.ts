@@ -84,17 +84,6 @@ export const petitions = {
         return data;
     },
 
-    getCategories: async () => {
-        const {data} = await axios.get(`${apiUrl}/categories`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Allow-Control-Allow-Origin": "*",
-            },
-        });
-
-        return data;
-    },
-
   getById: async (pid: string) => {
     try {
       const { data } = await axios.get(`${apiUrl}/petition/${pid}`, {

@@ -39,11 +39,6 @@ export const PetitionsSection = () => {
 
   const pages = 10;
 
-  const { data: categories, isSuccess: isCategoriesSuccess } = useQuery({
-    queryKey: ["categories"],
-    queryFn: petitions.getCategories,
-  });
-
   const { data, isFetching, isLoading, isSuccess } = useQuery({
     queryKey: [
       "petitions",
@@ -83,14 +78,6 @@ export const PetitionsSection = () => {
   const setPage = (page: number) => {
     updateSearchParams("page", page);
   };
-
-  const setSortBy = (sortBy: string) => {
-    updateSearchParams("sortBy", sortBy);
-  };
-
-  // const setStatut = (statut: string) => {
-  //   updateSearchParams("statut", statut);
-  // };
 
   return (
     <HStack >
