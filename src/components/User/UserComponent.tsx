@@ -69,39 +69,40 @@ export const UserComponent: React.FC<UserComponentProps> = ({ user, loading, pet
 
               <VStack mt={5}>
                   <Container maxWidth={"90%"} mb={5} >
+                    <HStack spacing={4}>
                       <Button
                           colorScheme="messenger"
                           onClick={() => setVariant("solid")}
                           variant={variant === "solid" ? "solid" : "ghost"}
-                          size="lg"
+                          size="md"
                           borderRadius={"full"}
-                          fontSize={13}
+                          fontSize={15}
                           fontWeight="normal"
-                          mr = {9}
                       >
-                          Your Petitions
+                          Petițiile tale
                       </Button>
                       <Button
                           colorScheme="messenger"
                           onClick={() => setVariant("outline")}
                           variant={variant === "outline" ? "solid" : "ghost"}
-                          size="lg"
+                          size="md"
                           borderRadius={"full"}
-                          fontSize={13}
+                          fontSize={15}
                           fontWeight="normal"
                       >
-                          Your Voted Petitions
+                          Petiții votate
                       </Button>
+                    </HStack>
                   </Container>
-                      <PetitionsList
-                          isLoading={loading}
-                          petitions={variant === "solid"
-                              ? (petitions.user_petitions as unknown as IPetition[])
-                              : (votedPetitions.user_voted_petitions as unknown as IPetition[])}
-                          page={parseInt(`${2}`)}
-                          totalPages={1}
-                          setPage={setPage}/>
-
+                    <PetitionsList
+                        isLoading={loading}
+                        petitions={variant === "solid"
+                            ? (petitions.user_petitions as unknown as IPetition[])
+                            : (votedPetitions.user_voted_petitions as unknown as IPetition[])}
+                        page={parseInt(`${2}`)}
+                        totalPages={1}
+                        setPage={setPage}
+                      />
               </VStack>
 
       )}

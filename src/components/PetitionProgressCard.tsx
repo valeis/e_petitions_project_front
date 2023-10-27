@@ -171,7 +171,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
             <CircularProgressLabel>
               <VStack>
                 <Heading size="lg">{petition.current_votes}</Heading>
-                <Text fontSize="sm" fontFamily="serif">
+                <Text fontSize="sm">
                   din {petition.vote_goal}
                   <br />
                   necesare
