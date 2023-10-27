@@ -22,6 +22,7 @@ import { useUser } from "../hooks";
 import { useMutation } from "@tanstack/react-query";
 import { petitions } from "../api";
 import { DatePicker } from "antd";
+import React from "react";
 
 const categories = [
   {
@@ -167,10 +168,11 @@ export const PetitionForm = ({
         justifyContent="center"
         style={{ margin: "auto" }}
       >
-        <FormControl isInvalid={!!errors.title}>
+        <FormControl  isInvalid={!!errors.title}>
           <FormLabel>Titlu</FormLabel>
           <Input
             type="text"
+            colorScheme="messenger"
             placeholder="Titlu"
             name="title"
             value={title}
@@ -205,7 +207,7 @@ export const PetitionForm = ({
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Vote_goal</FormLabel>
+            <FormLabel>Vote Goal</FormLabel>
             <NumberInput
               defaultValue={0}
               onChange={(valueString) => {
@@ -224,7 +226,7 @@ export const PetitionForm = ({
 
         <VStack w="full">
           <FormControl>
-            <Checkbox
+            <Checkbox colorScheme="messenger"
               name="checkedData"
               checked={formData.checkedData}
               onChange={(e) => setFormData({ ...formData, checkedData: e.target.checked })}
@@ -234,6 +236,7 @@ export const PetitionForm = ({
           </FormControl>
           <FormControl>
             <Checkbox
+                colorScheme="messenger"
               name="consentedData"
               checked={formData.consentedData}
               onChange={(e) => setFormData({ ...formData, consentedData: e.target.checked })}
@@ -247,14 +250,21 @@ export const PetitionForm = ({
 
         <Button
           type="submit"
-          colorScheme="blue"
+          colorScheme="messenger"
           w="full"
+          size="lg"
+          borderRadius={"full"}
+          fontSize={16}
+          fontWeight="normal"
+          mr = {13}
           isDisabled={isSubmitDisabled}
           onClick={handleSignClick}
           form="petitie-form"
         >
           Trimite petiția
         </Button>
+
+
       </VStack>
     </form>
   );

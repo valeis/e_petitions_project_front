@@ -24,7 +24,7 @@ export const UserPage: React.FC<User> = ({  userId }) => {
         setLoading(false);
       }
     }, [accessToken]);
-
+  console.log(accessToken);
     useEffect(() => {
       if (!userId) {
         setError('Unauthorized');
@@ -39,17 +39,17 @@ export const UserPage: React.FC<User> = ({  userId }) => {
 
     useEffect(() => {
         if (petitionsData && votedPetitionsData && userData) {
-            setPetitions(petitionsData as IPetition[]);
-            setVotedPetitions(votedPetitionsData as IPetition[]);
-            setLoading(false);
-            setUserData(userData);
+          setPetitions(petitionsData as IPetition[]);
+          setVotedPetitions(votedPetitionsData as IPetition[]);
+          setLoading(false);
+          setUserData(userData);
         }
-      // console.log(">>>pet",pets);
-      // console.log(">>>vot pet",votedPetitions);
+        console.log(">>>pet",pets);
+      console.log(">user",userData);
     }, [petitionsData, votedPetitionsData, userData]);
 
     useEffect(() => {
-        if (petitionsError || votedPetitionsError || userError) {
+        if (userError) {
             setError('Unauthorized');
         }
     }, [petitionsError, votedPetitionsError, userError]);
