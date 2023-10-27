@@ -58,7 +58,6 @@ const CreatePetitionForm = ({
   );
 };
 
-
 export const CreatePetition = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState(initalState);
@@ -75,3 +74,5 @@ export const CreatePetition = () => {
 
 
 };
+
+

@@ -57,6 +57,24 @@ export const petitions = {
       const petition_id = response.data.petition_id;
       return petition_id;
     },
+
+  getSimilar: async (body: any)=>{
+    console.log('Request Body:', body);
+    const data = await axios.post(
+      `${apiUrl}/petition/similar`,
+      {
+        ...body,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      },
+    );
+    return data;
+  },
+
   //  TODO create a proper update petition endpoint
   update: async (body: any) => {
     const response = await axios.post(
