@@ -118,7 +118,7 @@ export const Header = () => {
                 ) : (
                   <Button onClick={onOpen} variant="link" color="black">
                     <Text fontSize="sm" fontWeight="light">
-                      Autentificare
+                      Autentificare / Înregistrare
                     </Text>
                   </Button>
                 )}

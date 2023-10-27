@@ -101,7 +101,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                   {({ field, form }: any) => (
                     <FormControl isInvalid={form.errors.email && form.touched.email}>
                       <FormLabel>Adresă email</FormLabel>
-                      <Input type="email" placeholder="name@isa.utm.md" pr="4.5rem" {...field} />
+                      <Input type="email" placeholder="prenume.nume@isa.utm.md" pr="4.5rem" {...field} />
                       <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     </FormControl>
                   )}
