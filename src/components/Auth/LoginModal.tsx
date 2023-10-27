@@ -8,7 +8,6 @@ import {
   InputRightElement,
   Modal,
   ModalBody,
-  Text,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
@@ -24,6 +23,7 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { RegisterModal } from "./RegisterModal";
 import { validateEmail, validatePassword } from "./utils";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -81,7 +81,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader m="auto">Sign in</ModalHeader>
+        <ModalHeader m="auto">Loghează-te</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={{
@@ -100,7 +100,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                 <Field name="email" validate={validateEmail}>
                   {({ field, form }: any) => (
                     <FormControl isInvalid={form.errors.email && form.touched.email}>
-                      <FormLabel>Your email</FormLabel>
+                      <FormLabel>Adresă email</FormLabel>
                       <Input type="email" placeholder="name@isa.utm.md" pr="4.5rem" {...field} />
                       <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     </FormControl>
@@ -110,7 +110,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                 <Field name="password" validate={validatePassword}>
                   {({ field, form }: any) => (
                     <FormControl mt={4} isInvalid={form.errors.password && form.touched.password}>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Parola</FormLabel>
                       <InputGroup>
                         <Input
                           pr="4.5rem"
@@ -120,7 +120,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                         />
                         <InputRightElement width="4.5rem">
                           <Button fontWeight="normal" h="1.75rem" size="sm" onClick={handleClickPassword}>
-                            {show ? "Hide" : "Show"}
+                            {show ? <ViewOffIcon /> : <ViewIcon />}
                           </Button>
                         </InputRightElement>
                       </InputGroup>
@@ -130,7 +130,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                 </Field>
               </ModalBody>
               <div style={{ textAlign: "center" }}>
-                Don't have an account yet?{" "}
+                Încă nu ai cont?{" "}
                 <a
                   onClick={() => {
                     setSignUpModalOpen(true);
@@ -142,7 +142,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                     textShadow: "2px 2px 4px rgba(0,0,0,0.1)", // Add text shadow
                   }}
                 >
-                Sign Up
+                Înregistrează-te
                 </a>
                 <RegisterModal
                   isOpen={isSignUpModalOpen}
@@ -151,7 +151,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                   }}
                 />
               </div>
-              <ModalFooter display="flex" justifyContent="center">
+              <ModalFooter display="flex" gap={4} justifyContent="center">
+                <Button fontWeight="normal" onClick={onClose}>Anulare</Button>
                 <Button
                   type="submit"
                   variant="solid"
@@ -159,11 +160,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                   width="35%"
                   color="white"
                   fontWeight="normal"
-                  mr={4}
                 >
-                  Login
+                  Autentificare
                 </Button>
-                <Button   fontWeight="normal" onClick={onClose}>Cancel</Button>
               </ModalFooter>
             </Form>
           )}
