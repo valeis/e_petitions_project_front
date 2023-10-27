@@ -1,7 +1,12 @@
-FROM node:16
+FROM node:16-alpine3.17
+
 WORKDIR /app
-COPY ./package.json ./package-lock.json ./
-RUN npm i
-RUN npm list
-ADD . .
-ENTRYPOINT ["npm", "run", "dev"] 
+
+COPY package.json  ./
+
+RUN npm install && \
+    npm list
+
+COPY . .
+
+CMD ["npm", "run", "dev"]

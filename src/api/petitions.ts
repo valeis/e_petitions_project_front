@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:1337";
+// @ts-ignore
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const petitions = {
     getList: async (params: any) => {

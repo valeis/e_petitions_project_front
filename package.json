@@ -13,12 +13,12 @@
     "email": "joaopaulomoraes@outlook.com"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "NODE_ENV=development vite",
+    "build": "NODE_ENV=production vite build",
     "serve": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "lint": "eslint src --max-warnings=0",
+    "lint": " eslint src --max-warnings=0",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
