@@ -15,7 +15,7 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {petitions} from "../../api";
- import {PetitionUpdateForm} from "../PetitionUpdateForm";
+ import {PetitionForm} from "../PetitionForm";
 
 const initalState: PetitionFormData = {
   title: "",
@@ -32,11 +32,13 @@ const CreatePetitionForm = ({
                               formData,
                               setFormData,
                               petitionID,
+                              managePetition,
                             }: {
   setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   formData: PetitionFormData;
   setFormData: React.Dispatch<React.SetStateAction<PetitionFormData>>;
   petitionID: string;
+  managePetition: boolean
 }) => {
   const [errors, setErrors] = useState(initalState);
 
@@ -52,12 +54,13 @@ const CreatePetitionForm = ({
         </VStack>
       </Flex>
       <Container maxW="8xl">
-        <PetitionUpdateForm
+        <PetitionForm
           formData={formData}
           setFormData={setFormData}
           errors={errors}
           setErrors={setErrors}
           setIsSubmitted={setIsSubmitted}
+          managePetition={managePetition}
         />
       </Container>
     </>
@@ -101,6 +104,7 @@ export const ManagePetition = () => {
             formData={formData}
             setFormData={setFormData}
             petitionID={`${id}`}
+            managePetition={true}
           />
 
         ) : (
