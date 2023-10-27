@@ -1,6 +1,6 @@
 // src/UserComponent.tsx
 import React, {useState} from 'react';
-import {Button, Container, VStack} from "@chakra-ui/react";
+import {Button, Container, HStack, VStack} from "@chakra-ui/react";
 import {PetitionsList} from "../PetitionsList";
 import {IPetition} from "../../types";
 import {useSearchParams} from "react-router-dom";
@@ -55,13 +55,12 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
                         colorScheme="messenger"
                         onClick={() => setVariant("ghost")}
                         variant={variant === "ghost" ? "solid" : "ghost"}
-                        size="lg"
+                        size="md"
                         borderRadius={"full"}
-                        fontSize={13}
+                        fontSize={15}
                         fontWeight="normal"
-                        mr = {13}
                       >
-                        Your Draft Petitions
+                        Drafturile tale
                       </Button>
                       <Button
                           colorScheme="messenger"
