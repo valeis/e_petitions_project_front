@@ -7,10 +7,14 @@ import {
   Image,
   GridItem,
   Flex,
+  HStack,
+  VStack,
+  Container
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 
 import logo from "../../public/utm-logo.svg";
+import appLogo from "../../public/E-Petiții.svg";
 
 const getCurrentYear = () => {
   return new Date().getFullYear();
@@ -20,61 +24,42 @@ export const Footer = () => {
   const currentYear = getCurrentYear();
 
   return (
-    <Grid
-      borderTopWidth={1}
-      borderStyle={"solid"}
-      borderColor={useColorModeValue("gray.200", "gray.700")}
-      h="125px"
-      templateRows="3fr 2fr"
-      templateColumns="2fr 4fr 2fr"
-      gap={2}
-      bottom={0}
-      w="full"
-    >
-      <GridItem rowSpan={2} colSpan={1} bg="transparent" justifySelf="end" alignSelf="center">
-        <Image src={logo} boxSize="90px" />
-      </GridItem>
-      <GridItem colSpan={1} bg="transparent" alignSelf="flex-end">
-        <Stack alignItems="center">
-          <Text fontSize="sm">
-            {" "}
-            © {currentYear} Universitatea Tehnică a Moldovei | Toate drepturile rezervate
-          </Text>
-          {/* <Text fontSize="sm">
-            {" "}
-            Administrare tehnico-tehnologică:{" "}
-            <Link href="https://stisc.gov.md/">
-              Serviciul Tehnologia Informației și Securitate Cibernetică
-            </Link>
-            .
-          </Text> */}
-        </Stack>
-      </GridItem>
-      <GridItem colSpan={1} colStart={2} bg="transparent">
-        <Flex justifyContent="center" gap="50px">
-          <Link href={"https://utm.md/"} fontSize={"sm"}>
-            Pagina principală
-          </Link>
-          <Link href={"https://utm.md/politica-de-confidentialitate/"} fontSize={"sm"}>
-            Politică de confidențialitate
-          </Link>
-          <Link
-            href={
-             "https://utm.md/contacte-utm/"
-            }
-            fontSize={"sm"}
-          >
-            Contacte
-          </Link>
-          <Link href={"#"} fontSize={"sm"}>
-            Admin
-          </Link>
-          <RouterLink to="/developers" style={{ fontSize: 14 }}>
-            <Text _hover={{ textDecoration: "underline" }}>Developers</Text>
-          </RouterLink>
-        </Flex>
-      </GridItem>
-      <GridItem rowSpan={2} colSpan={1} colStart={3} rowStart={1} bg="transparent" />
-    </Grid>
+    <Stack borderTopWidth={1} borderStyle={"solid"} py={5}>
+      <Container maxWidth="90%">
+        <HStack justifyContent="center" spacing={10}>
+          <VStack>
+            <Image src={logo} boxSize="70px" />
+            <Image src={appLogo} width="70px" height="auto" />
+          </VStack>
+          <VStack spacing={5} alignSelf="center">
+            <Flex justifyContent="center" gap="50px">
+              <Link href={"https://utm.md/"} fontSize={"sm"}>
+                Pagina principală
+              </Link>
+              <Link href={"https://utm.md/politica-de-confidentialitate/"} fontSize={"sm"}>
+                Politică de confidențialitate
+              </Link>
+              <Link
+                href={
+                "https://utm.md/contacte-utm/"
+                }
+                fontSize={"sm"}
+              >
+                Contacte
+              </Link>
+              <Link href={"#"} fontSize={"sm"}>
+                Admin
+              </Link>
+              <RouterLink to="/developers" style={{ fontSize: 14 }}>
+                <Text _hover={{ textDecoration: "underline" }}>Developers</Text>
+              </RouterLink>
+            </Flex>
+            <Text fontSize="sm">
+              © {currentYear} Team 02 | Toate drepturile rezervate
+            </Text>
+          </VStack>
+        </HStack>
+      </Container>
+    </Stack>
   );
 };

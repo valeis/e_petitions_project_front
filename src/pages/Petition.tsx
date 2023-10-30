@@ -1,13 +1,8 @@
-import {ChevronRightIcon} from "@chakra-ui/icons";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Container,
   Flex,
   HStack,
   Heading,
-  Stack,
   VStack,
   Text,
   Tag,
@@ -108,34 +103,33 @@ export const Petition = () => {
         </Flex>
       ) : isSuccess ? (
         <>
-          <Container maxW={{ sm: "6xl", "2xl": "8xl" }} px={0}>
+          <Container maxW={{ sm: "6xl", "2xl": "90%" }} px={0}>
             <HStack spacing={24} my={8} alignItems="start" position="relative">
               <VStack w="full" align={"flex-start"} justifyContent="start">
-                <Heading as="h2" size="2xl" my={4}>
+                <Heading as="h2" size="2xl" my={3}>
                   {petition?.title}
                 </Heading>
 
-                <Heading as="h3" size="sm" pt={4} pb={2} fontFamily="serif" fontWeight={400}>
-                  <span style={{fontWeight: "bold"}}>Inițiator:</span> {userData?.email}
-                </Heading>
-
-                <Heading as="h3" size="sm" fontFamily="serif" pb={2} fontWeight={400}>
+                <Text fontSize="md" pt={4} pb={2} fontWeight={400}>
+                  <span style={{fontWeight: "bold"}}>Inițiator:</span> {petition?.user_id}
+                </Text>
+                <Text fontSize="md" pb={2} fontWeight={400}>
                   <span style={{fontWeight: "bold"}}>Data depunerii:</span>{" "}
                   {petition?.created_at}
-                </Heading>
+                </Text>
 
                 {petition?.exp_date && (
-                  <Heading as="h3" size="sm" fontFamily="serif" fontWeight={400}>
+                  <Text fontSize="md" fontWeight={400}>
                     <span style={{fontWeight: "bold"}}>Data limită:</span>{" "}
                     {petition.exp_date}
-                  </Heading>
+                  </Text>
                 )}
 
-                <HStack pt={4} pb={2}>
-                  <Tag>{petition.category}</Tag>
+                <HStack py={2.5}>
+                  <Tag rounded="full" px={5} py={1.5} size="md" colorScheme="messenger">{petition.category}</Tag>
                 </HStack>
 
-                <Text fontSize="lg" pt={8} pb={2} whiteSpace="pre-line">
+                <Text fontSize="md" pt={1} whiteSpace="pre-line">
                   {petition.description}
                 </Text>
               </VStack>
@@ -147,9 +141,9 @@ export const Petition = () => {
                   </Button>
                 )}
                 <VStack w="full" align={"flex-start"} justifyContent="start" spacing={4} pt={12}>
-                  <Heading as="h3" size="sm" fontFamily="serif" fontWeight={400}>
+                  <Text fontSize="lg" fontWeight={400}>
                     Distribuie petiția
-                  </Heading>
+                  </Text>
                   <HStack spacing={4}>
                     <IconButton
                       aria-label="Share on Facebook"

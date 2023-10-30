@@ -1,6 +1,6 @@
 // src/UserComponent.tsx
 import React, {useState} from 'react';
-import {Button, Container, VStack} from "@chakra-ui/react";
+import {Button, Container, HStack, VStack} from "@chakra-ui/react";
 import {PetitionsList} from "../PetitionsList";
 import {IPetition} from "../../types";
 import {useSearchParams} from "react-router-dom";
@@ -39,41 +39,41 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
 
               <VStack mt={5}>
                   <Container maxWidth={"90%"} mb={5} >
+                    <HStack spacing={4}>
                       <Button
                           colorScheme="messenger"
                           onClick={() => setVariant("solid")}
                           variant={variant === "solid" ? "solid" : "ghost"}
-                          size="lg"
+                          size="md"
                           borderRadius={"full"}
-                          fontSize={13}
+                          fontSize={15}
                           fontWeight="normal"
-                          mr = {13}
                       >
-                          Your Petitions
+                          Petițiile tale
                       </Button>
                       <Button
                         colorScheme="messenger"
                         onClick={() => setVariant("ghost")}
                         variant={variant === "ghost" ? "solid" : "ghost"}
-                        size="lg"
+                        size="md"
                         borderRadius={"full"}
-                        fontSize={13}
+                        fontSize={15}
                         fontWeight="normal"
-                        mr = {13}
                       >
-                        Your Draft Petitions
+                        Drafturile tale
                       </Button>
                       <Button
                           colorScheme="messenger"
                           onClick={() => setVariant("outline")}
                           variant={variant === "outline" ? "solid" : "ghost"}
-                          size="lg"
+                          size="md"
                           borderRadius={"full"}
-                          fontSize={13}
+                          fontSize={15}
                           fontWeight="normal"
                       >
-                          Your Voted Petitions
+                          Petiții votate de tine
                       </Button>
+                    </HStack>
                   </Container>
                       <PetitionsList
                           isLoading={loading}
@@ -86,7 +86,6 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
                           page={parseInt(`${2}`)}
                           totalPages={1}
                           setPage={setPage}/>
-
               </VStack>
 
       )}

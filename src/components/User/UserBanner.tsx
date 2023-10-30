@@ -20,14 +20,13 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
   console.log(">>>vot pet",votedPetitions.user_voted_petitions);
   return (
 <Container maxWidth={"90%"}>
-      <Heading textAlign="left" mt={2}>Pagina Utilizatorului</Heading>
+
+      <Heading textAlign="left" my={7}>Pagina Utilizatorului</Heading>
       <Box bgImage="url('../src/data/images/yellow.png')"  bgSize="cover"
            bgPosition="center"
            bgRepeat="no-repeat" p={4} borderRadius="lg" mt={2}>
         <VStack align="left" spacing={4}>
-          <Text color={"white"}
-            fontSize={{ base: "14px", md: "16px" }}
-          ><b>Email:</b> {user["email"]}
+          <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}><b>Adresă email: </b>{user["email"]}
           </Text>
             {petitions.user_petitions && (
                 <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}>
@@ -37,7 +36,7 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
             {votedPetitions.user_voted_petitions  && (
                 <Text  color={"white"} fontSize={{ base: "14px", md: "16px" }}>
                     <b>Nr. of voted petitions:</b> {votedPetitions.user_voted_petitions.length}
-                </Text>
+              </Text>
             )}
         </VStack>
       </Box>

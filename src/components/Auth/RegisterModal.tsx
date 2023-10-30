@@ -20,6 +20,7 @@ import { users } from "api";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { validateEmail, validatePassword, validateRepeatedPassword } from "./utils";
+import { ViewOffIcon, ViewIcon } from "@chakra-ui/icons";
 
 interface RegisterModalProps {
     isOpen: boolean;
@@ -52,7 +53,7 @@ interface RegisterModalProps {
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader m="auto">Sign up</ModalHeader>
+        <ModalHeader m="auto">Înregistrează-te</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={{
@@ -70,8 +71,8 @@ interface RegisterModalProps {
                 <Field name="email" validate={validateEmail}>
                   {({ field, form }: any) => (
                     <FormControl isInvalid={form.errors.email && form.touched.email}>
-                      <FormLabel>Your email</FormLabel>
-                      <Input type="email" placeholder="name@isa.utm.md" pr="4.5rem" {...field} />
+                      <FormLabel>Adresă email</FormLabel>
+                      <Input type="email" placeholder="prenume.nume@isa.utm.md" pr="4.5rem" {...field} />
                       <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     </FormControl>
                   )}
@@ -80,7 +81,7 @@ interface RegisterModalProps {
                 <Field name="password" validate={validatePassword}>
                   {({ field, form }: any) => (
                     <FormControl mt={4} isInvalid={form.errors.password && form.touched.password}>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Parola</FormLabel>
                       <InputGroup>
                         <Input
                           pr="4.5rem"
@@ -90,7 +91,7 @@ interface RegisterModalProps {
                         />
                         <InputRightElement width="4.5rem">
                           <Button fontWeight="normal" h="1.75rem" size="sm" onClick={handleClickPassword}>
-                            {show ? "Hide" : "Show"}
+                            {show ? <ViewOffIcon /> : <ViewIcon />}
                           </Button>
                         </InputRightElement>
                       </InputGroup>
@@ -110,7 +111,7 @@ interface RegisterModalProps {
                       mt={4}
                       isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}
                     >
-                      <FormLabel>Confirm password</FormLabel>
+                      <FormLabel>Confirmă parola</FormLabel>
                       <InputGroup>
                         <Input
                           pr="4.5rem"
@@ -120,7 +121,7 @@ interface RegisterModalProps {
                         />
                         <InputRightElement width="4.5rem">
                           <Button fontWeight="normal" h="1.75rem" size="sm" onClick={handleClickPassword}>
-                            {show ? "Hide" : "Show"}
+                            {show ? <ViewOffIcon /> : <ViewIcon />}
                           </Button>
                         </InputRightElement>
                       </InputGroup>
@@ -130,7 +131,7 @@ interface RegisterModalProps {
                 </Field>
               </ModalBody>
               <div style={{ textAlign: "center" }}>
-                Already have an account?{" "}
+                Deja ai cont?{" "}
                 <a
                   onClick={() => {
                      onClose();
@@ -142,11 +143,12 @@ interface RegisterModalProps {
                     textShadow: "2px 2px 4px rgba(0,0,0,0.1)", // Add text shadow
                   }}
                 >
-                  Sign In
+                  Loghează-te
                 </a>
               </div>
 
-              <ModalFooter display="flex" justifyContent="center">
+              <ModalFooter display="flex" gap={4} justifyContent="center">
+                <Button fontWeight="normal" onClick={onClose}>Anulare</Button>
                 <Button
                   fontWeight="normal"
                   type="submit"
@@ -154,11 +156,9 @@ interface RegisterModalProps {
                   width="35%"
                   color="white"
                   colorScheme="messenger"
-                  mr={4}
                 >
-                  Register
+                  Înregistrare
                 </Button>
-                <Button fontWeight="normal" onClick={onClose}>Cancel</Button>
               </ModalFooter>
             </Form>
           )}
