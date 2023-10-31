@@ -32,14 +32,14 @@ export const Petition = () => {
 
 
   const {data: data, isLoading, isSuccess} = useQuery({
-    queryKey: ['petition', id],
+    queryKey: ['petitions', id],
     queryFn: async () => {
       return await petitions.getById(id as string);
     },
   });
 
-  console.log(data);
-  const petition = data.petition as IPetition;
+  const petition = data as unknown as IPetition;
+
 
   const user_id = petition?.user_id || 0;
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([

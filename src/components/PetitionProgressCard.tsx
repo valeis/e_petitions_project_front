@@ -28,6 +28,9 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
   const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id, status, updated_at } = petition;
   const toast = useToast();
 
+  console.log(current_votes);
+  console.log(vote_goal);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isOtpOpen, onOpen: onOtpOpen, onClose: onOtpClose } = useDisclosure();
 
