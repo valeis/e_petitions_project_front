@@ -20,6 +20,7 @@ import {
     Flex,
     Stack, Heading, Divider
 } from '@chakra-ui/react';
+import {IPetition} from "../types";
 
 
 interface DataTableProps {
@@ -27,6 +28,8 @@ interface DataTableProps {
 }
 
 const DataTableAdmin: React.FC<DataTableProps> = ({data}) => {
+
+
     return (
         <Center gridColumn="span 16"
                 sx={{ display: "center" }}

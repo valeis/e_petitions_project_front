@@ -37,8 +37,8 @@ export const Petition = () => {
       return await petitions.getById(id as string);
     },
   });
-
-  const petition = data as IPetition;
+  console.log(data);
+  const petition = data.petition as IPetition;
 
   const user_id = petition?.user_id || 0;
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([
