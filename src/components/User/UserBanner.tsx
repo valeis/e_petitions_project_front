@@ -2,6 +2,8 @@ import {Box, Heading, Stack, VStack, Text, useBreakpointValue, Center, Container
 import React from "react";
 import {IPetition} from "../../types";
 
+import yellow from "../../../public/images/yellow.png";
+
 interface UserBannerProps {
   user: {
     "email":string;
@@ -21,7 +23,7 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
   return (
 <Container maxWidth={"90%"}>
       <Heading textAlign="left" mt={2}>Pagina Utilizatorului</Heading>
-      <Box bgImage="url('../src/data/images/yellow.png')"  bgSize="cover"
+      <Box bgImage={yellow}  bgSize="cover"
            bgPosition="center"
            bgRepeat="no-repeat" p={4} borderRadius="lg" mt={2}>
         <VStack align="left" spacing={4}>

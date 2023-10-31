@@ -1,5 +1,6 @@
 import { Box, Heading, Stack, VStack, Text, useBreakpointValue } from "@chakra-ui/react";
 
+import imgTest from "../../../public/images/pink.png"
 const Banners = () => {
   const boxWidth = useBreakpointValue({ base: "90%", md: "60%", xl: "60%", sm: "90%" });
   const boxWidthLeft = useBreakpointValue({ base: "110%", md: "74%", xl: "74%", sm: "90%" });
@@ -57,7 +58,7 @@ const Banners = () => {
       </Box>
       <Box
         borderWidth="1px"
-        bgImage="url('src/data/images/pink.png')"
+        bgImage={imgTest}
         bgSize="cover"
         bgPosition="center"
         bgRepeat="no-repeat"

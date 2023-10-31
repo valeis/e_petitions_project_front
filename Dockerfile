@@ -4,6 +4,7 @@ COPY package.json package-lock.json index.html .env.production \
  vite.config.ts tailwind.config.js postcss.config.js pnpm-lock.yaml \
  tsconfig.json /app/
 COPY src  /app/src/
+COPY public  /app/public/
 RUN cd /app/ && \
     npm ci && \
     npm run build
