@@ -1,8 +1,8 @@
 import axios from "axios";
 import { S } from "vitest/dist/types-ad1c3f45";
 
-// @ts-ignore
-const apiUrl = import.meta.env.VITE_API_URL;
+
+const apiUrl = "http://localhost:1337";
 
 interface LoginParams {
   email: string;

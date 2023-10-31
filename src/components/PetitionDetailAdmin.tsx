@@ -31,6 +31,7 @@ interface User {
   email: string;
 }
 export const PetitionDetail = (petition: any) => {
+   console.log("fdjsaf",petition)
   const [selectedValue, setSelectedValue] = useState("publish");
   const toast = useToast();
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -57,20 +58,20 @@ export const PetitionDetail = (petition: any) => {
   };
 
   const [userInfo, setUserInfo] = useState<User | null>(null);
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const user = await users.getUserById(petition.user_id);
-        setUserInfo(user);
-      } catch (error) {
-        console.error("Error fetching author info:", error);
-      }
-    };
+//   useEffect(() => {
+//     const fetchUserInfo = async () => {
+//       try {
+//         const user = await users.getUserById(petition.user_id);
+//         setUserInfo(user);
+//       } catch (error) {
+//         console.error("Error fetching author info:", error);
+//       }
+//     };
 
     
 
-    fetchUserInfo();
-  }, [petition.user_id]);
+//     fetchUserInfo();
+//   }, [petition.user_id]);
 
   const { data, isFetching, isLoading, isSuccess } = useQuery(
     ["user", petition.user_id],
@@ -88,7 +89,7 @@ export const PetitionDetail = (petition: any) => {
       <Card boxShadow="none">
         <CardBody>
           <Heading fontSize="2xl" fontWeight="bold" mb={2}>
-            {petition.title}
+            {petition.petition.title}
           </Heading>
           <HStack spacing="20px">
             <Text fontSize="md" color="gray.500" mb={2}>
@@ -121,7 +122,7 @@ export const PetitionDetail = (petition: any) => {
             <Text size="md" color="gray.500" mb={2}>
               Description:
             </Text>
-            <Text> {petition.description}</Text>
+            <Text> {petition.petition.description}</Text>
           </Card>
           <Select
             mb={2}
@@ -140,7 +141,7 @@ export const PetitionDetail = (petition: any) => {
             color="white"
             fontWeight="normal"
             rounded="full"
-            onClick={() => onApprove(petition.petition_id, selectedValue)}
+            onClick={() => onApprove(petition.petition.petition_id, selectedValue)}
           >
             Send response
           </Button>
