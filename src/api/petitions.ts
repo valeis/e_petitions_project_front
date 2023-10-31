@@ -128,8 +128,11 @@ export const petitions = {
           "Access-Control-Allow-Origin": "*",
         },
       });
+      if (data.error){
+        return null;
+      }else{ return data.petition}
 
-      return data;
+      // return data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
