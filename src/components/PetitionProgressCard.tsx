@@ -71,6 +71,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
       ? "blue.500"
       : "yellow.500";
 
+
   const percentage = (current_votes * 100) / vote_goal;
   const deadlineTime = new Date(updated_at);
   const timeDiff = deadlineTime.getTime() - new Date().getTime();

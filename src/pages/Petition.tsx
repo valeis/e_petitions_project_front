@@ -27,7 +27,7 @@ export const Petition = () => {
   const params = useParams();
   const {user} = useUser();
   const id = params.petitionId;
-  const href = import.meta.env.BASE_URL;
+  const href = "http://localhost:1337";
 
 
 
@@ -37,6 +37,7 @@ export const Petition = () => {
       return await petitions.getById(id as string);
     },
   });
+
   console.log(data);
   const petition = data.petition as IPetition;
 

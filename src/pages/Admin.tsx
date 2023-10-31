@@ -1,7 +1,7 @@
 // AdminPage.tsx
 import React, {useEffect, useState} from 'react';
 import { Box, Container } from '@chakra-ui/react';
-import {AdminLayout, HomeHero, Layout, PetitionsSection,PetitionCard,PetitionDetail} from "components";
+import {AdminLayout, Layout, PetitionsSection,PetitionCard,PetitionDetail} from "components";
 // import {IPetition} from "../types";
 import {petitions} from "../api";
 import {useParams} from "react-router-dom";
