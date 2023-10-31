@@ -77,14 +77,20 @@ export const PetitionsSection = () => {
   const setPage = (page: number) => {
     updateSearchParams("page", page);
   };
+  
 
+  // console.log("drafts: ",publishedPetitions)
+  
+
+  // (petition.status.status == "published") ? <PetitionCard petition={petition} key={petition.petition_id} /> : null
   return (
     <HStack >
       <VStack >
         {isSuccess && (
           <PetitionsList
             isLoading={isFetching || isLoading}
-            petitions={data as unknown as IPetition[]}
+
+            petitions={data.petitions as IPetition[]}
             page={parseInt(`${page}`)}
             setPage={setPage}
             totalPages={pages}

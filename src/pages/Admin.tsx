@@ -31,6 +31,7 @@ export const PetitionDetailAdmin = () => {
                 const data = await petitions.getList({page, limit}:);
                 console.log('Received data:', data);
                 setPetitionData(data);
+                console.log(petitionData);
             } catch (error) {
                 console.log('Error fetching data');
             }

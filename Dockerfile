@@ -1,12 +1,19 @@
-FROM node:16-alpine3.17
+FROM node:18-alpine3.17 as builder
 
-WORKDIR /app
+COPY package.json package-lock.json index.html .env.production \
+ vite.config.ts tailwind.config.js postcss.config.js pnpm-lock.yaml \
+ tsconfig.json /app/
+COPY src  /app/src/
+RUN cd /app/ && \
+    npm ci && \
+    npm run build
 
-COPY package.json  ./
+FROM nginx:1.18.0-alpine
 
-RUN npm install && \
-    npm list
+COPY --from=builder /app/dist/ /var/lib/dist/
 
-COPY . .
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD ["npm", "run", "dev"]
+EXPOSE 8080
+
+CMD ["nginx", "-g", "daemon off;"]

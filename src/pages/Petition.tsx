@@ -32,7 +32,7 @@ export const Petition = () => {
 
 
   const {data: data, isLoading, isSuccess} = useQuery({
-    queryKey: ['petition', id],
+    queryKey: ['petitions', id],
     queryFn: async () => {
       return await petitions.getById(id as string);
     },

@@ -25,8 +25,11 @@ interface PetitionProgressCardProps {
 
 export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) => {
   const { user } = useContext(UserContext);
-  const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id, status } = petition;
+  const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id, status, updated_at } = petition;
   const toast = useToast();
+
+  console.log(current_votes);
+  console.log(vote_goal);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isOtpOpen, onOpen: onOtpOpen, onClose: onOtpClose } = useDisclosure();
@@ -71,8 +74,9 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
       ? "blue.500"
       : "yellow.500";
 
+
   const percentage = (current_votes * 100) / vote_goal;
-  const deadlineTime = new Date(exp_date);
+  const deadlineTime = new Date(updated_at);
   const timeDiff = deadlineTime.getTime() - new Date().getTime();
   let remainingTime;
   if (timeDiff > 0) {

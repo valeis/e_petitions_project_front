@@ -130,8 +130,11 @@ export const petitions = {
           "Access-Control-Allow-Origin": "*",
         },
       });
+      if (data.error){
+        return null;
+      }else{ return data.petition}
 
-      return data;
+      // return data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -139,7 +142,7 @@ export const petitions = {
   },
 
     changeStatus: async (body: any) => {
-        const {data} = await axios.post(`${apiUrl}/petition/status/`, body, {
+        const {data} = await axios.post(`${apiUrl}/petition/status`, body, {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
