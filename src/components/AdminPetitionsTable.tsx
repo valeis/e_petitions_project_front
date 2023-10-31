@@ -29,7 +29,7 @@ interface DataTableProps {
 
 const DataTableAdmin: React.FC<DataTableProps> = ({data}) => {
 
-
+    
     return (
         <Center gridColumn="span 16"
                 sx={{ display: "center" }}

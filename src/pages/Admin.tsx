@@ -20,10 +20,11 @@ export const PetitionDetailAdmin = () => {
     {
       onSuccess: (data) => {
         setPetitionData(data);
+        
       },
     },
   );
-
+  console.log("fdsfa",data);
   /*  useEffect(() => {
 
       async function fetchData() {
