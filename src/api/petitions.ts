@@ -1,4 +1,5 @@
 import axios from "axios";
+import { isNull } from "util";
 
 
 const apiUrl = "http://localhost:1337"; 
@@ -14,6 +15,11 @@ export const petitions = {
             },
         });
 
+        if(data.error){
+          return null
+        }else{
+          return data.petitions
+        }
         return data;
     },
 

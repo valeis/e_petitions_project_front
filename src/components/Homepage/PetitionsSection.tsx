@@ -50,23 +50,6 @@ export const PetitionsSection = () => {
       },
     ],
     queryFn: () => petitions.getList({page, limit}),
-    // select: (data) => {
-    //   const filteredBySearch = search
-    //     ? data ?.filter((petition: IPetition) =>
-    //         petition.title.toLowerCase().includes(search.toLowerCase()),
-    //       )
-    //     : data;
-    //   const sorted =
-    //     sortBy === "newest"
-    //       ? filteredBySearch?.sort((a: any, b: any) => {
-    //           const dateA = new Date(a.created_at);
-    //           const dateB = new Date(b.created_at);
-    //           return dateB.getTime() - dateA.getTime();
-    //         })
-    //       : filteredBySearch?.sort((a: any, b: any) => b.current_votes - a.current_votes);
-
-    //   return sorted;
-    // },
   });
 
   const updateSearchParams = (key: string, value: string | number | boolean) => {
@@ -78,12 +61,14 @@ export const PetitionsSection = () => {
   const setPage = (page: number) => {
     updateSearchParams("page", page);
   };
-  
 
-  // console.log("drafts: ",publishedPetitions)
-  
+  // console.log(data);
 
-  // (petition.status.status == "published") ? <PetitionCard petition={petition} key={petition.petition_id} /> : null
+  const publicPet = data?.filter((pet: IPetition) => pet.status.status.match("PUBLIC"));
+
+
+  // console.log(publicPet);
+
   return (
     <HStack >
       <VStack >
@@ -91,7 +76,7 @@ export const PetitionsSection = () => {
           <PetitionsList
             isLoading={isFetching || isLoading}
 
-            petitions={data.petitions as IPetition[]}
+            petitions={publicPet as IPetition[]}
             page={parseInt(`${page}`)}
             setPage={setPage}
             totalPages={pages}
