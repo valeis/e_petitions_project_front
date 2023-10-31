@@ -137,7 +137,7 @@ export const petitions = {
   },
 
     changeStatus: async (body: any) => {
-        const {data} = await axios.post(`${apiUrl}/petition/status/`, body, {
+        const {data} = await axios.post(`${apiUrl}/petition/status`, body, {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",

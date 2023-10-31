@@ -26,6 +26,7 @@ export const PetitionDetail: React.FC<Props> = ({petition}) => {
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedValue(event.target.value);
     };
+
     const onApprove = async (id: number, status: string) => {
         try {
             const body = {
@@ -34,6 +35,7 @@ export const PetitionDetail: React.FC<Props> = ({petition}) => {
             };
 
             const result = await petitions.changeStatus(body);
+            console.log("PUB:",body);
             console.log('Status changed successfully:', result);
             toast({
                 title: 'Response Successfully Sent',
