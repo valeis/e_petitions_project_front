@@ -39,13 +39,7 @@ export const Petition = () => {
   });
 
   console.log(data);
-  // if (data && data.petition) {
-  //   const petition = data.petition as IPetition;
-  //   // Now you can safely use the petition object
-  // } else {
-  //   // Handle the case where data or data.petition is undefined
-  //   console.log("Data or data.petition is undefined");
-  // }
+  const petition = data.petition as IPetition;
 
   const user_id = petition?.user_id || 0;
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([

@@ -1,7 +1,8 @@
 import axios from "axios";
 
-// @ts-ignore
+
 const apiUrl = "http://localhost:1337"; 
+
 
 export const petitions = {
     getList: async (params: any) => {
