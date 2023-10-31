@@ -17,7 +17,8 @@ export const PetitionDetailAdmin = () => {
             try {
                 const data = await petitions.getById(id as string);
                 console.log('Received data:', data);
-                setPetitionData(data.petition);
+                setPetitionData(data);
+                console.log(petitionData);
             } catch (error) {
                 console.log('Error fetching data');
             }
