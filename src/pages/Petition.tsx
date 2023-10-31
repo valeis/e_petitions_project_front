@@ -27,7 +27,7 @@ export const Petition = () => {
   const params = useParams();
   const {user} = useUser();
   const id = params.petitionId;
-  const href = import.meta.env.BASE_URL;
+  const href = "http://localhost:1337";
 
 
 
@@ -38,7 +38,14 @@ export const Petition = () => {
     },
   });
 
-  const petition = data as IPetition;
+  console.log(data);
+  // if (data && data.petition) {
+  //   const petition = data.petition as IPetition;
+  //   // Now you can safely use the petition object
+  // } else {
+  //   // Handle the case where data or data.petition is undefined
+  //   console.log("Data or data.petition is undefined");
+  // }
 
   const user_id = petition?.user_id || 0;
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([

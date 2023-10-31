@@ -90,7 +90,7 @@ export const PetitionsSection = () => {
         {isSuccess && (
           <PetitionsList
             isLoading={isFetching || isLoading}
-            petitions={data.petitions as unknown as IPetition[]}
+            petitions={data.petitions as IPetition[]}
             page={parseInt(`${page}`)}
             setPage={setPage}
             totalPages={pages}
