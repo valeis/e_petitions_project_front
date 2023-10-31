@@ -14,13 +14,13 @@ export const ViewPetitionsAdmin: React.FC = () => {
     async function fetchData() {
       try {
         const data = await petitions.getList({ page: 1, limit: 10 });
-        console.log('Received data:', data);
-        setPetitionData(data);
+        console.log('Received data:', data.petitions);
+        setPetitionData(data.petitions);
       } catch (error) {
         console.log('Error fetching data');
       }
     }
-
+    console.log("macrii pidar:",petitionData)
     fetchData();
   }, []);
   return (

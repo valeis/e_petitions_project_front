@@ -38,11 +38,8 @@ export const Petition = () => {
     },
   });
 
-  console.log(data);
-
   const petition = data as unknown as IPetition;
 
-  console.log(petition);
 
   const user_id = petition?.user_id || 0;
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([

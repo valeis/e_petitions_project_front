@@ -1,3 +1,3 @@
 export default {
-  apiUrl: 'http://epetitii.co:1337'
+  apiUrl: 'https://gateway.epetitii.co'
 };
