@@ -50,23 +50,23 @@ export const PetitionsSection = () => {
       },
     ],
     queryFn: () => petitions.getList({page, limit}),
-    select: (data) => {
-      const filteredBySearch = search
-        ? data ?.filter((petition: IPetition) =>
-            petition.title.toLowerCase().includes(search.toLowerCase()),
-          )
-        : data;
-      const sorted =
-        sortBy === "newest"
-          ? filteredBySearch?.sort((a: any, b: any) => {
-              const dateA = new Date(a.created_at);
-              const dateB = new Date(b.created_at);
-              return dateB.getTime() - dateA.getTime();
-            })
-          : filteredBySearch?.sort((a: any, b: any) => b.current_votes - a.current_votes);
+    // select: (data) => {
+    //   const filteredBySearch = search
+    //     ? data ?.filter((petition: IPetition) =>
+    //         petition.title.toLowerCase().includes(search.toLowerCase()),
+    //       )
+    //     : data;
+    //   const sorted =
+    //     sortBy === "newest"
+    //       ? filteredBySearch?.sort((a: any, b: any) => {
+    //           const dateA = new Date(a.created_at);
+    //           const dateB = new Date(b.created_at);
+    //           return dateB.getTime() - dateA.getTime();
+    //         })
+    //       : filteredBySearch?.sort((a: any, b: any) => b.current_votes - a.current_votes);
 
-      return sorted;
-    },
+    //   return sorted;
+    // },
   });
 
   const updateSearchParams = (key: string, value: string | number | boolean) => {
@@ -78,14 +78,19 @@ export const PetitionsSection = () => {
   const setPage = (page: number) => {
     updateSearchParams("page", page);
   };
+  
 
+  // console.log("drafts: ",publishedPetitions)
+  
+
+  // (petition.status.status == "published") ? <PetitionCard petition={petition} key={petition.petition_id} /> : null
   return (
     <HStack >
       <VStack >
         {isSuccess && (
           <PetitionsList
             isLoading={isFetching || isLoading}
-            petitions={data as unknown as IPetition[]}
+            petitions={data.petitions as unknown as IPetition[]}
             page={parseInt(`${page}`)}
             setPage={setPage}
             totalPages={pages}
