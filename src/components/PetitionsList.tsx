@@ -27,7 +27,7 @@ export const PetitionsList = ({
         <Flex w="full" justifyContent="center" pt={8}>
           <Loader />
         </Flex>
-      ) : petitions && petitions.length > 0 ? (
+      ) : petitions? (
         <>
          <Container maxWidth={"90%"} alignItems="center"  display="flex" >
           <PetitionsCarousel petitions={petitions} />
