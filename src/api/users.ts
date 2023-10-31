@@ -48,12 +48,11 @@ export const users = {
       throw error;
     }
   },
-  getUserById: async (id: number, accessToken: string | null) => {
+  getUserById: async (id: number) => {
     try {
       const { data } = await axios.get(`${apiUrl}/user/${id}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${accessToken}`,
           "Access-Control-Allow-Origin": "*",
         },
       });

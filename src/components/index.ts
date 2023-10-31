@@ -15,7 +15,7 @@ export * from "./AdminLayout/AdminFooter";
 export * from "./AdminLayout/AdminHeader";
 export * from "./AdminLayout/AdminLayout"
 export * from "./AdminPetitionsTable";
-export * from "./PetitionListAdmin";
+export * from "./PetitionDetailAdmin";
 export * from "./BadgeComponent";
 export * from "./User/UserComponent";
 export * from "./User/UserNotFound";

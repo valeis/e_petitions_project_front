@@ -27,7 +27,7 @@ export const Petition = () => {
   const params = useParams();
   const {user} = useUser();
   const id = params.petitionId;
-  const href = import.meta.env.BASE_URL;
+  //const href = import.meta.env.BASE_URL;
 
 
 
@@ -36,8 +36,8 @@ export const Petition = () => {
     queryFn: async () => {
       return await petitions.getById(id as string);
     },
+    
   });
-
   const petition = data as IPetition;
 
   const user_id = petition?.user_id || 0;
@@ -91,8 +91,8 @@ export const Petition = () => {
       },
     };
 
-    const pdfDocument = pdfMake.createPdf(documentDefinition);
-    pdfDocument.download(`Petitie-#${id}.pdf`);
+    //const pdfDocument = pdfMake.createPdf(documentDefinition);
+    //pdfDocument.download(`Petitie-#${id}.pdf`);
   };
 
   return (

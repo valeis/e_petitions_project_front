@@ -13,6 +13,7 @@ export interface IPetition {
   current_votes: number;
   semnat?: string;
   exp_date: string;
+  updated_at: string;
 }
 interface Status{
   id: number;

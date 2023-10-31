@@ -64,7 +64,6 @@ export const PetitionsSection = () => {
               return dateB.getTime() - dateA.getTime();
             })
           : filteredBySearch?.sort((a: any, b: any) => b.current_votes - a.current_votes);
-
       return sorted;
     },
   });
@@ -90,6 +89,7 @@ export const PetitionsSection = () => {
             setPage={setPage}
             totalPages={pages}
           />
+          
         )}
       </VStack>
     </HStack>
