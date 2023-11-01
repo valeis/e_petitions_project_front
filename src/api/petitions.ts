@@ -9,11 +9,6 @@ export const petitions = {
         const {data} = await axios.get(`${apiUrl}/petition/all/${page}/${limit}`, {
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Access-Control-Allow-Credentials": "true",
-                "Access-Control-Max-Age": "3600",
             },
         });
 
@@ -25,11 +20,6 @@ export const petitions = {
     const {data} = await axios.get(`${apiUrl}/user/petitions/${uid}/${page}/${limit}`, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Max-Age": "3600",
       },
     });
 
@@ -42,11 +32,6 @@ export const petitions = {
     const {data} = await axios.get(`${apiUrl}/user/voted/${uid}/${page}/${limit}`, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Max-Age": "3600",
       },
     });
 
@@ -63,11 +48,6 @@ export const petitions = {
           {
             headers: {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-              "Access-Control-Allow-Headers": "Content-Type",
-              "Access-Control-Allow-Credentials": "true",
-              "Access-Control-Max-Age": "3600",
             },
           },
         );
@@ -84,11 +64,6 @@ export const petitions = {
       {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-          "Access-Control-Allow-Credentials": "true",
-          "Access-Control-Max-Age": "3600",
         },
       },
     );
@@ -104,11 +79,6 @@ export const petitions = {
         {
             headers: {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-              "Access-Control-Allow-Headers": "Content-Type",
-              "Access-Control-Allow-Credentials": "true",
-              "Access-Control-Max-Age": "3600",
             },
         });
 
@@ -119,11 +89,6 @@ export const petitions = {
         const {data} = await axios.post(`${apiUrl}/petition/search/1/5`, body, {
             headers: {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-              "Access-Control-Allow-Headers": "Content-Type",
-              "Access-Control-Allow-Credentials": "true",
-              "Access-Control-Max-Age": "3600",
             },
         });
 
@@ -134,11 +99,6 @@ export const petitions = {
         const {data} = await axios.get(`${apiUrl}/categories`, {
             headers: {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-              "Access-Control-Allow-Headers": "Content-Type",
-              "Access-Control-Allow-Credentials": "true",
-              "Access-Control-Max-Age": "3600",
             },
         });
 
@@ -150,11 +110,6 @@ export const petitions = {
       const { data } = await axios.get(`${apiUrl}/petition/${pid}`, {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-          "Access-Control-Allow-Credentials": "true",
-          "Access-Control-Max-Age": "3600",
         },
       });
 
@@ -169,11 +124,6 @@ export const petitions = {
         const {data} = await axios.post(`${apiUrl}/petition/status/`, body, {
             headers: {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-              "Access-Control-Allow-Headers": "Content-Type",
-              "Access-Control-Allow-Credentials": "true",
-              "Access-Control-Max-Age": "3600",
             },
         });
 

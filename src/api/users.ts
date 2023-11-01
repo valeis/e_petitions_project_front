@@ -22,7 +22,6 @@ export const users = {
         {
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
           },
         },
       );
@@ -40,7 +39,6 @@ export const users = {
         {
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
           },
         },
       );
@@ -55,7 +53,6 @@ export const users = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `${accessToken}`,
-          "Access-Control-Allow-Origin": "*",
         },
       });
 
@@ -73,7 +70,6 @@ export const users = {
         {
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
           },
         },
       );
