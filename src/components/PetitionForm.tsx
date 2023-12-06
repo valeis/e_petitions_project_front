@@ -109,10 +109,10 @@ export const PetitionForm = ({
         image,
         vote_goal,
         exp_date,
-        user_id: parseInt(localStorage.getItem("userId")!, 10),
+        user_id: localStorage.getItem("userId")
       }),
-    onSuccess: (petition_id) => {
-      navigate(`/petition/${petition_id}`);
+    onSuccess: (data) => {
+      navigate(`/petition/${data}`);
       toast({
         title: "Petiția a fost trimisă.",
         description: "Mulțumim pentru implicarea ta!",

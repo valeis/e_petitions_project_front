@@ -10,9 +10,11 @@ export const petitions = {
         const {page, limit} = params;
         const {data} = await axios.get(`${apiUrl}/petition/all/${page}/${limit}`, {
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
+             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
+          },
         });
         console.log(data)
         return data;
@@ -24,6 +26,8 @@ export const petitions = {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
       },
     });
 
@@ -36,7 +40,9 @@ export const petitions = {
     const {data} = await axios.get(`${apiUrl}/user/voted/${uid}/${page}/${limit}`, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
       },
     });
 
@@ -52,13 +58,15 @@ export const petitions = {
           },
           {
             headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
             },
           },
         );
-      const petition_id = response.data.petition_id;
-      return petition_id;
+      console.log("response to 'add pet'",response.data)
+      return response.data;
     },
 
   getSimilar: async (body: any)=>{
@@ -71,7 +79,9 @@ export const petitions = {
       {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
         },
       },
     );
@@ -88,7 +98,9 @@ export const petitions = {
       {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
         },
       },
     );
@@ -105,6 +117,8 @@ export const petitions = {
             headers: {
               "Content-Type": "application/json",
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+              "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
             },
         });
 
@@ -116,6 +130,8 @@ export const petitions = {
             headers: {
               "Content-Type": "application/json",
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+              "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
             },
         });
 
@@ -128,6 +144,8 @@ export const petitions = {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
         },
       });
       return data
@@ -142,8 +160,10 @@ export const petitions = {
     changeStatus: async (body: any) => {
         const {data} = await axios.post(`${apiUrl}/petition/status`, body, {
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+              "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
             },
         });
 

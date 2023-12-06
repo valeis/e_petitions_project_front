@@ -23,14 +23,18 @@ export const users = {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
           },
         },
       );
       return data;
+      
     } catch (error) {
       console.error("Error during login:", error);
       throw error; // Rethrow the error for higher-level handling
     }
+    
   },
   register: async ({ email, password }: LoginParams) => {
     try {
@@ -41,6 +45,8 @@ export const users = {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
           },
         },
       );
@@ -49,15 +55,17 @@ export const users = {
       throw error;
     }
   },
-  getUserById: async (id: number) => {
+  getUserById: async (id: string) => {
     try {
       const { data } = await axios.get(`${apiUrl}/user/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
         },
       });
-
+      console.log("user data: ",data);
       return data;
     } catch (error) {
       console.error("Error fetching user by ID:", error);
@@ -73,6 +81,8 @@ export const users = {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
           },
         },
       );

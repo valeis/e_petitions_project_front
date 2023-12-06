@@ -1,13 +1,13 @@
 import { User } from "./User";
 
 export interface IPetition {
-  petition_id: number;
+  petition_id: string;
   title: string;
   category: string;
   description: string;
   image: string;
   status: Status;
-  user_id: number
+  user_id: string;
   created_at: string;
   vote_goal: number;
   current_votes: number;

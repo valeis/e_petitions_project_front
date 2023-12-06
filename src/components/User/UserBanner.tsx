@@ -3,9 +3,7 @@ import React from "react";
 import {IPetition} from "../../types";
 
 interface UserBannerProps {
-  user: {
-    "email":string;
-  }
+ user: any;
   petitions:{
     user_petitions:IPetition[];
   }
@@ -17,7 +15,7 @@ interface UserBannerProps {
 
 
 export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPetitions }) => {
-  console.log(">>>vot pet",votedPetitions.user_voted_petitions);
+  console.log(">>> email",user)
   return (
 <Container maxWidth={"90%"}>
 
@@ -26,7 +24,7 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
            bgPosition="center"
            bgRepeat="no-repeat" p={4} borderRadius="lg" mt={2}>
         <VStack align="left" spacing={4}>
-          <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}><b>Adresă email: </b>{user["email"]}
+          <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}><b>Adresă email: </b>{user}
           </Text>
             {petitions.user_petitions && (
                 <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}>

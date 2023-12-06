@@ -12,11 +12,11 @@ import {useQuery} from "@tanstack/react-query";
 
 export const UserPage: React.FC<User> = ({  userId }) => {
     const accessToken = localStorage.getItem('accessToken');
-    userId = localStorage.getItem('userId') as unknown as number;
+    userId = localStorage.getItem('userId') as string;
     const [pets, setPetitions] = useState<IPetition[]>([]);
     const [votedPetitions, setVotedPetitions] = useState<IPetition[]>([]);
     const [loading, setLoading] = useState(true);
-    const [User, setUserData] = useState([]);
+    const [User, setUserData] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     useEffect(() => {
       if (!accessToken) {
@@ -44,8 +44,7 @@ export const UserPage: React.FC<User> = ({  userId }) => {
           setLoading(false);
           setUserData(userData);
         }
-        console.log(">>>pet",pets);
-      console.log(">user",userData);
+      
     }, [petitionsData, votedPetitionsData, userData]);
 
     useEffect(() => {
@@ -59,9 +58,10 @@ export const UserPage: React.FC<User> = ({  userId }) => {
   if (error === 'Unauthorized') {
     return <UnauthorizedMessage />;
   }
+  
   return (
       <Layout>
-      <UserBanner user={User}  petitions={pets} votedPetitions={votedPetitions} />
+      <UserBanner user={userData}  petitions={pets} votedPetitions={votedPetitions} />
       <UserComponent loading={loading} petitions={pets} votedPetitions={votedPetitions} />
       </Layout>
   );
