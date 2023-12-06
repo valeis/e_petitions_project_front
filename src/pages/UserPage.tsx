@@ -38,12 +38,12 @@ export const UserPage: React.FC<User> = ({  userId }) => {
     const { data: userData, error: userError, isLoading: userLoading } = useQuery(['userData', userId, accessToken], () => users.getUserById(userId, accessToken));
 
     useEffect(() => {
-        if (petitionsData && votedPetitionsData && userData) {
+      
           setPetitions(petitionsData as IPetition[]);
           setVotedPetitions(votedPetitionsData as IPetition[]);
           setLoading(false);
           setUserData(userData);
-        }
+        
       
     }, [petitionsData, votedPetitionsData, userData]);
 
@@ -58,11 +58,11 @@ export const UserPage: React.FC<User> = ({  userId }) => {
   if (error === 'Unauthorized') {
     return <UnauthorizedMessage />;
   }
-  
+  console.log(">>> loading",loading)
   return (
       <Layout>
-      <UserBanner user={userData}  petitions={pets} votedPetitions={votedPetitions} />
-      <UserComponent loading={loading} petitions={pets} votedPetitions={votedPetitions} />
+      <UserBanner user={userData}  petitions={petitionsData} votedPetitions={votedPetitionsData} />
+      <UserComponent loading={loading} petitions={petitionsData} votedPetitions={votedPetitionsData} />
       </Layout>
   );
 };

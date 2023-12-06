@@ -1,7 +1,8 @@
 dist
 dist-ssr
 *.local
-
+.vscode
+.idea
 # dependencies
 /node_modules
 /.pnp

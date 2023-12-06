@@ -4,18 +4,15 @@ import {IPetition} from "../../types";
 
 interface UserBannerProps {
  user: any;
-  petitions:{
-    user_petitions:IPetition[];
-  }
-
-  votedPetitions:{
-    user_voted_petitions:IPetition[];
-  }
+  petitions:any[];
+  votedPetitions:any[];
+  
 }
 
 
 export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPetitions }) => {
   console.log(">>> email",user)
+  console.log(">>> petitions",petitions)
   return (
 <Container maxWidth={"90%"}>
 
@@ -26,14 +23,14 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
         <VStack align="left" spacing={4}>
           <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}><b>Adresă email: </b>{user}
           </Text>
-            {petitions.user_petitions && (
+            {petitions && (
                 <Text color={"white"} fontSize={{ base: "14px", md: "16px" }}>
-                    <b>Nr. of posted petitions:</b> {petitions.user_petitions.length}
+                    <b>Nr. of posted petitions:</b> {petitions.length}
                 </Text>
             )}
-            {votedPetitions.user_voted_petitions  && (
+            {votedPetitions  && (
                 <Text  color={"white"} fontSize={{ base: "14px", md: "16px" }}>
-                    <b>Nr. of voted petitions:</b> {votedPetitions.user_voted_petitions.length}
+                    <b>Nr. of voted petitions:</b> {votedPetitions.length}
               </Text>
             )}
         </VStack>

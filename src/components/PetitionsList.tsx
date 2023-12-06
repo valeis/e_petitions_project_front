@@ -21,6 +21,7 @@ export const PetitionsList = ({
   totalPages,
   setPage,
 }: PetitionsListProps) => {
+  console.log(">>> petitions mata",petitions)
   return (
     <VStack spacing={4} alignItems="stretch" w="full" mb={8}>
       {isLoading ? (

@@ -10,7 +10,7 @@ interface PetitionsListProps {
 
 export const PetitionsCarousel = ({ petitions }: PetitionsListProps) => {
   const [currentPage, setCurrentPage] = useState(0);
-
+  console.log(">>> petitions mata",petitions)
   const petitionsToShow = petitions.slice(currentPage, currentPage + 3);
 
   const handleNext = () => {

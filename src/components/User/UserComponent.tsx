@@ -8,12 +8,8 @@ import {useSearchParams} from "react-router-dom";
 interface UserComponentProps {
   loading: boolean;
 
-  petitions: {
-    user_petitions:IPetition[];
-  }
-  votedPetitions:{
-    user_voted_petitions:IPetition[];
-  }
+  petitions: IPetition[];
+  votedPetitions: IPetition[];
 }
 
 
@@ -30,12 +26,9 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
     const setPage = (page: number) => {
         updateSearchParams("page", page);
     };
-    console.log(petitions.user_petitions);
+    console.log("fjfdakfdjaf" ,petitions);
   return (
-    <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
+    
 
               <VStack mt={5}>
                   <Container maxWidth={"90%"} mb={5} >
@@ -78,18 +71,17 @@ export const UserComponent: React.FC<UserComponentProps> = ({  loading, petition
                       <PetitionsList
                           isLoading={loading}
                           petitions={variant === "solid"
-                            ? (petitions.user_petitions as unknown as IPetition[])
+                            ? (petitions)
                             : variant === "ghost"
-                              ? (petitions.user_petitions as unknown as IPetition[])
-                              : (votedPetitions.user_voted_petitions as unknown as IPetition[])
+                              ? (petitions)
+                              : (votedPetitions)
                           }
                           page={parseInt(`${2}`)}
                           totalPages={1}
                           setPage={setPage}/>
               </VStack>
 
-      )}
-    </div>
+     
   );
 };
 
