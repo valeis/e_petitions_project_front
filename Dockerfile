@@ -1,19 +1,23 @@
-FROM node:18-alpine3.17 as builder
+# Use an official Node runtime as a parent image
+FROM node:14
 
-COPY package.json package-lock.json index.html .env.production \
- vite.config.ts tailwind.config.js postcss.config.js pnpm-lock.yaml \
- tsconfig.json /app/
-COPY src  /app/src/
-RUN cd /app/ && \
-    npm ci && \
-    npm run build
+# Set the working directory to /app
+WORKDIR /app
 
-FROM nginx:1.18.0-alpine
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
-COPY --from=builder /app/dist/ /var/lib/dist/
+# Install app dependencies
+RUN npm install
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Bundle app source
+COPY . .
 
-EXPOSE 8080
+# Expose port 3000 to the outside world
+EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+# Define environment variable
+ENV NODE_ENV=production
+
+# Command to run the application
+CMD ["npm", "run", "dev"]
