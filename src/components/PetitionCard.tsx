@@ -14,7 +14,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([
     'userData', petition?.user_id], () => users.getUserById(user_id));
 console.log("userData", userData)
-  const deadlineTime = new Date(updated_at);
+  const deadlineTime = new Date(exp_date);
 
   const timeDiff = deadlineTime.getTime() - new Date().getTime();
   let remainingTime;
@@ -45,6 +45,7 @@ console.log("userData", userData)
         role="group"
         _hover={{ boxShadow: "sm" }}
         w="27vw"
+        h="12vw"
         mr={4}
         borderRightWidth="9px"
         borderRight="1px solid"

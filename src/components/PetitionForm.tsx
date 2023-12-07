@@ -13,6 +13,10 @@ import {
   NumberInputField,
   Textarea,
   useToast,
+  Stack,
+  Badge,
+  StackDivider,
+  Heading,
 
   Box,
   VStack, Container, Grid,
@@ -21,7 +25,7 @@ import {
 import Select from "react-select";
 import {IPetition, PetitionFormData} from "types";
 
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import {useUser} from "../hooks";
 import {useMutation} from "@tanstack/react-query";
 import {petitions} from "../api";
@@ -31,43 +35,43 @@ import React, {useEffect, useState} from "react";
 const categories = [
   {
     value: "educatie",
-    label: "Educatie",
+    label: "Educație",
   },
   {
     value: "mediu",
     label: "Mediu",
   },
   {
-    value: "infrastructura",
-    label: "Infrastructura",
+    value: "camin",
+    label: "Cămine",
   },
   {
-    value: "dezvoltare",
-    label: "Dezvoltare regionala",
+    value: "decanat",
+    label: "Decanat",
   },
   {
-    value: "transport",
-    label: "Transport",
+    value: "parcare",
+    label: "Parcări",
   },
   {
-    value: "energie",
-    label: "Energie",
+    value: "probleme_interne",
+    label: "Probleme interne",
   },
   {
-    value: "turism",
-    label: "Turism",
+    value: "evenimente",
+    label: "Evenimente",
   },
   {
-    value: "drepturile_animalelor",
-    label: "Drepturile animalelor",
+    value: "drepturile_studentilor",
+    label: "Drepturile studenților",
   },
   {
     value: "tehnologie",
     label: "Tehnologie",
   },
   {
-    value: "agricultura",
-    label: "Agricultura",
+    value: "probleme_sociale",
+    label: "Probleme sociale",
   },
 ];
 
@@ -168,7 +172,8 @@ export const PetitionForm = ({
   const handleSimilar = async () => {
     try {
       const result = await petitions.getSimilar({ title: inputValue });
-      setSimilar(result);
+      setSimilar(result.data);
+      console.log(result.data)
     } catch (error) {
       console.error('Error performing search:', error);
     }
@@ -182,9 +187,6 @@ export const PetitionForm = ({
     handleChange(e);
     handleSimilar();
   };
-    if (similar && similar.data && similar.data.petitions) {
-        console.log("return", similar.data.petitions);
-    }
 
   return (
     <Grid templateColumns='repeat(6, 1fr)' gap={1} maxWidth={"100%"} >
@@ -304,18 +306,25 @@ export const PetitionForm = ({
         <Container  py={"4"} maxWidth={"md"}>
           <Text mb={"2"}>See similar petitions in here:</Text>
           <Box borderRadius="md" p={4} borderWidth="1px" h = {"60vh"} maxW="xl">
-          {/*  {MP && MP.map((petition: IPetition, index) => (*/}
-          {/*    index > 0 &&*/}
-          {/*    <Box key={index}>*/}
-          {/*      <Text fontWeight={"bold"} mt={2}>*/}
-          {/*        {petition.title}*/}
-          {/*      </Text>*/}
-          {/*      <Divider />*/}
-          {/*    </Box>*/}
-          {/*  ))}*/}
-
-
-
+          
+          {similar && similar.length > 0 ? (
+            <Stack divider={<StackDivider />} spacing='4'>
+              {similar.map((petition, petition_id) => (
+                <Link key={petition_id} to={`/petition/${petition.petition_id}`}>
+                  <HStack>
+                  <Badge colorScheme='green'>104</Badge>
+                  <Box>
+                    <Text size='sm' transition="all 0.2s" _hover={{ color: "grey" }}>{petition.title}</Text>
+                  </Box>
+                  </HStack>
+                </Link>
+              ))}
+            </Stack>
+          ) : (
+            <Box textAlign="center">
+              <Text>No petitions found.</Text>
+            </Box>
+          )}
           </Box>
         </Container>
       </GridItem>

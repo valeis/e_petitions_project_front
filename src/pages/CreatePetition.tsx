@@ -41,7 +41,7 @@ const CreatePetitionForm = ({
   return (
     <Layout>
       <Container maxW="90%"  justifyContent="space-between">
-      <Box bgImage="url('../src/data/images/white.png')"  bgSize="cover"
+      <Box bgImage="url('../src/public/images/white.png')"  bgSize="cover"
            bgPosition="center"
            bgRepeat="no-repeat" p={4} borderRadius="lg" mt={2}  >
         <Heading mx={4} my={4} color={"white"}>Creați o petiție </Heading>

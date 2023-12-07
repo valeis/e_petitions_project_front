@@ -26,6 +26,7 @@ interface PetitionProgressCardProps {
 export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) => {
   const { user } = useContext(UserContext);
   const { petition_id, current_votes, vote_goal, exp_date, semnat, user_id, status, updated_at } = petition;
+  console.log("petition semn", petition)
   const toast = useToast();
 
   console.log(current_votes);
@@ -57,7 +58,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
       // Handle any error that occurs during the mutation
       toast({
         title: "Error",
-        description: "Allready signed the petition.",
+        description: "Already signed the petition.",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -76,7 +77,7 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
 
 
   const percentage = (current_votes * 100) / vote_goal;
-  const deadlineTime = new Date(updated_at);
+  const deadlineTime = new Date(exp_date);
   const timeDiff = deadlineTime.getTime() - new Date().getTime();
   let remainingTime;
   if (timeDiff > 0) {
@@ -105,9 +106,14 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
     signButton = (
       <>
         <Button
-          {...commonButtonProps}
+         colorScheme="messenger"
+         size="lg"
+         bgColor="messenger"
+         borderRadius={"full"}
+         fontSize={15}
+         fontWeight="normal"
           variant="link"
-          fontWeight={500}
+          //fontWeight={500}
           onClick={onOpen}
         >
           Autorizați-vă pentru <br /> a semna petiția
@@ -115,8 +121,14 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
         <div>sau</div>
         <Button
           {...commonButtonProps}
-          variant="link"
-          fontWeight={500}
+          colorScheme="messenger"
+          size="lg"
+          bgColor="messenger"
+          borderRadius={"full"}
+          fontSize={15}
+          fontWeight="normal"
+           variant="link"
+         // fontWeight={500}
           onClick={onOtpOpen}
         >
          Semnați cu email
@@ -131,15 +143,23 @@ export const PetitionProgressCard = ({ petition }: PetitionProgressCardProps) =>
     const nowAllowedButtonProps = {
       ...commonButtonProps,
       variant: "link",
-      fontWeight: 500,
+     // fontWeight: 500,
       colorScheme: "red",
       whiteSpace: "pre-line",
       pointerEvents: "none",
+      borderRadius :"full",
+      fontSize : 15
     };
 
     signButton = (
       <Button
-        {...commonButtonProps}
+      colorScheme="messenger"
+      size="lg"
+      bgColor="messenger"
+      borderRadius={"full"}
+      fontSize={15}
+      fontWeight="normal"
+       
         isDisabled={!!signedByUser}
         /* {...(!nowAllowedButtonProps)} */
         onClick={() => sign.mutate()}

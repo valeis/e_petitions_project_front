@@ -17,7 +17,7 @@ export const UserBanner: React.FC<UserBannerProps> = ({ user, petitions, votedPe
 <Container maxWidth={"90%"}>
 
       <Heading textAlign="left" my={7}>Pagina Utilizatorului</Heading>
-      <Box bgImage="url('../src/data/images/yellow.png')"  bgSize="cover"
+      <Box bgImage="url('../src/public/images/yellow.png')"  bgSize="cover"
            bgPosition="center"
            bgRepeat="no-repeat" p={4} borderRadius="lg" mt={2}>
         <VStack align="left" spacing={4}>

@@ -21,7 +21,7 @@ const Banners = () => {
       >
         <Box
             borderWidth="1px"
-            bgImage="url('src/data/images/4.png')"
+            bgImage="url('src/public/images/4.png')"
             bgSize="cover"
             bgPosition="center"
             bgRepeat="no-repeat"
@@ -56,7 +56,7 @@ const Banners = () => {
         </Box>
         <Box
             borderWidth="1px"
-            bgImage="url('src/data/images/pink.png')"
+            bgImage="url('src/public/images/pink.png')"
             bgSize="cover"
             bgPosition="center"
             bgRepeat="no-repeat"
