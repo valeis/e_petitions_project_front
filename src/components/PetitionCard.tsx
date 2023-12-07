@@ -13,7 +13,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
 
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([
     'userData', petition?.user_id], () => users.getUserById(user_id));
-
+console.log("userData", userData)
   const deadlineTime = new Date(updated_at);
 
   const timeDiff = deadlineTime.getTime() - new Date().getTime();
@@ -66,7 +66,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
               {title}
             </Heading>
             <HStack alignItems="baseline">
-              <Text fontSize={15}>{userData?.email}</Text>
+              <Text fontSize={15}>{userData}</Text>
             </HStack>
             <Text fontSize="md" color="grey">
               {description.length > 85 ? `${description.substring(0, 85)}...` : description}

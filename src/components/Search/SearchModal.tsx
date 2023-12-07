@@ -11,7 +11,7 @@ interface SearchModalProps {
 
 interface SearchResults{
   petitions:{
-    petition_id:number;
+    petition_id:string;
     title:string;
     description:string;
   }
@@ -26,6 +26,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
   const handleSearch = async () => {
     try {
       const result = await petitions.search({ title: inputValue });
+      console.log("inputValue", inputValue);
       setSearchResults(result);
     } catch (error) {
       console.error('Error performing search:', error);
@@ -38,12 +39,12 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isSearchOpen, onSearch
 
 
 console.log(inputValue);
-  const SP = (searchResults?.petitions || []) as Array<{
-    petition_id: number;
+  const SP = (searchResults || []) as Array<{
+    petition_id: string;
     title: string;
     description: string;
   }>;
-
+console.log("sp", SP)
     return (
         <Modal isOpen={isSearchOpen} onClose={onSearchClose} size="2xl">
             <ModalOverlay />
@@ -81,7 +82,7 @@ console.log(inputValue);
               <ModalBody maxHeight="500px" paddingX="56px" marginBottom="30px" overflow="auto">
                 {SP && SP.length > 0 ? (
                   <Stack divider={<StackDivider />} spacing='4'>
-                    {SP.map((petition, petition_id: number) => (
+                    {SP.map((petition, petition_id) => (
                       <Link key={petition_id} to={`/petition/${petition.petition_id}`} onClick={onSearchClose}>
                         <Box>
                           <Heading size='sm' transition="all 0.2s" _hover={{ color: "grey" }}>{petition.title}</Heading>

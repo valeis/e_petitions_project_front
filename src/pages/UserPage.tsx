@@ -38,12 +38,10 @@ export const UserPage: React.FC<User> = ({  userId }) => {
     const { data: userData, error: userError, isLoading: userLoading } = useQuery(['userData', userId, accessToken], () => users.getUserById(userId, accessToken));
 
     useEffect(() => {
-      
           setPetitions(petitionsData as IPetition[]);
           setVotedPetitions(votedPetitionsData as IPetition[]);
           setLoading(false);
           setUserData(userData);
-        
       
     }, [petitionsData, votedPetitionsData, userData]);
 

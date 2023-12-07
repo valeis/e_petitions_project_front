@@ -134,6 +134,7 @@ export const petitions = {
               "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
             },
         });
+        console.log("serach",data)
 
         return data;
     },
