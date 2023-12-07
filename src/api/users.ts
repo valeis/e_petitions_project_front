@@ -55,7 +55,7 @@ export const users = {
       throw error;
     }
   },
-  getUserById: async (id: string) => {
+  getUserById: async (id: string, accessToken: string) => {
     try {
       const { data } = await axios.get(`${apiUrl}/user/${id}`, {
         headers: {

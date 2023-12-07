@@ -73,15 +73,15 @@ export const PetitionDetail = (petition: any) => {
 //     fetchUserInfo();
 //   }, [petition.user_id]);
 
-  const { data, isFetching, isLoading, isSuccess } = useQuery(
-    ["user", petition.user_id],
-    () => users.getUserById(petition.petition.user_id), 
-    {
-      onSuccess: (data) => {
-        setUserInfo(data);
-      },
-    },
-  );
+  // const { data, isFetching, isLoading, isSuccess } = useQuery(
+  //   ["user", petition.user_id],
+  //   () => users.getUserById(petition.petition.user_id), 
+  //   {
+  //     onSuccess: (data) => {
+  //       setUserInfo(data);
+  //     },
+  //   },
+  // );
 
   return (
     <>

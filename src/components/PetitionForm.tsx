@@ -75,6 +75,12 @@ const categories = [
   },
 ];
 
+type PetitionType = {
+  petition_id: string; // Adjust the type accordingly
+  title: string; // Adjust other properties accordingly
+  // Add other properties as needed
+};
+
 interface PetitionFormProps {
   formData: PetitionFormData;
   setFormData: React.Dispatch<React.SetStateAction<PetitionFormData>>;
@@ -168,7 +174,7 @@ export const PetitionForm = ({
   };
 
 
-  const [similar, setSimilar] = useState([]);
+  const [similar, setSimilar] = useState<PetitionType[]>([]);
   const handleSimilar = async () => {
     try {
       const result = await petitions.getSimilar({ title: inputValue });
@@ -183,7 +189,7 @@ export const PetitionForm = ({
     handleSimilar();
   }, [inputValue]);
 
-  const handleChangeAndSimilar = (e) => {
+  const handleChangeAndSimilar = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
     handleSimilar();
   };

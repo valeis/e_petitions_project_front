@@ -10,9 +10,9 @@ import {useQuery} from "@tanstack/react-query";
 
 
 
-export const UserPage: React.FC<User> = ({  userId }) => {
+export const UserPage: React.FC = () => {
     const accessToken = localStorage.getItem('accessToken');
-    userId = localStorage.getItem('userId') as string;
+    const userId = localStorage.getItem('userId') as string;
     const [pets, setPetitions] = useState<IPetition[]>([]);
     const [votedPetitions, setVotedPetitions] = useState<IPetition[]>([]);
     const [loading, setLoading] = useState(true);
@@ -35,7 +35,7 @@ export const UserPage: React.FC<User> = ({  userId }) => {
 
     const { data: petitionsData, error: petitionsError, isLoading: petitionsLoading } = useQuery(['userPetitions', userId], () => petitions.getUserPetitions({ page: 1, limit: 10, uid: userId }));
     const { data: votedPetitionsData, error: votedPetitionsError, isLoading: votedPetitionsLoading } = useQuery(['userVotedPetitions', userId], () => petitions.getUserVotedPetitions({ page: 1, limit: 10, uid: userId }));
-    const { data: userData, error: userError, isLoading: userLoading } = useQuery(['userData', userId, accessToken], () => users.getUserById(userId, accessToken));
+    const { data: userData, error: userError, isLoading: userLoading } = useQuery(['userData', userId, accessToken], () => users.getUserById(userId, accessToken as string));
 
     useEffect(() => {
           setPetitions(petitionsData as IPetition[]);

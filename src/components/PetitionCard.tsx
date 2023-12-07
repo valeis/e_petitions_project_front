@@ -12,7 +12,7 @@ export const PetitionCard = ({ petition }: PetitionCardProps) => {
   const { petition_id, user_id, title, description, created_at, exp_date, category, updated_at } = petition;
 
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([
-    'userData', petition?.user_id], () => users.getUserById(user_id));
+    'userData', petition?.user_id], () => users.getUserById(user_id, localStorage.getItem("accesToken") as string));
 console.log("userData", userData)
   const deadlineTime = new Date(exp_date);
 

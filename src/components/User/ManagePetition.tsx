@@ -26,6 +26,7 @@ const initalState: PetitionFormData = {
   checkedData: false,
   consentedData: false,
   exp_date:""
+  
 };
 const CreatePetitionForm = ({
                               setIsSubmitted,
@@ -38,7 +39,7 @@ const CreatePetitionForm = ({
   formData: PetitionFormData;
   setFormData: React.Dispatch<React.SetStateAction<PetitionFormData>>;
   petitionID: string;
-  managePetition: boolean
+  managePetition: boolean;
 }) => {
   const [errors, setErrors] = useState(initalState);
 
@@ -60,7 +61,7 @@ const CreatePetitionForm = ({
           errors={errors}
           setErrors={setErrors}
           setIsSubmitted={setIsSubmitted}
-          managePetition={managePetition}
+        //  managePetition={managePetition}
         />
       </Container>
     </>

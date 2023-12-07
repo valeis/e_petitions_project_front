@@ -42,7 +42,7 @@ export const Petition = () => {
 
   const user_id = petition?.user_id || 0;
   const { data: userData, error: userError, isLoading: userLoading } = useQuery([
-    'userData', petition?.user_id, localStorage.getItem("accesToken")], () => users.getUserById(user_id, localStorage.getItem("accesToken")));
+    'userData', petition?.user_id, localStorage.getItem("accesToken")], () => users.getUserById(user_id as string, localStorage.getItem("accesToken") as string));
 
   const hasInitiatedPetition = petition?.user_id == user?.userId;
 
