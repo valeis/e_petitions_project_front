@@ -9,6 +9,7 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   base: process.env["BASE_PATH"] || "/",
+  build: { chunkSizeWarningLimit: 2000, },
   test: {
     globals: true,
     environment: "happy-dom",
