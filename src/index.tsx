@@ -35,7 +35,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <UserProvider>
-          <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <BrowserRouter basename="/">
             <ScrollToTop>
               <Routes>
                 <Route path="/" element={<App />} />
